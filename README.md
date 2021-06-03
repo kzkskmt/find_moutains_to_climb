@@ -29,4 +29,4 @@ etc
 ## マーケット
 - 登山初心者
 ## 画面遷移図
-[https://xd.adobe.com/view/622f2efe-0dd2-4132-a927-cff7de3f0777-377c/]
+[https://www.figma.com/file/ej0Vpt2mEeKuONxnHAbJSn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0%3A1]
