@@ -30,4 +30,5 @@ etc
 - 登山初心者
 ## 画面遷移図
 【https://www.figma.com/file/ej0Vpt2mEeKuONxnHAbJSn/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=30%3A4】
-
+## ER図
+【https://drive.google.com/file/d/1QwrqYa3BwrzT_LybIzGlXh1_pjJKKvPf/view?usp=sharing】
