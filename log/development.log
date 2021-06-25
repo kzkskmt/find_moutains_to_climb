@@ -1,0 +1,5 @@
+  [1m[35m (10.4ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (1.1ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (4.1ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE DATABASE `find_moutains_to_climb_test` DEFAULT CHARACTER SET `utf8mb4`[0m
