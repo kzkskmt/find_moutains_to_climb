@@ -3,3 +3,27 @@
   [1m[35m (4.1ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
   [1m[35m (2.5ms)[0m  [1m[35mCREATE DATABASE `find_mountains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
   [1m[35m (2.0ms)[0m  [1m[35mCREATE DATABASE `find_moutains_to_climb_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+Started GET "/" for ::1 at 2021-06-25 18:38:00 +0900
+
+Mysql2::Error::ConnectionError - Access denied for user 'root'@'localhost' (using password: NO):
+
+Started POST "/__better_errors/143c104bc90b8afd/variables" for ::1 at 2021-06-25 18:38:00 +0900
+Started GET "/" for ::1 at 2021-06-25 20:06:14 +0900
+
+Mysql2::Error::ConnectionError - Access denied for user 'root'@'localhost' (using password: NO):
+
+Started POST "/__better_errors/394474cb0a53d6dd/variables" for ::1 at 2021-06-25 20:06:14 +0900
+Started GET "/" for ::1 at 2021-06-25 20:08:06 +0900
+
+ActiveRecord::NoDatabaseError - Unknown database 'find_moutains_to_climb_development':
+
+Started POST "/__better_errors/64ff2807b3d08c1f/variables" for ::1 at 2021-06-25 20:08:06 +0900
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE DATABASE `find_moutains_to_climb_development` DEFAULT CHARACTER SET `utf8mb4`[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE DATABASE `find_moutains_to_climb_test` DEFAULT CHARACTER SET `utf8mb4`[0m
+Started GET "/" for ::1 at 2021-06-25 20:15:10 +0900
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/sakamotokazuki/.rbenv/versions/2.6.5/lib/ruby/gems/2.6.0/gems/railties-6.0.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/sakamotokazuki/.rbenv/versions/2.6.5/lib/ruby/gems/2.6.0/gems/railties-6.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 25.0ms | Allocations: 482)
+Completed 200 OK in 55ms (Views: 38.3ms | ActiveRecord: 0.0ms | Allocations: 2861)
+
+
