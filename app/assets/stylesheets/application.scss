@@ -11156,8 +11156,8 @@ body {
 }
 .masthead h1, .masthead .h1 {
   font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 2.5rem;
-  line-height: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
   letter-spacing: 0.8rem;
   background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
   -webkit-text-fill-color: transparent;
@@ -11170,8 +11170,8 @@ body {
 }
 @media (min-width: 768px) {
   .masthead h1, .masthead .h1 {
-    font-size: 4rem;
-    line-height: 4rem;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
   }
 }
 @media (min-width: 992px) {
@@ -11180,8 +11180,8 @@ body {
     padding: 0;
   }
   .masthead h1, .masthead .h1 {
-    font-size: 6.5rem;
-    line-height: 6.5rem;
+    font-size: 4rem;
+    line-height: 4rem;
     letter-spacing: 0.8rem;
   }
   .masthead h2, .masthead .h2 {
@@ -11198,27 +11198,27 @@ body {
   margin-bottom: 5rem;
 }
 
-.projects-section {
+.map-section {
   padding: 10rem 0;
 }
-.projects-section .featured-text {
+.map-section .featured-text {
   padding: 2rem;
 }
 @media (min-width: 992px) {
-  .projects-section .featured-text {
+  .map-section .featured-text {
     padding: 0 0 0 2rem;
     border-left: 0.5rem solid #64a19d;
   }
 }
-.projects-section .project-text {
+.map-section .map-text {
   padding: 3rem;
   font-size: 90%;
 }
 @media (min-width: 992px) {
-  .projects-section .project-text {
+  .map-section .map-text {
     padding: 5rem;
   }
-  .projects-section .project-text hr {
+  .map-section .map-text hr {
     border-color: #64a19d;
     border-width: 0.25rem;
     width: 30%;
