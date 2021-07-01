@@ -3,5 +3,6 @@ class MountainsController < ApplicationController
   end
 
   def show
+    @mountain = Mountain.find(params[:id])
   end
 end

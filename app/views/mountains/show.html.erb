@@ -1,2 +1,77 @@
-<h1>Mountains#show</h1>
-<p>Find me in app/views/mountains/show.html.erb</p>
+<!-- Show-->
+<section class="show-section bg-light" id="show">
+    <div class="container px-4 px-lg-5">
+        <!-- Featured Show Row-->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="col-xl-8 col-lg-7"><%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0' %></div>
+            <div class="col-xl-4 col-lg-5">
+                <div class="featured-text text-center text-lg-left">
+                    <h4><%= @mountain.name %></h4>
+                    <p class="text-black-50 mb-0">標高：<%= @mountain.elevation %>m</p>
+                    <p class="text-black-50 mb-0"><%= @mountain.pref.name %> <%= @mountain.city %></p>
+                    <p class="text-black-50 mb-0">--------</p>
+                    <p class="text-black-50 mb-0">難易度</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 天気と服装-->
+<section class="weather-section text-center" id="weather">
+    <!-- containerの中に天気予報表示API-->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">山頂の週間天気予報</h2>
+                <p class="text-white-50">
+                    任意のテキスト
+                </p>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">もし、明日登山するなら</h2>
+                <p class="text-white-50">
+                    こんな感じの服装でどうでしょうか。服装については<a href="#">こちら</a>から。
+                </p>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" href="#">目的地に設定する</a>
+</section>
+
+<section class="show-section bg-light">
+    <div class="container px-4 px-lg-5">
+        <!-- Show One Row-->
+        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
+            <div class="col-lg-6"><%= image_tag 'img/demo-image-01.jpg', class: 'img-fluid' %></div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 show">
+                    <div class="d-flex h-100">
+                        <div class="show-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Misty</h4>
+                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                            <hr class="d-none d-lg-block mb-0 ms-0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Show Two Row-->
+        <div class="row gx-0 justify-content-center">
+            <div class="col-lg-6"><%= image_tag 'img/demo-image-02.jpg', class: 'img-fluid' %></div>
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 show">
+                    <div class="d-flex h-100">
+                        <div class="show-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Mountains</h4>
+                            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well</p>
+                            <hr class="d-none d-lg-block mb-0 me-0" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
