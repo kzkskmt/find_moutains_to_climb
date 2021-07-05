@@ -1,0 +1,43 @@
+<!-- coshow-->
+<section class="coshow-section bg-light" id="coshow">
+    <div class="container px-4 px-lg-5">
+    <h1 class="text-dark text-center mb-4">検索結果</h1>
+        <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0' %>
+        <!-- Featured coshow Row-->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="col-xl-4 col-lg-5">
+                <div class="featured-text text-center text-lg-left">
+                    <h3 class="pt-3">往復所要時間：<%=  %></h3>          
+                    <p class="text-black-50 mb-0">内訳：</p>
+                    <p class="text-black-50 mb-0"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 周辺の施設-->
+<section class="weather-section text-center" id="weather">
+    <!-- containerの中に天気予報表示API-->
+    <h1 class="text-white">周辺の施設</h1> 
+    <br>
+    <br>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">宿泊施設</h2>
+                <p class="text-white-50">
+                    任意のテキスト
+                </p>
+            </div>
+        </div>
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">入浴施設</h2>
+                <p class="text-white-50">
+                    任意のテキスト
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
