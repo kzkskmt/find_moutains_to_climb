@@ -12,9 +12,10 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
-    <!-- セキュリティ関連 -->
+    <!-- セキュリティ関連-->
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <!-- アセットパイプライン-->
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -30,9 +31,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#map">Map</a></li>
-            <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#about">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#map">Map</a></li>
+            <li class="nav-item"><a class="nav-link" href="/#signup">Contact</a></li>
           </ul>
         </div>
       </div>

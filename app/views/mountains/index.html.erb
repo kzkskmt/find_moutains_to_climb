@@ -1,2 +1,104 @@
-<h1>Mountains#index</h1>
-<p>Find me in app/views/mountains/index.html.erb</p>
+<section class="about-section text-center" id="about">
+  <div class="container px-4 px-lg-5">
+  </div>
+</section>
+
+<!-- 地名入力用のinputを追加 -->
+<input id="address" type="textbox">
+<!-- buttonをクリックしたらcodeAddressを実行　-->
+<input type="button" value="検索" onclick="codeAddress()">
+
+<!-- googlemapを埋め込む場所　-->
+<div id='googlemap' style="height:800px">
+</div>
+
+<script>
+  let map
+  let marker = []
+  let infoWindow = []
+  // マーカーを消すためのcurrentInfoWindow
+  let currentInfoWindow
+  // マーカーを立てるための箱 markerData
+  let markerData = []
+  // markerDataにmountainデータをループ処理で格納
+  <% @mountains.each do |mountain| %>
+    var obj = {
+      id: <%= mountain.id %>,
+      name: '<%= mountain.name %>',
+      lat: <%= mountain.peak_location_lat %>,
+      lng: <%= mountain.peak_location_lng %>
+      };
+    markerData.push(obj)
+  <% end %>
+  let geocoder
+
+  // 「InvalidValueError: initMap is not a function」への対策
+  window.onload = function () {
+    initMap();
+  }
+
+  function initMap(){
+    // geocoderを初期化
+    geocoder = new google.maps.Geocoder()
+
+    // 地図の作成、中心位置の設定
+    map = new google.maps.Map(document.getElementById('googlemap'), {
+    center: { lat: 38.258595, lng: 137.6850225 }, // 日本の中心に緯度経度を設定
+    zoom: 5
+    });
+    
+    // markerDataに入っているデータのピンを立てる。
+    for (var i = 0; i < markerData.length; i++) {
+      markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
+      marker[i] = new google.maps.Marker({ // マーカーの追加
+        position: markerLatLng, // マーカーを立てる位置を指定
+        map: map // マーカーを立てる地図を指定
+      });
+
+      // マーカーに表示する内容を設定
+      var contentStr = 
+        '<div class="map">' +
+        '<a href="/mountains/' + markerData[i]['id'] + '">' +
+        markerData[i]['name'] +
+        '</a>' +
+        '</div>'
+        ;
+
+      // 吹き出しの追加
+      infoWindow[i] = new google.maps.InfoWindow({
+        content: contentStr // 吹き出しに表示する内容をセット
+      });
+
+      markerEvent(i); // マーカーにクリックイベントを追加
+    }
+  }
+
+  // マーカーにクリックイベントを追加
+  function markerEvent(i) {
+    marker[i].addListener('click', function() { // マーカーをクリックしたとき
+      if (currentInfoWindow) { // 表示している吹き出しがあれば閉じる
+        currentInfoWindow.close();
+      }
+      infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+      currentInfoWindow = infoWindow[i]
+    });
+  }
+
+  function codeAddress(){
+    // 入力を取得
+    let inputAddress = document.getElementById('address').value;
+
+    // geocodingしたあとmapを移動
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        // map.setCenterで地図が移動
+        map.setCenter(results[0].geometry.location);
+        map.setZoom(10);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
+</script>
+<!-- GoogleMaps JS API-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIL4LwRCBp10rsIA3sYoCkHClTD93DcZ4&callback=initMap" async defer></script>
