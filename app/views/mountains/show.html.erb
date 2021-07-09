@@ -19,14 +19,12 @@
 
 <!-- 天気と服装-->
 <section class="weather-section text-center" id="weather">
-    <!-- containerの中に天気予報表示API-->
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">山頂の週間天気予報</h2>
-                <p class="text-white-50">
-                    任意のテキスト
-                </p>
+                <h2 class="text-white mb-4">山頂の天気予報</h2>
+                <!-- 天気予報表示API-->
+                <div id="openweather" class="d-flex mb-5"></div>
             </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -34,6 +32,9 @@
                 <h2 class="text-white mb-4">もし、明日登山するなら</h2>
                 <p class="text-white-50">
                     こんな感じの服装でどうでしょうか。服装については<a href="#">こちら</a>から。
+                </p>
+                <p class="text-white-50">
+                    服装を表示する
                 </p>
             </div>
         </div>
@@ -75,3 +76,52 @@
         </div>
     </div>
 </section>
+
+
+<script>
+$(function () {
+    var API_KEY = "9a9c7c55a7c838cfca8bc14ad8339ab2";
+    // 経度緯度から天気を予報
+    var lat = <%= @mountain.peak_location_lat%>;
+    var lon = <%= @mountain.peak_location_lng%>;
+    // var url = 'https://api.openweathermap.org/data/2.5/forecast?q=Akashi,jp&appid=9a9c7c55a7c838cfca8bc14ad8339ab2';
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+    $.ajax({
+        url: url,
+        dataType: 'json',
+        type: 'GET',
+    })
+    .done(function (data) {
+        var insertHTML = '';
+
+        // デフォルトでは3時間ごとの天気を取得するため、
+        // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
+        for (var i = 0; i <= 32; i = i + 8) {
+        insertHTML += buildHTML(data, i);
+        }
+        $('#openweather').html(insertHTML);
+    })
+    .fail(function (data) {
+        alert('天気予報取得に失敗しました');
+    });
+});
+
+// 日本語化
+function buildHTML(data, i) {
+    var Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
+    var date = new Date(data.list[i].dt_txt);
+    date.setHours(date.getHours() + 9);
+    var month = date.getMonth() + 1;
+    var day = month + '/' + date.getDate() + Week[date.getDay()];
+    var icon = data.list[i].weather[0].icon;
+    var html =
+    '<div class="weather-report text-white-50 mx-auto">' +
+        '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
+        '<span class="weather-date">' + day + "</span>" +
+        '<div class="weather-temp-max">' + '最高：' + Math.round(data.list[i].main.temp_max) + "℃</div>" +
+        '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +
+    '</div>';
+    return html
+}
+
+</script>
