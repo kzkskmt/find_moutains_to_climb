@@ -2,15 +2,19 @@
 <section class="coshow-section bg-light" id="coshow">
     <div class="container px-4 px-lg-5">
     <h1 class="text-dark text-center mb-4">検索結果</h1>
-        <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0' %>
+        <div id='googlemap' style="height:400px"></div>
         <!-- Featured coshow Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h3 class="pt-3">往復所要時間：<%=  %></h3>          
-                    <p class="text-black-50 mb-0">内訳：</p>
-                    <p class="text-black-50 mb-0"></p>
-                </div>
+            <div class="featured-text text-center text-lg-left">
+                <h3 class="pt-3">今から家出て山登って帰ってくるには</h3>                                  
+                <h3 id="travel_total_time" class="pt-3"></h3>
+                <h3 class="pt-3">ぐらいかかりそうです。</h3> 
+                <p class="text-black-50 mb-0">　</p>                                 
+                <p class="text-black-50 mb-0">【内訳】</p>
+                <p id="travel_time" class="text-black-50 mb-0"></p>
+                <p class="text-black-50 mb-0">登山口　〜　山　頂　:　<%= hhmm(@course.ascent_time) %></p>
+                <p class="text-black-50 mb-0">山　頂　〜　登山口　:　<%= hhmm(@course.descent_time) %></p>
+                <p id="travel_time_back" class="text-black-50 mb-0"></p>                
             </div>
         </div>
     </div>
@@ -18,7 +22,7 @@
 
 <!-- 周辺の施設-->
 <section class="weather-section text-center" id="weather">
-    <!-- containerの中に天気予報表示API-->
+    <!-- containerの中にAPI-->
     <h1 class="text-white">周辺の施設</h1> 
     <br>
     <br>
@@ -41,3 +45,90 @@
         </div>
     </div>
 </section>
+
+
+<script>
+
+
+
+// 現在地取得処理
+function initMap() {
+    // Geolocation APIに対応している
+    if (navigator.geolocation) {
+    // 現在地を取得
+    navigator.geolocation.getCurrentPosition(
+        // 取得に成功した場合
+        function(position) {
+            // var goal_point_lat = "<%= @course.starting_point_lat %>";
+            // var goal_point_lng = "<%= @course.starting_point_lng %>";
+            var start_point = new google.maps.LatLng(position.coords.latitude, position.coords.longitude); // 現在地をスタート地点として定義
+            var goal_point = new google.maps.LatLng(35.689607, 139.700571); // ゴール地点として定義
+
+            var map = new google.maps.Map(document.getElementById('googlemap'), {
+                zoom: 12
+            });
+        
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+        
+            var request = {
+                origin: start_point, //スタート地点セット
+                destination: goal_point, //ゴール地点セット
+                travelMode: google.maps.DirectionsTravelMode.DRIVING //移動手段(WALKING or DRIVING)
+            };
+        
+            directionsService.route(request, function(result, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    // ルート検索の結果を地図上に描画
+                    directionsRenderer.setDirections(result);
+                    directionsRenderer.setMap(map);
+                    // 移動距離、所要時間の取得
+                    var legs = result.routes[0].legs[0];
+                    // 取得した所要時間データの分解（〇〇時間××分 → [〇〇時間××分,〇〇,××]）
+                    var total = legs.duration.text.match( /(\d+)時間(\d+)分/ );
+                    var total_time = (+total[1] * 60 + +total[2]) * 2 + +"<%= @course.ascent_time %>" + +"<%= @course.descent_time %>";
+                    var total_time_hour = Math.floor(+total_time / 60);
+                    var total_time_min = +total_time - +total_time_hour * 60;
+                    if (total_time_min == 0) {
+                        $( '#travel_total_time' ).html( '「' + total_time_hour + '時間」');
+                    } else {
+                        $( '#travel_total_time' ).html( '「' + total_time_hour + '時間' + total_time_min + '分」' );
+                    }
+                    $( '#travel_time' ).html( '現在地　〜　登山口　:　' + legs.duration.text);
+                    $( '#travel_time_back' ).html( '登山口　〜　現在地　:　' + legs.duration.text);
+                } else {
+                    alert('ルートの取得ができませんでした。: ' + status);
+                }
+            });
+        },
+        // 取得に失敗した場合
+        function(error) {
+            // エラーメッセージを表示
+            switch(error.code) {
+                case 1: // PERMISSION_DENIED
+                alert("位置情報の利用が許可されていません");
+                break;
+                case 2: // POSITION_UNAVAILABLE
+                alert("現在位置が取得できませんでした");
+                break;
+                case 3: // TIMEOUT
+                alert("タイムアウトになりました");
+                break;
+                default:
+                alert("その他のエラー(エラーコード:"+error.code+")");
+                break;
+            }
+        }
+    );
+    // Geolocation APIに対応していない
+    } else {
+    alert("この端末では位置情報が取得できません");
+    }
+}
+
+
+
+
+</script>
+¥<!-- GoogleMaps JS API-->
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap" async defer></script>

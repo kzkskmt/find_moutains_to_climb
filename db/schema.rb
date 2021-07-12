@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2021_07_01_085213) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
-    t.float "ascent_time", null: false
-    t.float "descent_time", null: false
+    t.integer "ascent_time", null: false
+    t.integer "descent_time", null: false
     t.integer "level", null: false
     t.decimal "starting_point_lat", precision: 10, scale: 7, null: false
     t.decimal "starting_point_lng", precision: 10, scale: 7, null: false

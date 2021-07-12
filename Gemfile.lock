@@ -94,6 +94,10 @@ GEM
     crass (1.0.6)
     debug_inspector (1.1.0)
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     erubis (2.7.0)
     factory_bot (6.2.0)
@@ -134,6 +138,11 @@ GEM
     parallel (1.20.1)
     parser (3.0.1.1)
       ast (~> 2.4.1)
+    pry (0.14.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     public_suffix (4.0.6)
     puma (4.3.8)
       nio4r (~> 2.0)
@@ -292,12 +301,14 @@ DEPENDENCIES
   byebug
   capybara
   carrierwave
+  dotenv-rails
   factory_bot_rails
   jbuilder (~> 2.7)
   jp_prefecture
   listen (~> 3.2)
   mini_magick
   mysql2 (>= 0.4.4)
+  pry-rails
   puma (~> 4.1)
   rails (~> 6.0.3, >= 6.0.3.7)
   rails_best_practices
