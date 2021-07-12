@@ -84,6 +84,7 @@
     });
   }
 
+  // 検索窓に地名を入れると地図が移動する機能
   function codeAddress(){
     // 入力を取得
     let inputAddress = document.getElementById('address').value;
@@ -101,4 +102,4 @@
   }
 </script>
 <!-- GoogleMaps JS API-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIL4LwRCBp10rsIA3sYoCkHClTD93DcZ4&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap" async defer></script>
