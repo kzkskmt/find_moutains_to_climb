@@ -4,7 +4,8 @@ FactoryBot.define do
     elevation { 1234 }
     prefecture_code { 1 }
     sequence(:city, "city_1")
-    peak_location_lat { 34.8375168 }
-    peak_location_lng { 135.4298562 }
+    # 富士山の経度緯度を設定
+    peak_location_lat { 35.360626 }
+    peak_location_lng { 138.727363 }
   end
 end

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :mountains, only: %i[index show] do
-    resource :course, only: %i[show]
+    resources :courses, only: %i[index show]
   end
   root 'homes#top'
 end
