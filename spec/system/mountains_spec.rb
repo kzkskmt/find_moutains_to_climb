@@ -16,7 +16,8 @@ RSpec.describe "Mountains", type: :system do
       it 'OpenWeathermapが正常に表示される' do
         visit mountain_path(mountain.id)
         within('.weather-section') do
-          expect(page).to have_selector(".weather-report")
+          expect(page).to have_selector ".weather-report"
+          expect(page).to have_content "最高"
         end
       end
     end
