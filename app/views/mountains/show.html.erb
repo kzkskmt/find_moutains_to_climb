@@ -23,13 +23,8 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
                 <h2 class="text-white mb-4">山頂の天気予報</h2>
-                <!-- 天気予報表示API-->
+                <!-- 山頂の天気予報表示-->
                 <div id="openweather" class="d-flex mb-5"></div>
-            </div>
-            <div class="col-lg-8">
-                <h2 class="text-white mb-4">山頂の天気予報</h2>
-                <!-- 天気予報表示API-->
-                <div id="openweather_city" class="d-flex mb-5"></div>
             </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -38,9 +33,7 @@
                 <p class="text-white-50">
                     こんな感じの服装でどうでしょうか。服装については<a href="#">こちら</a>から。
                 </p>
-                <p class="text-white-50">
-                    <div id="best_outfit"></div>
-                </p>
+                <div id="best_outfit"></div>
             </div>
         </div>
     </div>
@@ -87,13 +80,12 @@
 
 $(function () {
     var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
-    // 経度緯度から天気を予報
+    // 経度緯度を定義
     var lat = <%= @mountain.peak_location_lat%>;
     var lon = <%= @mountain.peak_location_lng%>;
-    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
-    var lat_city = <%= @mountain.peak_location_lat%>;
-    var lon_city = <%= @mountain.peak_location_lng%>;
-    var url_city = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+    // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&lang=ja&appid=' + API_KEY;
+    // var url_city = 'https://api.openweathermap.org/data/2.5/forecast?q=fujinomiya,JP&units=metric&lang=ja&appid=' + API_KEY;
     
     $.ajax({
         url: url,
@@ -125,16 +117,12 @@ $(function () {
         } else {
             $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
         }
-
     })
 
     .fail(function (data) {
         alert('天気予報取得に失敗しました');
     });
 });
-
-
-
 
 
 // 日本語化 最高気温は四捨五入、最低気温は切り捨て
