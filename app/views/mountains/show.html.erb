@@ -26,6 +26,11 @@
                 <!-- 天気予報表示API-->
                 <div id="openweather" class="d-flex mb-5"></div>
             </div>
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">山頂の天気予報</h2>
+                <!-- 天気予報表示API-->
+                <div id="openweather_city" class="d-flex mb-5"></div>
+            </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
@@ -34,12 +39,12 @@
                     こんな感じの服装でどうでしょうか。服装については<a href="#">こちら</a>から。
                 </p>
                 <p class="text-white-50">
-                    服装を表示する
+                    <div id="best_outfit"></div>
                 </p>
             </div>
         </div>
     </div>
-    <a class="btn btn-primary" href="#">目的地に設定する</a>
+    <%= link_to mountain_courses_path(@mountain.id), class: "btn btn-primary" do %>目的地に設定する<% end %>
 </section>
 
 <section class="mtshow-section bg-light">
@@ -79,12 +84,17 @@
 
 
 <script>
+
 $(function () {
     var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
     // 経度緯度から天気を予報
     var lat = <%= @mountain.peak_location_lat%>;
     var lon = <%= @mountain.peak_location_lng%>;
     var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+    var lat_city = <%= @mountain.peak_location_lat%>;
+    var lon_city = <%= @mountain.peak_location_lng%>;
+    var url_city = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+    
     $.ajax({
         url: url,
         dataType: 'json',
@@ -92,20 +102,42 @@ $(function () {
     })
     .done(function (data) {
         var insertHTML = '';
+        var temp_tm = '';
 
         // デフォルトでは3時間ごとの天気を取得するため、
         // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
         for (var i = 0; i <= 32; i = i + 8) {
-        insertHTML += buildHTML(data, i);
+            insertHTML += buildHTML(data, i);
+            // 明日（24時間後なので、i == 8の時）の気温を取得
+            if (i == 8) {
+                temp_tm += getTEMP(data, i);
+            }
         }
         $('#openweather').html(insertHTML);
+
+        var temp_first = <%= @equipments.first.lower_limit_temp %>
+        var temp_second = <%= @equipments.second.lower_limit_temp %>
+
+        if ( temp_first < temp_tm ){
+            $("#best_outfit").html('<%= image_tag @equipments.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        } else if ( temp_second < temp_tm ) {
+            $("#best_outfit").html('<%= image_tag @equipments.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        } else {
+            $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
+        }
+
     })
+
     .fail(function (data) {
         alert('天気予報取得に失敗しました');
     });
 });
 
-// 日本語化
+
+
+
+
+// 日本語化 最高気温は四捨五入、最低気温は切り捨て
 function buildHTML(data, i) {
     var Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
     var date = new Date(data.list[i].dt_txt);
@@ -121,6 +153,15 @@ function buildHTML(data, i) {
         '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +
     '</div>';
     return html
+}
+
+
+// 明日の平均気温の取得
+function getTEMP(data, i) {
+    var max_temp = data.list[i].main.temp_max;
+    var min_temp = data.list[i].main.temp_min;
+    var temp = Math.floor((max_temp + min_temp) / 2);
+    return temp
 }
 
 </script>

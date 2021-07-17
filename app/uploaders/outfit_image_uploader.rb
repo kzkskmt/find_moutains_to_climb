@@ -1,4 +1,4 @@
-class ImageUploader < ApplicationUploader
+class OutfitImageUploader < ApplicationUploader
   # ストレージの種類
   storage :file
   # storage :fog
@@ -9,8 +9,9 @@ class ImageUploader < ApplicationUploader
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+  # app/assets/imagesの中から拾ってくる
   def default_url
-    'default.jpg'
+    'default_outfit.jpg'
   end
 
   # Create different versions of your uploaded files:
