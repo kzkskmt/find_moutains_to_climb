@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_01_085213) do
+ActiveRecord::Schema.define(version: 2021_07_15_090324) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -25,13 +25,9 @@ ActiveRecord::Schema.define(version: 2021_07_01_085213) do
     t.index ["mountain_id"], name: "index_courses_on_mountain_id"
   end
 
-  create_table "equipments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "equipment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
-    t.text "body", null: false
-    t.string "ware_name", null: false
-    t.text "ware_description", null: false
-    t.string "gear_name", null: false
-    t.text "gear_description", null: false
+    t.text "body"
     t.integer "lower_limit_temp", null: false
     t.integer "max_elevation", null: false
     t.string "image"
