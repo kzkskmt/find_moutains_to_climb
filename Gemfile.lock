@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    Hyakumeizan (0.1.4)
     actioncable (6.0.4)
       actionpack (= 6.0.4)
       nio4r (~> 2.0)
@@ -295,6 +296,7 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
+  Hyakumeizan
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)

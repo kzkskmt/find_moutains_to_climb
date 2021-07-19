@@ -26,6 +26,11 @@
                 <!-- 山頂の天気予報表示-->
                 <div id="openweather" class="d-flex mb-5"></div>
             </div>
+            <div class="col-lg-8">
+                <h2 class="text-white mb-4">登山口周辺の天気予報</h2>
+                <!-- 市町村の天気予報表示-->
+                <div id="openweather_city" class="d-flex mb-5"></div>
+            </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
@@ -80,12 +85,11 @@
 
 $(function () {
     var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
-    // 経度緯度を定義
+    // 山頂の経度緯度を定義
     var lat = <%= @mountain.peak_location_lat%>;
     var lon = <%= @mountain.peak_location_lng%>;
     // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
-    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&lang=ja&appid=' + API_KEY;
-    // var url_city = 'https://api.openweathermap.org/data/2.5/forecast?q=fujinomiya,JP&units=metric&lang=ja&appid=' + API_KEY;
+    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
     
     $.ajax({
         url: url,
@@ -94,7 +98,7 @@ $(function () {
     })
     .done(function (data) {
         var insertHTML = '';
-        var temp_tm = '';
+        var temp_tomorrow = '';
 
         // デフォルトでは3時間ごとの天気を取得するため、
         // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
@@ -102,21 +106,37 @@ $(function () {
             insertHTML += buildHTML(data, i);
             // 明日（24時間後なので、i == 8の時）の気温を取得
             if (i == 8) {
-                temp_tm += getTEMP(data, i);
+                temp_tomorrow = data.list[i].main.temp;
             }
         }
         $('#openweather').html(insertHTML);
-
-        var temp_first = <%= @equipments.first.lower_limit_temp %>
-        var temp_second = <%= @equipments.second.lower_limit_temp %>
-
-        if ( temp_first < temp_tm ){
-            $("#best_outfit").html('<%= image_tag @equipments.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
-        } else if ( temp_second < temp_tm ) {
-            $("#best_outfit").html('<%= image_tag @equipments.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        
+        // 明日の気温と服装の適応気温を比較し、最適な服装を表示
+        var temp_summer = <%= @outfits.first.lower_limit_temp %>
+        var temp_spring = <%= @outfits.second.lower_limit_temp %>
+        if ( temp_summer < temp_tomorrow ){
+            $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        } else if ( temp_spring < temp_tomorrow ) {
+            $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
         } else {
             $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
         }
+
+        // 登山口周辺の天気予報も表示する。
+        var city_id = data.city.id
+        var url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
+        $.ajax({
+            url: url_city,
+            dataType: 'json',
+            type: 'GET',
+        })
+        .done(function (data) {
+            var insertHTML_city = '';
+            for (var i = 0; i <= 32; i = i + 8) {
+                insertHTML_city += buildHTML(data, i);
+            }
+            $('#openweather_city').html(insertHTML_city);
+        })
     })
 
     .fail(function (data) {
@@ -141,15 +161,6 @@ function buildHTML(data, i) {
         '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +
     '</div>';
     return html
-}
-
-
-// 明日の平均気温の取得
-function getTEMP(data, i) {
-    var max_temp = data.list[i].main.temp_max;
-    var min_temp = data.list[i].main.temp_min;
-    var temp = Math.floor((max_temp + min_temp) / 2);
-    return temp
 }
 
 </script>
