@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+      <h1>服装編集</h1>
+        <%= form_with model: @outfit, url: outfit_path(@outfit.id), local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :title, class: "label" %>
+            <%= f.text_field :title, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :lower_limit_temp, class: "label" %>
+            <%= f.text_field :lower_limit_temp, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :max_elevation, class: "label" %>
+            <%= f.text_field :max_elevation, class: "form-control" %>
+          </div>
+          <%= f.submit '編集する', class: "btn btn-primary" %>
+        <% end %>
+    </div>
+  </div>
+</div>

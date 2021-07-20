@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_15_090324) do
+ActiveRecord::Schema.define(version: 2021_07_19_133316) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -25,23 +25,24 @@ ActiveRecord::Schema.define(version: 2021_07_15_090324) do
     t.index ["mountain_id"], name: "index_courses_on_mountain_id"
   end
 
-  create_table "equipment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "body"
-    t.integer "lower_limit_temp", null: false
-    t.integer "max_elevation", null: false
+  create_table "mountains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "name_en", null: false
+    t.integer "elevation", null: false
+    t.integer "prefecture_code", null: false
+    t.string "city"
+    t.decimal "peak_location_lat", precision: 10, scale: 7, null: false
+    t.decimal "peak_location_lng", precision: 10, scale: 7, null: false
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "mountains", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "elevation", null: false
-    t.integer "prefecture_code", null: false
-    t.string "city", null: false
-    t.decimal "peak_location_lat", precision: 10, scale: 7, null: false
-    t.decimal "peak_location_lng", precision: 10, scale: 7, null: false
+  create_table "outfits", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title"
+    t.text "body"
+    t.integer "lower_limit_temp"
+    t.integer "max_elevation"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

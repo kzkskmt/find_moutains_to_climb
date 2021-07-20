@@ -1,3 +1,3 @@
-class Equipment < ApplicationRecord
+class Outfit < ApplicationRecord
   mount_uploader :image, OutfitImageUploader
 end
