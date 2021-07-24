@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_133316) do
+ActiveRecord::Schema.define(version: 2021_07_22_103018) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 2021_07_19_133316) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "inner"
+    t.string "outer"
+    t.string "outer_bring"
+    t.string "pant"
+    t.string "accessory"
   end
 
   add_foreign_key "courses", "mountains"

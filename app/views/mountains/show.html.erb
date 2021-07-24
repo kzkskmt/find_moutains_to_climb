@@ -104,24 +104,9 @@ $(function () {
         // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
         for (var i = 0; i <= 32; i = i + 8) {
             insertHTML += buildHTML(data, i);
-            // 明日（24時間後なので、i == 8の時）の気温を取得
-            if (i == 8) {
-                temp_tomorrow = data.list[i].main.temp;
-            }
         }
         $('#openweather').html(insertHTML);
         
-        // 明日の気温と服装の適応気温を比較し、最適な服装を表示
-        var temp_summer = <%= @outfits.first.lower_limit_temp %>
-        var temp_spring = <%= @outfits.second.lower_limit_temp %>
-        if ( temp_summer < temp_tomorrow ){
-            $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
-        } else if ( temp_spring < temp_tomorrow ) {
-            $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
-        } else {
-            $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
-        }
-
         // 登山口周辺の天気予報も表示する。
         var city_id = data.city.id
         var url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
@@ -134,8 +119,23 @@ $(function () {
             var insertHTML_city = '';
             for (var i = 0; i <= 32; i = i + 8) {
                 insertHTML_city += buildHTML(data, i);
+                // 明日（24時間後なので、i == 8の時）の気温を取得
+                if (i == 8) {
+                temp_tomorrow = data.list[i].main.temp;
+            }
             }
             $('#openweather_city').html(insertHTML_city);
+
+            // 明日の気温と服装の適応気温を比較し、最適な服装を表示
+            var temp_summer = <%= @outfits.first.lower_limit_temp %>
+            var temp_spring = <%= @outfits.second.lower_limit_temp %>
+            if ( temp_summer < temp_tomorrow ){
+                $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+            } else if ( temp_spring < temp_tomorrow ) {
+                $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+            } else {
+                $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
+            }
         })
     })
 
