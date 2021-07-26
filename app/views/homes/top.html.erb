@@ -26,103 +26,136 @@
             </div>
         </div>
     </section>
-    <!-- Maps-->
-    <section class="map-section bg-light" id="map">
-        <div class="container px-4 px-lg-5">
-            <!-- Featured Map Row-->
-            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                <div class="col-xl-8 col-lg-7">
-                    <!-- googlemapを埋め込む場所　-->
-                    <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0'></div>
-                </div>
-                <div class="col-xl-4 col-lg-5">
-                    <div class="featured-text text-center text-lg-left">
-                        <h4>地図から探す</h4>
-                        <div class="input-group mb-3">
-                            <input id="address" type="text" class="form-control" placeholder="地名">
-                            <div class="input-group-append">
-                                <input type="button" value="検索" onclick="codeAddress()" class="btn btn-outline-primary">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Map One Row-->
-            <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><%= image_tag 'img/demo-image-01.jpg', class: 'img-fluid' %></div>
-                <div class="col-lg-6">
-                    <div class="bg-black text-center h-100 map">
-                        <div class="d-flex h-100">
-                            <div class="map-text w-100 my-auto text-center text-lg-left">
-                                <h4 class="text-white">Misty</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                <hr class="d-none d-lg-block mb-0 ms-0" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Map Two Row-->
-            <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><%= image_tag 'img/demo-image-02.jpg', class: 'img-fluid' %></div>
-                <div class="col-lg-6 order-lg-first">
-                    <div class="bg-black text-center h-100 map">
-                        <div class="d-flex h-100">
-                            <div class="map-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well</p>
-                                <hr class="d-none d-lg-block mb-0 me-0" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Signup-->
+
+    <!-- Keyword-->
     <section class="signup-section" id="signup">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                    <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- * * SB Forms Contact Form * *-->
-                    <!-- * * * * * * * * * * * * * * *-->
-                    <!-- This form is pre-integrated with SB Forms.-->
-                    <!-- To make this form functional, sign up at-->
-                    <!-- https://startbootstrap.com/solution/contact-forms-->
-                    <!-- to get an API token!-->
-                    <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
-                        <!-- Email address input-->
+                    <form class="form-signup" id="contactForm">
                         <div class="row input-group-newsletter">
-                            <div class="col"><input class="form-control" id="emailAddress" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" /></div>
-                            <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Notify Me!</button></div>
+                            <%= search_form_for @q, url: search_mountains_path do |f| %>
+                                <div class="col">
+                                    <%= f.search_field :name_cont, class: "form-control", placeholder: "キーワード" %>
+                                </div>
+                                <div class="col-auto">
+                                    <%= f.submit '検索', class: "col-auto btn btn-primary"%>
+                                </div>
+                            <% end %>
                         </div>
-                        <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:required">An email is required.</div>
-                        <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:email">Email is not valid.</div>
-                        <!-- Submit success message-->
-                        <!---->
-                        <!-- This is what your users will see when the form-->
-                        <!-- has successfully submitted-->
-                        <div class="d-none" id="submitSuccessMessage">
-                            <div class="text-center mb-3 mt-2 text-white">
-                                <div class="fw-bolder">Form submission successful!</div>
-                                To activate this form, sign up at
-                                <br />
-                                <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                            </div>
-                        </div>
-                        <!-- Submit error message-->
-                        <!---->
-                        <!-- This is what your users will see when there is-->
-                        <!-- an error submitting the form-->
-                        <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+
+    <!-- Area-->
+    <section class="area-section" id="area">
+        <div class="container">
+            <!-- Portfolio Grid Items-->
+            <div class="row justify-content-center">
+                <!-- Portfolio Item 1-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                        <div class="portfolio-item-caption-content text-center text-white">
+                            <a class="btn btn-outline-primary" href="#map">北海道</a>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- Portfolio Item 2-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                        <div class="portfolio-item-caption-content text-center text-white">
+                            <a class="btn btn-outline-primary" href="#map">東　北</a>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- Portfolio Item 3-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                        <div class="portfolio-item-caption-content text-center text-white">
+                            <a class="btn btn-outline-primary" href="#map">関　東</a>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- Portfolio Item 4-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">中　部</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Item 5-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">関　西</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Item 6-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">四　国</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Item 7-->
+                <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">中　国</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Item 8-->
+                <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">九　州</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <!-- Portfolio Item 9-->
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
+                            <div class="portfolio-item-caption-content text-center text-white">
+                                <a class="btn btn-outline-primary" href="#map">沖　縄</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maps-->
+    <section class="map-section" id="map">
+        <div class="container px-4">
+        <h2>地図から探す</h2>
+            <!-- Featured Map Row-->
+            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+                    <!-- googlemapを埋め込む場所　-->
+                    <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
+                    <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0'></div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Contact-->
     <section class="contact-section bg-black">
         <div class="container px-4 px-lg-5">
@@ -200,6 +233,63 @@
         center: { lat: 38.258595, lng: 137.6850225 }, // 日本の中心に緯度経度を設定
         zoom: 5
         });
+
+        // 検索窓の作成とリンクの設定
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds());
+        });
+        let search_markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+            return;
+            }
+            // Clear out the old markers.
+            search_markers.forEach((marker) => {
+            marker.setMap(null);
+            });
+            search_markers = [];
+            // For each place, get the icon, name and location.
+            const bounds = new google.maps.LatLngBounds();
+            places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+            const icon = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+            // Create a marker for each place.
+            search_markers.push(
+                new google.maps.Marker({
+                map,
+                icon,
+                title: place.name,
+                position: place.geometry.location,
+                })
+            );
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport.
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+            });
+            map.fitBounds(bounds);
+        });
+
         
         // markerDataに入っているデータのピンを立てる。
         for (var i = 0; i < markerData.length; i++) {
@@ -255,5 +345,5 @@
     }
     </script>
     <!-- GoogleMaps JS API-->
-    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&libraries=places&callback=initMap" async defer></script>
 </body>

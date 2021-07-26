@@ -139,13 +139,3 @@
 // 		} 
 // 	});
 // }
-
-
-
-if ( <%= @equipments.first.lower_limit_temp %> < temp_tm ){
-$("#best_outfit").html("<%= image_tag @equipments.first.image.url %>");
-} else if ( <%= @equipments.second.lower_limit_temp %> < temp_tm ){
-$("#best_outfit").html("<%= image_tag @equipments.second.image.url %>");
-} else {
-$("#best_outfit").html("<img src='http://openweathermap.org/img/w/01n.png' >");
-}
