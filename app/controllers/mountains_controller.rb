@@ -3,7 +3,9 @@ class MountainsController < ApplicationController
 
   def index
     @mountains_on_map = @q.result(distinct: true)
-    @mountains = @mountains_on_map.page(params[:page]).per(12)
+    @mountains_on_map = @mountains_on_map.select { |mountain| mountain.pref.area == params[:area] } if params[:area]
+    # pageはActive Recordのオブジェクトに対して使えるメソッド。selectの戻り値は配列なのでKaminari.paginate_arrayを適用する
+    @mountains = Kaminari.paginate_array(@mountains_on_map).page(params[:page]).per(12)
   end
 
   def show
