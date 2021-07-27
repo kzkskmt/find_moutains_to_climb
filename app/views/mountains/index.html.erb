@@ -1,105 +1,184 @@
-<section class="about-section text-center" id="about">
+<!-- Searchbox-->
+<section class="searchform-section bg-light" id="signup">
   <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+          <div class="col-md-10 col-lg-8 mx-auto text-center">
+              <form class="form-search" id="contactForm">
+                  <div class="row input-group-newsletter">
+                      <%= render 'shared/search_form', q: @q, url: mountains_path %>
+                  </div>
+              </form>
+          </div>
+      </div>
   </div>
 </section>
 
-<!-- 地名入力用のinputを追加 -->
-<input id="address" type="textbox">
-<!-- buttonをクリックしたらcodeAddressを実行　-->
-<input type="button" value="検索" onclick="codeAddress()">
+<!-- Index-->
+<section class="page-section bg-light" id="portfolio">
+    <div class="container px-4">
+        <div class="row">
+            <%= render @mountains %>
+        </div>
+        <%= paginate @mountains %>
+    </div>
+</section>
 
-<!-- googlemapを埋め込む場所　-->
-<div id='googlemap' style="height:800px">
-</div>
+<!-- Map-->
+<section class="map-section bg-light" id="map">
+    <div class="container px-4">
+        <!-- Featured Map Row-->
+        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <!-- googlemapを埋め込む場所　-->
+            <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
+            <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0'></div>
+        </div>
+    </div>
+</section>
 
 <script>
-  let map
-  let marker = []
-  let infoWindow = []
-  // マーカーを消すためのcurrentInfoWindow
-  let currentInfoWindow
-  // マーカーを立てるための箱 markerData
-  let markerData = []
-  // markerDataにmountainデータをループ処理で格納
-  <% @mountains.each do |mountain| %>
+let map
+let marker = []
+let infoWindow = []
+// マーカーを消すためのcurrentInfoWindow
+let currentInfoWindow
+// mountainデータを格納する箱 markerData
+let markerData = []
+// markerDataにmountainデータをループ処理で格納
+<% @mountains_on_map.each do |mountain| %>
     var obj = {
-      id: <%= mountain.id %>,
-      name: '<%= mountain.name %>',
-      lat: <%= mountain.peak_location_lat %>,
-      lng: <%= mountain.peak_location_lng %>
-      };
+    id: <%= mountain.id %>,
+    name: '<%= mountain.name %>',
+    lat: <%= mountain.peak_location_lat %>,
+    lng: <%= mountain.peak_location_lng %>
+    };
     markerData.push(obj)
-  <% end %>
-  let geocoder
+<% end %>
+let geocoder
 
-  // 「InvalidValueError: initMap is not a function」への対策
-  window.onload = function () {
+// 「InvalidValueError: initMap is not a function」への対策
+window.onload = function () {
     initMap();
-  }
+}
 
-  function initMap(){
+function initMap(){
     // geocoderを初期化
     geocoder = new google.maps.Geocoder()
 
     // 地図の作成、中心位置の設定
     map = new google.maps.Map(document.getElementById('googlemap'), {
     center: { lat: 38.258595, lng: 137.6850225 }, // 日本の中心に緯度経度を設定
-    zoom: 5
+    zoom: 4.5
     });
+
+    // 検索窓の作成とリンクの設定
+    const input = document.getElementById("pac-input");
+    const searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+    });
+    let search_markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+        return;
+        }
+        // Clear out the old markers.
+        search_markers.forEach((marker) => {
+        marker.setMap(null);
+        });
+        search_markers = [];
+        // For each place, get the icon, name and location.
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+            console.log("Returned place contains no geometry");
+            return;
+        }
+        const icon = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25),
+        };
+        // Create a marker for each place.
+        search_markers.push(
+            new google.maps.Marker({
+            map,
+            icon,
+            title: place.name,
+            position: place.geometry.location,
+            })
+        );
+
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+        });
+        map.fitBounds(bounds);
+    });
+
     
     // markerDataに入っているデータのピンを立てる。
     for (var i = 0; i < markerData.length; i++) {
-      markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
-      marker[i] = new google.maps.Marker({ // マーカーの追加
+    markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
+    marker[i] = new google.maps.Marker({ // マーカーの追加
         position: markerLatLng, // マーカーを立てる位置を指定
         map: map // マーカーを立てる地図を指定
-      });
+    });
 
-      // マーカーに表示する内容を設定
-      var contentStr = 
-        '<div class="map">' +
+    // マーカーに表示する内容を設定
+    var contentStr = 
+        '<div name="marker" class="map">' +
         '<a href="/mountains/' + markerData[i]['id'] + '">' +
         markerData[i]['name'] +
         '</a>' +
         '</div>'
         ;
 
-      // 吹き出しの追加
-      infoWindow[i] = new google.maps.InfoWindow({
+    // 吹き出しの追加
+    infoWindow[i] = new google.maps.InfoWindow({
         content: contentStr // 吹き出しに表示する内容をセット
-      });
-
-      markerEvent(i); // マーカーにクリックイベントを追加
-    }
-  }
-
-  // マーカーにクリックイベントを追加
-  function markerEvent(i) {
-    marker[i].addListener('click', function() { // マーカーをクリックしたとき
-      if (currentInfoWindow) { // 表示している吹き出しがあれば閉じる
-        currentInfoWindow.close();
-      }
-      infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-      currentInfoWindow = infoWindow[i]
     });
-  }
 
-  // 検索窓に地名を入れると地図が移動する機能
-  function codeAddress(){
+    markerEvent(i); // マーカーにクリックイベントを追加
+    }
+}
+
+// マーカーにクリックイベントを追加
+function markerEvent(i) {
+    marker[i].addListener('click', function() { // マーカーをクリックしたとき
+    if (currentInfoWindow) { // 表示している吹き出しがあれば閉じる
+        currentInfoWindow.close();
+    }
+    infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+    currentInfoWindow = infoWindow[i]
+    });
+}
+
+function codeAddress(){
     // 入力を取得
     let inputAddress = document.getElementById('address').value;
 
     // geocodingしたあとmapを移動
     geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-      if (status == 'OK') {
+    if (status == 'OK') {
         // map.setCenterで地図が移動
         map.setCenter(results[0].geometry.location);
         map.setZoom(10);
-      } else {
+    } else {
         alert('Geocode was not successful for the following reason: ' + status);
-      }
+    }
     });
-  }
+}
 </script>
 <!-- GoogleMaps JS API-->
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&libraries=places&callback=initMap" async defer></script>
