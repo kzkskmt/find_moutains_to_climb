@@ -6,7 +6,7 @@
                 <div class="text-center">
                     <h2 class="text-white-50 mx-auto mt-2">登りたい山がみつかるサービス</h2>
                     <h2 class="text-white mx-auto mb-5">「Find Mts」</h2>
-                    <a class="btn btn-primary" href="#map">地図から探す</a>
+                    <a class="btn btn-primary" href="#search">山を探す</a>
                 </div>
             </div>
         </div>
@@ -27,11 +27,12 @@
     </section>
 
     <!-- SearchBox-->
-    <section class="signup-section">
+    <section class="searchform-section" id="search">
         <div class="container px-4 px-lg-5">
+        <h2>キーワードから探す</h2>
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <form class="form-signup">
+                    <form class="form-search">
                         <div class="row">
                             <%= render 'shared/search_form', q: @q, url: mountains_path %>
                         </div>
@@ -43,152 +44,38 @@
 
     <!-- Area-->
     <section class="area-section" id="area">
-        <div class="container px-4">
+        <div class="container px-4 px-lg-5">
+        <h2>エリアから探す</h2>
             <!-- Portfolio Grid Items-->
-            <div class="row justify-content-center">
-                <!-- Portfolio Item 1-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                        <div class="portfolio-item-caption-content text-center text-white">
-                            <a class="btn btn-outline-primary" href="#map">北海道</a>
-                        </div>                    
-                    </div>
-                </div>
-                <!-- Portfolio Item 2-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                        <div class="portfolio-item-caption-content text-center text-white">
-                            <a class="btn btn-outline-primary" href="#map">東　北</a>
-                        </div>                    
-                    </div>
-                </div>
-                <!-- Portfolio Item 3-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                        <div class="portfolio-item-caption-content text-center text-white">
-                            <a class="btn btn-outline-primary" href="#map">関　東</a>
-                        </div>                    
-                    </div>
-                </div>
-                <!-- Portfolio Item 4-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+            <div class="row justify-content-center px-5">
+                <!-- Portfolio Item-->
+                <% @area.each do |area| %>
+                    <div class="col-md-6 col-lg-3 mb-5">
                         <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
                             <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">中　部</a>
+                                <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary' do %>
+                                    <%= add_space(area) %>
+                                <% end %>
                             </div>                    
                         </div>
                     </div>
-                </div>
-                <!-- Portfolio Item 5-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">関　西</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Item 6-->
-                <div class="col-md-6 col-lg-4 mb-5">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">四　国</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Item 7-->
-                <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">中　国</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Item 8-->
-                <div class="col-md-6 col-lg-4 mb-5 mb-md-0">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">九　州</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <!-- Portfolio Item 9-->
-                <div class="col-md-6 col-lg-4">
-                    <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
-                                <a class="btn btn-outline-primary" href="#map">沖　縄</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
+                <% end %>
             </div>
         </div>
     </section>
 
     <!-- Maps-->
     <section class="map-section" id="map">
-        <div class="container px-4">
+        <div class="container px-4 px-lg-5">
         <h2>地図から探す</h2>
             <!-- Featured Map Row-->
-            <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+            <div class="row gx-0 mb-4 mb-lg-5 px-5 align-items-center">
                     <!-- googlemapを埋め込む場所　-->
                     <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
-                    <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0'></div>
+                    <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
             </div>
         </div>
-    </section>
-    
-    <!-- Contact-->
-    <section class="contact-section bg-black">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5">
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="card py-4 h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                            <h4 class="text-uppercase m-0">Address</h4>
-                            <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50">4923 Market Street, Orlando FL</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="card py-4 h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-envelope text-primary mb-2"></i>
-                            <h4 class="text-uppercase m-0">Email</h4>
-                            <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-3 mb-md-0">
-                    <div class="card py-4 h-100">
-                        <div class="card-body text-center">
-                            <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                            <h4 class="text-uppercase m-0">Phone</h4>
-                            <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50">+1 (555) 902-8832</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="social d-flex justify-content-center">
-                <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-            </div>
-        </div>
-    </section>
+    </section>   
 
     <script>
     let map
