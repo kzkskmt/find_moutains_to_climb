@@ -65,7 +65,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # secure passwords, APIkeys
 gem 'dotenv-rails'
 
+gem 'draper'
 gem 'ransack'
+gem 'kaminari'
 gem 'jp_prefecture'
 gem 'Hyakumeizan'
 

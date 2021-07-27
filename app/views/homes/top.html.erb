@@ -24,24 +24,16 @@
                     </p>
                 </div>
             </div>
-        </div>
     </section>
 
-    <!-- Keyword-->
-    <section class="signup-section" id="signup">
+    <!-- SearchBox-->
+    <section class="signup-section">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <form class="form-signup" id="contactForm">
-                        <div class="row input-group-newsletter">
-                            <%= search_form_for @q, url: search_mountains_path do |f| %>
-                                <div class="col">
-                                    <%= f.search_field :name_cont, class: "form-control", placeholder: "キーワード" %>
-                                </div>
-                                <div class="col-auto">
-                                    <%= f.submit '検索', class: "col-auto btn btn-primary"%>
-                                </div>
-                            <% end %>
+                    <form class="form-signup">
+                        <div class="row">
+                            <%= render 'shared/search_form', q: @q, url: mountains_path %>
                         </div>
                     </form>
                 </div>
@@ -49,10 +41,9 @@
         </div>
     </section>
 
-
     <!-- Area-->
     <section class="area-section" id="area">
-        <div class="container">
+        <div class="container px-4">
             <!-- Portfolio Grid Items-->
             <div class="row justify-content-center">
                 <!-- Portfolio Item 1-->
@@ -231,7 +222,7 @@
         // 地図の作成、中心位置の設定
         map = new google.maps.Map(document.getElementById('googlemap'), {
         center: { lat: 38.258595, lng: 137.6850225 }, // 日本の中心に緯度経度を設定
-        zoom: 5
+        zoom: 4
         });
 
         // 検索窓の作成とリンクの設定
