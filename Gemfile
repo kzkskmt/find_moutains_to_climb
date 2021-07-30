@@ -68,6 +68,7 @@ gem 'dotenv-rails'
 gem 'draper'
 gem 'ransack'
 gem 'kaminari'
+gem 'nokogiri'
 gem 'jp_prefecture'
 gem 'Hyakumeizan'
 
