@@ -1,7 +1,7 @@
 <div class="col-lg-4 col-sm-6 mb-4">
     <div class="portfolio-item">
         <%= link_to mountain_path(mountain) do %>
-            <%= image_tag mountain.image_url, class: 'img-fluid rounded-top' %>
+            <%= image_tag "mountain_images/#{mountain.id}_#{mountain.name_en}.jpg", class: 'img-fluid rounded-top', size: '392x260' %>
         <% end %>
         <div class="portfolio-caption rounded-bottom">
             <%= link_to mountain_path(mountain) do %>

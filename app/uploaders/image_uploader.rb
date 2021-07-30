@@ -18,6 +18,10 @@ class ImageUploader < ApplicationUploader
     process resize_to_fill: [600, 450, "Center"]
   end
 
+  version :main_image do
+    process resize_to_fill: [392, 293, "Center"]
+  end
+
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
