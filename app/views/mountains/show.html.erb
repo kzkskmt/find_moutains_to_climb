@@ -3,12 +3,14 @@
     <div class="container px-4 px-lg-5">
         <!-- Featured mtshow Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <div class="col-xl-8 col-lg-7"><%= image_tag "mountain_images/#{@mountain.id}_#{@mountain.name_en}.jpg", class: 'img-fluid mb-3 mb-lg-0' %></div>
+            <div class="col-xl-8 col-lg-7">
+                <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0' %>
+            </div>
             <div class="col-xl-4 col-lg-5">
                 <div class="featured-text text-center text-lg-left">
                     <h4><%= @mountain.name %></h4>
-                    <p class="text-black-50 mb-0">標高：<%= @mountain.elevation %>m</p>
-                    <p class="text-black-50 mb-0"><%= @mountain.pref.name %> <%= @mountain.city %></p>
+                    <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
+                    <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %> <%= @mountain.city %></p>
                     <p class="text-black-50 mb-0">--------</p>
                     <p class="text-black-50 mb-0">難易度</p>
                 </div>

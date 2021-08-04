@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'nokogiri'
 
-mountain_name = ''
+mountain_name = '富士山'
 base_url = URI.encode "https://www.photo-ac.com/main/search?q=#{mountain_name}&qt=&qid=&creator=&ngcreator=&nq=&srt=dlrank&orientation=all&sizesec=all&color=all&model_count=-1&age=all&mdlrlrsec=all&sl=ja&type_search=phrase
 "
 
@@ -17,9 +17,9 @@ no_image = []
 if image_data.nil?
   puts "#{mountain_name}の検索結果はゼロでした"
   no_image.push(mountain_name)
-  break
-else
-  
+  # break
+
+else  
 20.times do |timesCount|
   sleep 1
   image_data_size = image_data.at_css('.img-hover-actions').at_css('a').attribute('data-size-s').value
@@ -41,12 +41,14 @@ else
   img_src = image_data.at_css('.thumbnail').attribute('data-src')
   img_url = img_src.value
 
-  sleep 1
-  file = "#{mountain_name}.jpg"
-  open(file, 'w') do |pass|
-    open(img_url) do |recieve|
-      pass.write(recieve.read)
-    end
+  pp img_url
+
+  # sleep 1
+  # file = "#{mountain_name}.jpg"
+  # open(file, 'w') do |pass|
+  #   open(img_url) do |recieve|
+  #     pass.write(recieve.read)
+  #   end
   end
 end
 
