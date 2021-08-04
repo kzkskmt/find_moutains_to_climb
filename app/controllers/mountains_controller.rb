@@ -9,6 +9,7 @@ class MountainsController < ApplicationController
   end
 
   def show
+    @mountains_on_map = Mountain.all
     @mountain = Mountain.find(params[:id])
     # 標高条件をクリアする服装パターンのうち、
     # ① 上限標高(max_elevation)が低い服装パターン順に並べ替える。

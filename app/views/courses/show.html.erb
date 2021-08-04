@@ -274,14 +274,13 @@ function createMarker(name, vicinity, lat, lng){
 
   
   //情報窓の設定
-  var info = "<div style=\"min-width: 100px\">";
-  info += name + "<br />";
-  info += vicinity + "<br />";
-  info += "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"";
-  info += " target=\"_blank\">⇒詳細表示</a><br />";
-  info += "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"";
-  info += " target=\"_blank\">⇒ここへ行く</a>";
-  info += "</div>";
+  var info = "<div style=\"min-width: 100px\">"
+              + name + "<br />" + vicinity + "<br />"
+              + "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\""
+              + " target=\"_blank\">⇒詳細表示</a><br />"
+              + "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\""
+              + " target=\"_blank\">⇒ここへ行く</a>"
+              + "</div>";
   
   //情報窓の表示
   var infoWindow = new google.maps.InfoWindow({
