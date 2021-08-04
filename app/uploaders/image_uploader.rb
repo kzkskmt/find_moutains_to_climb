@@ -10,20 +10,19 @@ class ImageUploader < ApplicationUploader
   end
 
   def default_url
-    'default_mountain.jpg'
+    'mountain_default.png'
   end
 
-  # Create different versions of your uploaded files:
-  version :thumb do
-    process resize_to_fill: [600, 450, "Center"]
-  end
+  # オリジナル画像のサイズ指定と、詳細ページ用のmain_imageを保存する。
+  # resize_to_fillは切り取りメソッド、第3引数は切り取りの中心点
+  # resize_to_fitは拡大縮小メソッド、縦横は維持されつつ、指定したサイズ内で最大になるようにリサイズ。
+  process resize_to_fit: [820, nil]
 
-  version :main_image do
-    process resize_to_fill: [392, 293, "Center"]
-  end
+  # version :main_image do
+  #   process resize_to_fit: [820, nil]
+  # end
 
-  # Add an allowlist of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
+  # アップロードする画像の許容する拡張子を設定
   def extension_allowlist
     %w(jpg jpeg gif png)
   end
