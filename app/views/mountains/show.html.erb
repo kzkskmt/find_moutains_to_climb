@@ -8,7 +8,8 @@
             </div>
             <div class="col-xl-4 col-lg-5">
                 <div class="featured-text text-lg-left">
-                    <h2 class="mb-0"><%= @mountain.name %></h2><h5 class="text-black-50"><%= @mountain.name_en%></h5>
+                    <h5 class="text-black-50 mb-0"><%= @mountain.name_en%></h5>
+                    <h2 class="mb-0"><%= @mountain.name %></h2>
                     <hr class="mb-4 mx-auto" />
                     <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
                     <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %> <%= @mountain.city %></p>
@@ -91,7 +92,7 @@ function initMap(){
     // 地図の作成、中心位置の設定
     map = new google.maps.Map(document.getElementById('googlemap'), {
     center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 日本の中心に緯度経度を設定
-    zoom: 10
+    zoom: 12
     });
     
     // markerDataに入っているデータのピンを立てる。
