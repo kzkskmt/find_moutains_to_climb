@@ -2,16 +2,16 @@
 <section class="mtshow-section bg-light" id="mtshow">
     <div class="container px-4 px-lg-5">
         <!-- Featured mtshow Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+        <div class="row gx-0 align-items-center">
             <div class="col-xl-8 col-lg-7">
                 <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0' %>
             </div>
             <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-center text-lg-left">
-                    <h4><%= @mountain.name %></h4>
+                <div class="featured-text text-lg-left">
+                    <h2><%= @mountain.name %></h2>
+                    <hr class="mb-4 mx-auto" />
                     <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
                     <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %> <%= @mountain.city %></p>
-                    <p class="text-black-50 mb-0">--------</p>
                     <p class="text-black-50 mb-0">難易度</p>
                 </div>
             </div>
@@ -20,71 +20,33 @@
 </section>
 
 <!-- 天気と服装-->
-<section class="weather-section text-center" id="weather">
+<section class="weather-section text-center bg-light" id="weather">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">山頂の天気予報</h2>
+                <h2 class="mb-4">山頂の天気予報</h2>
                 <!-- 山頂の天気予報表示-->
                 <div id="openweather" class="d-flex mb-5"></div>
             </div>
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">登山口周辺の天気予報</h2>
+                <h2 class="mb-4">登山口周辺の天気予報</h2>
                 <!-- 市町村の天気予報表示-->
                 <div id="openweather_city" class="d-flex mb-5"></div>
             </div>
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="text-white mb-4">もし、明日登山するなら</h2>
-                <p class="text-white-50">
-                    こんな感じの服装でどうでしょうか。服装については<a href="#">こちら</a>から。
+                <h2 class="mb-4">もし、明日登山するなら</h2>
+                <p class="text-black-50">
+                    こんな感じの服装でどうでしょうか。服装については<%= link_to outfits_path do %>こちら<% end %>から。
                 </p>
                 <div id="best_outfit"></div>
             </div>
         </div>
     </div>
-    <%= link_to mountain_courses_path(@mountain.id), class: "btn btn-primary" do %>目的地に設定する<% end %>
 </section>
-
-<section class="mtshow-section bg-light">
-    <div class="container px-4 px-lg-5">
-        <!-- mtshow One Row-->
-        <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-            <div class="col-lg-6"><%= image_tag 'img/demo-image-01.jpg', class: 'img-fluid' %></div>
-            <div class="col-lg-6">
-                <div class="bg-black text-center h-100 mtshow">
-                    <div class="d-flex h-100">
-                        <div class="mtshow-text w-100 my-auto text-center text-lg-left">
-                            <h4 class="text-white">Misty</h4>
-                            <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                            <hr class="d-none d-lg-block mb-0 ms-0" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- mtshow Two Row-->
-        <div class="row gx-0 justify-content-center">
-            <div class="col-lg-6"><%= image_tag 'img/demo-image-02.jpg', class: 'img-fluid' %></div>
-            <div class="col-lg-6 order-lg-first">
-                <div class="bg-black text-center h-100 mtshow">
-                    <div class="d-flex h-100">
-                        <div class="mtshow-text w-100 my-auto text-center text-lg-right">
-                            <h4 class="text-white">Mountains</h4>
-                            <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well</p>
-                            <hr class="d-none d-lg-block mb-0 me-0" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <script>
-
 $(function () {
     var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
     // 山頂の経度緯度を定義
@@ -156,7 +118,7 @@ function buildHTML(data, i) {
     var day = month + '/' + date.getDate() + Week[date.getDay()];
     var icon = data.list[i].weather[0].icon;
     var html =
-    '<div class="weather-report text-white-50 mx-auto">' +
+    '<div class="weather-report text-black-50 mx-auto">' +
         '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
         '<span class="weather-date">' + day + "</span>" +
         '<div class="weather-temp-max">' + '最高：' + Math.round(data.list[i].main.temp_max) + "℃</div>" +
