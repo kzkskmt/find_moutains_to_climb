@@ -1,6 +1,9 @@
 <%= search_form_for q, url: url do |f| %>
   <div class="col">
-      <%= f.search_field :name_or_name_en_cont, class: "form-control", placeholder: "キーワード" %>
+      <%= f.search_field :name_or_name_en_cont, method: :get, local: true, class: "form-control", placeholder: "キーワード" %>
+  </div>
+  <div class="col-3">
+      <%= f.collection_select :prefecture_code_eq, JpPrefecture::Prefecture.all, :code, :name, { include_blank: '都道府県を選択' }, { class: 'form-control' } %>
   </div>
   <div class="col-auto">
       <%= f.submit '検索', class: "col-auto btn btn-primary"%>

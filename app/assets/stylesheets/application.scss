@@ -11204,7 +11204,7 @@ body {
   background-attachment: scroll;
   background-size: cover;
 }
-.searchform-section .form-search input {
+.searchform-section .form-search input, .searchform-section .form-search select {
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 1.25rem 2rem;
   height: auto;

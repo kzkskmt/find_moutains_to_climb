@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def search_params
-    params[:q]&.permit(:name_or_name_en_cont)
+    params[:q]&.permit(:name_or_name_en_cont, :prefecture_code_eq)
   end
 end
