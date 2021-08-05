@@ -3,8 +3,8 @@
   <div class="container px-4 px-lg-5">
       <div class="row gx-4 gx-lg-5">
           <div class="col-md-10 col-lg-8 mx-auto text-center">
-              <form class="form-search" id="contactForm">
-                  <div class="row input-group-newsletter">
+              <form class="form-search">
+                  <div class="row">
                       <%= render 'shared/search_form', q: @q, url: mountains_path %>
                   </div>
               </form>
@@ -17,7 +17,11 @@
 <section class="page-section bg-light" id="portfolio">
     <div class="container px-4 px-lg-5">
         <div class="row">
-            <%= render @mountains %>
+            <% if @mountains.present? %>
+                <%= render @mountains %>
+            <% else %>
+                <h2>検索条件と一致する結果が見つかりませんでした。<h2>
+            <% end %>
         </div>
         <%= paginate @mountains %>
     </div>
