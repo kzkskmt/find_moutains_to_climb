@@ -4,26 +4,12 @@
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h2 class="text-white-50 mx-auto mt-2">登りたい山がみつかるサービス</h2>
-                    <h2 class="text-white mx-auto mb-5">「Find Mts」</h2>
-                    <a class="btn btn-primary" href="#search">山を探す</a>
+                    <h2 class="text-white mx-auto mt-2">登りたい山がみつかるサービス</h2>
+                    <h1 class="text-white mx-auto mb-5">「Find Mts」</h1>
                 </div>
             </div>
         </div>
     </header>
-    <!-- About-->
-    <section class="about-section text-center" id="about">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-lg-8">
-                    <h2 class="text-white mb-4">「Find Mts」でできること</h2>
-                    <p class="text-white-50">
-                        山の検索から、登山の所要時間、登山口までのルート検索、
-                        山の天気や服装の提案、周辺の宿泊施設他登山に関わる情報をまとめて調べることができます。
-                    </p>
-                </div>
-            </div>
-    </section>
 
     <!-- SearchBox-->
     <section class="searchform-section" id="search">
@@ -128,10 +114,6 @@
             if (places.length == 0) {
             return;
             }
-            // Clear out the old markers.
-            search_markers.forEach((marker) => {
-            marker.setMap(null);
-            });
             search_markers = [];
             // For each place, get the icon, name and location.
             const bounds = new google.maps.LatLngBounds();
@@ -147,15 +129,6 @@
                 anchor: new google.maps.Point(17, 34),
                 scaledSize: new google.maps.Size(25, 25),
             };
-            // Create a marker for each place.
-            search_markers.push(
-                new google.maps.Marker({
-                map,
-                icon,
-                title: place.name,
-                position: place.geometry.location,
-                })
-            );
 
             if (place.geometry.viewport) {
                 // Only geocodes have viewport.
