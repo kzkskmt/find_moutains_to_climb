@@ -3,7 +3,7 @@
         <%= link_to mountain_path(mountain), 'data-turbolinks': false do %>
             <%= image_tag mountain.image.url, class: 'img-fluid rounded-top' %>
         <% end %>
-        <div class="portfolio-caption rounded-bottom">
+        <div class="portfolio-caption rounded-bottom shadow-sm">
             <%= link_to mountain_path(mountain), 'data-turbolinks': false do %>
                 <div class="portfolio-caption-heading">
                 <h4 class="text-truncate d-inline"><%= mountain.name %></h4>

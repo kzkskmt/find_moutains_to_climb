@@ -5,6 +5,8 @@ class Mountain < ApplicationRecord
 
   has_many :courses
 
+  enum level: { 初級: 0, 中級: 1, 上級: 2 }
+
   def self.scrape
 
     # 山の取得件数
@@ -75,10 +77,7 @@ class Mountain < ApplicationRecord
       puts "画像が見つからなかった山は以下の#{no_image.count}件です"
       puts no_image
     end
-
   end
-
-
 
 
   def self.scrape_2
@@ -147,4 +146,40 @@ class Mountain < ApplicationRecord
     puts no_image
 
   end
+
+
+
+  def self.mountain_level
+    html = open('mountain_level.html').read
+    doc = Nokogiri::HTML.parse(html)
+    
+    data = doc.css('.tacon1 tbody tr')
+    data.each do |d|
+      # 行の「山の名前」の取得
+      name = d.at_css('a').children.first.text
+      # 名前からDB検索
+      m = Mountain.find_by(name: name)
+      # 名前検索でDBから見つからない場合は次のループへ
+      if m.nil?
+        puts "#{name}に該当する山は見つかりませんでした"
+        next
+      end
+      # 行の「難易度」の取得
+      if d.at_css('a').parent.next_element.text == "★★★★" || d.at_css('a').parent.next_element.text == "☆☆☆"
+        m.level = :hard
+        m.save!
+      elsif d.at_css('a').parent.next_element.text == "★★★" || d.at_css('a').parent.next_element.text == "☆☆"
+        m.level = :normal
+        m.save!
+      elsif d.at_css('a').parent.next_element.text == "★★" || d.at_css('a').parent.next_element.text == "☆"
+        m.level = :easy
+        m.save!
+      else
+        puts "#{m.name}の難易度を保存できませんでした"
+      end
+    end
+  end
+
+  
+
 end
