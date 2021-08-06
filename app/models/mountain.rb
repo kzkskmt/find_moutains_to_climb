@@ -150,11 +150,14 @@ class Mountain < ApplicationRecord
 
 
   def self.mountain_level
-    html = open('mountain_level.html').read
+    base_url = URI.encode 'https://www.momonayama.net/hundred_mt_list_data/difficulty.html'
+
+    html = URI.open(base_url).read
     doc = Nokogiri::HTML.parse(html)
     
     data = doc.css('.tacon1 tbody tr')
     data.each do |d|
+      sleep 1
       # 行の「山の名前」の取得
       name = d.at_css('a').children.first.text
       # 名前からDB検索
