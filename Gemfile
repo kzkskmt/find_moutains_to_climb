@@ -62,9 +62,13 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# secure passwords, APIkeys
+# Secure passwords, APIkeys
 gem 'dotenv-rails'
 
+# HTTPリクエストの並列処理(高速化)
+gem 'typhoeus'
+
+# その他
 gem 'draper'
 gem 'ransack'
 gem 'kaminari'

@@ -15,6 +15,8 @@ require "action_cable/engine"
 require "sprockets/railtie"
 require 'open-uri'
 require 'nokogiri'
+require 'json'
+require 'typhoeus'
 
 # require "rails/test_unit/railtie"
 

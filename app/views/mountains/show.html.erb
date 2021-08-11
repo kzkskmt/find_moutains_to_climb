@@ -1,5 +1,5 @@
 <!-- mtshow-->
-<section class="mtshow-section bg-light" id="mtshow">
+<section class="mtshow-section" id="mtshow">
     <div class="container px-4 px-lg-5">
         <!-- Featured mtshow Row-->
         <div class="row gx-0 align-items-center">
@@ -23,7 +23,7 @@
 </section>
 
 <!-- 天気と服装-->
-<section class="weather-section text-center bg-light" id="weather">
+<section class="weather-section text-center" id="weather">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
@@ -50,7 +50,7 @@
 </section>
 
 <!-- Map-->
-<section class="map-section bg-light" id="map">
+<section class="map-section" id="map">
     <div class="container px-4 px-lg-5">
         <!-- Featured Map Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
@@ -59,6 +59,30 @@
         </div>
     </div>
 </section>
+
+<!-- Tweet-->
+<section class="tweet-section text-center">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5">
+            <h2 class="mb-2"><%= "##{@mountain.name}" %> on twitter</h2>
+            <p class="mb-4">過去１週間に <%= "##{@mountain.name}" %> で投稿されたツイートから写真を表示しています</p>
+            <% if @tweet_img_urls.present? %>
+                <% @tweet_img_urls.each do |url| %>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <%= image_tag url, class: 'img-fluid' %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            <% else %>
+                <p class="mb-4">写真付きツイートは見つかりませんでした</p>
+            <% end %>
+        </div>
+    </div>
+</section>
+
 
 <script>
 
