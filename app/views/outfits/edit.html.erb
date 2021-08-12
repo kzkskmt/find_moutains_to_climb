@@ -35,6 +35,10 @@
             <%= f.label :accessory, class: "label" %>
             <%= f.text_field :accessory, class: "form-control" %>
           </div>
+          <div class="field">
+            <%= f.label :image, class: "label" %>
+            <%= f.file_field :image, class: "form-control" %>
+          </div>
           <%= f.submit '編集する', class: "btn btn-primary" %>
         <% end %>
     </div>
