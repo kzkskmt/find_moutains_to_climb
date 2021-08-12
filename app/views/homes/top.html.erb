@@ -55,9 +55,9 @@
         <h2>地図から探す</h2>
             <!-- Featured Map Row-->
             <div class="row gx-0 mb-4 mb-lg-5 px-5 align-items-center">
-                    <!-- googlemapを埋め込む場所　-->
-                    <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
-                    <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
+                <!-- googlemapを埋め込む場所　-->
+                <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
+                <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
             </div>
         </div>
     </section>   
@@ -152,7 +152,7 @@
         // マーカーに表示する内容を設定
         var contentStr = 
             '<div name="marker" class="map">' +
-            '<a href="/mountains/' + markerData[i]['id'] + '">' +
+            '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
             markerData[i]['name'] +
             '</a>' +
             '</div>'
