@@ -104,7 +104,6 @@ let markerData = []
     };
     markerData.push(obj)
 <% end %>
-let geocoder
 
 // 「InvalidValueError: initMap is not a function」への対策
 window.onload = function () {
@@ -112,9 +111,6 @@ window.onload = function () {
 }
 
 function initMap(){
-    // geocoderを初期化
-    geocoder = new google.maps.Geocoder()
-
     // 地図の作成、中心位置の設定
     map = new google.maps.Map(document.getElementById('googlemap'), {
     center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 日本の中心に緯度経度を設定
@@ -131,12 +127,14 @@ function initMap(){
 
     // マーカーに表示する内容を設定
     var contentStr = 
-        '<div name="marker" class="map">' +
-        '<a href="/mountains/' + markerData[i]['id'] + '">' +
+        '<div name="marker" class="map">' + 
+        '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
         markerData[i]['name'] +
         '</a>' +
         '</div>'
         ;
+
+   
 
     // 吹き出しの追加
     infoWindow[i] = new google.maps.InfoWindow({
@@ -157,25 +155,6 @@ function markerEvent(i) {
     currentInfoWindow = infoWindow[i]
     });
 }
-
-function codeAddress(){
-    // 入力を取得
-    let inputAddress = document.getElementById('address').value;
-
-    // geocodingしたあとmapを移動
-    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-        // map.setCenterで地図が移動
-        map.setCenter(results[0].geometry.location);
-        map.setZoom(10);
-    } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-    }
-    });
-}
-
-
-
 
 
 <!-- 天気予報-->
