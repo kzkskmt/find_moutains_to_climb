@@ -79,4 +79,8 @@ yarn-debug.log*
 !/storage/.keep
 /public/uploads
 
+# Ignore demo-scraping file
+/recent_search.rb
+/scrape_mountain_level.rb
+
 .DS_Store
