@@ -1,20 +1,21 @@
 <!-- Searchbox-->
-<section class="searchform-section bg-light" id="signup">
-  <div class="container px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5">
-          <div class="col-md-10 col-lg-8 mx-auto text-center">
-              <form class="form-search">
-                  <div class="row">
-                      <%= render 'shared/search_form', q: @q, url: mountains_path %>
-                  </div>
-              </form>
-          </div>
-      </div>
-  </div>
+<section class="searchform-section" id="search">
+    <div class="container px-4 px-lg-5">
+    <h2>キーワードから探す</h2>
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-md-10 col-lg-10 mx-auto text-center">
+                <div class="form-search">
+                    <div class="row">
+                        <%= render 'shared/search_form', q: @q, url: mountains_path %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- Index-->
-<section class="page-section bg-light" id="portfolio">
+<section class="page-section" id="portfolio">
     <div class="container px-4 px-lg-5">
         <div class="row">
             <% if @mountains.present? %>
@@ -28,7 +29,7 @@
 </section>
 
 <!-- Map-->
-<section class="map-section bg-light" id="map">
+<section class="map-section" id="map">
     <div class="container px-4 px-lg-5">
         <!-- Featured Map Row-->
         <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
