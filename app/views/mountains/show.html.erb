@@ -39,11 +39,9 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-lg-8">
-                <h2 class="mb-4">もし、明日登山するなら</h2>
-                <p class="text-black-50">
-                    こんな感じの服装でどうでしょうか。服装については<%= link_to outfits_path do %>こちら<% end %>から。
-                </p>
+                <h2 class="mb-4 mt-5">もし、明日登山するなら</h2>
                 <div id="best_outfit"></div>
+                <p id="best_outfit_link"></p>
             </div>
         </div>
     </div>
@@ -206,10 +204,13 @@ $(function () {
             var temp_spring = <%= @outfits.second.lower_limit_temp %>
             if ( temp_summer < temp_tomorrow ){
                 $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+                $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.first.id}"), 'data-turbolinks': false%>から。</p>');
             } else if ( temp_spring < temp_tomorrow ) {
                 $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+                $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.second.id}"), 'data-turbolinks': false%>から。</p>');
             } else {
-                $("#best_outfit").html('<%= image_tag 'baby.jpg', class: 'img-fluid' %>');
+                $("#best_outfit").html('<h4>...ぴったりな服装が見つかりませんでした。</h4>');
+                $("#best_outfit_link").html('<p class="text-black-50">服装については<%= link_to 'こちら', outfits_path %>から。</p>');
             }
         })
     })
