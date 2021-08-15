@@ -1,15 +1,21 @@
-namespace :enrich_mountain_contents do
+namespace :mountain_contents do
 
   desc "過去１週間で「#山の名前」で投稿されたツイートを取得し、画像urlを抽出する"
   task search_tweets_by_hashtag: :environment do
     bearer_token = ENV["TWITTER_BEARER_TOKEN"]
     search_url = "https://api.twitter.com/2/tweets/search/recent"
 
+    # 山の取得件数
+    number = 
+
     twitter_image_urls = {}
-    Mountain.first(2).each do |mountain|
+    Mountain.first(number).each do |mountain|
+      # リクエスト上限が450回/15分 = 1回/2秒なのでsleep2以上は入れとく。
       sleep 3
+      # クエリの組み立て方について https://developer.twitter.com/en/docs/twitter-api/tweets/search/integrate/build-a-query
       query = "##{mountain.name} has:images"
 
+      # クエリのパラメータについて https://developer.twitter.com/en/docs/twitter-api/tweets/search/api-reference/get-tweets-search-recent
       query_params = {
         "query": query, # 必須
         "max_results": 20, #10~100で選択。デフォルトは10
@@ -41,8 +47,51 @@ namespace :enrich_mountain_contents do
 
       twitter_image_urls[:"#{mountain.name}"] = media_urls
 
-      # 取得したapiデータをどう取り扱うのか検討中（DBに保存するのはよくない？）
       puts twitter_image_urls
+    end
+  end
+
+  desc "過去１週間で「#山の名前」で投稿されたツイート件数を取得し、保存する"
+  task search_tweets_counts_by_hashtag: :environment do
+    bearer_token = ENV["TWITTER_BEARER_TOKEN"]
+    search_url = "https://api.twitter.com/2/tweets/search/recent"
+    # 山の取得件数
+    number = 100
+
+    Mountain.first(number).each do |mountain|
+      sleep 3
+      # 画像付きツイートを取得。has:imagesとしているのは
+      # 実際に行っている人（写真が添付されている＝現地に行った、という前提）がどれくらいの数いるのかを取得したいため。
+      query = "##{mountain.name} has:images"
+
+      query_params = {
+        "query": query, # 必須
+        "max_results": 100, #10~100で選択。デフォルトは10
+        # "start_time": "2020-07-01T00:00:00Z",
+        # "end_time": "2020-07-02T18:00:00Z",
+        # "expansions": "attachments.poll_ids,attachments.media_keys,author_id",
+        # "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,id,lang"
+        # "user.fields": "description",
+        # "media.fields": "url", #expansionsのattachments.media_keysをリクエストに含めないと取得できない。
+        # "place.fields": "country_code",
+        # "poll.fields": "options"
+      }
+
+      options = {
+        method: 'get',
+        headers: {
+          "User-Agent": "v2RecentSearchRuby",
+          "Authorization": "Bearer #{bearer_token}"
+        },
+        params: query_params
+      }
+    
+      request = Typhoeus::Request.new(search_url, options)
+      response = request.run
+      mountain_count = JSON.parse(response.body)['meta']['result_count']
+
+      mountain.update!(twitter_result_count: mountain_count)
+      puts "#{mountain.name}: #{mountain.twitter_result_count}件"
     end
   end
 
@@ -218,6 +267,5 @@ namespace :enrich_mountain_contents do
       end
     end
   end
-
 
 end

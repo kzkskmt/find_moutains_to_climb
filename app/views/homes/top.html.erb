@@ -60,7 +60,20 @@
                 <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
             </div>
         </div>
-    </section>   
+    </section>
+
+    <!-- Index-->
+    <section class="page-section">
+        <div class="container px-4 px-lg-5">
+        <h2 class="mb-2">話題の山 on twitter</h2>
+        <p class="mb-4">過去１週間、最も多くツイートされた山を表示しています</p>
+            <div class="row">
+                <% if @recommended_mountains.present? %>
+                    <%= render @recommended_mountains %>
+                <% end %>
+            </div>
+        </div>
+    </section>
 
     <script>
     let map
