@@ -1,4 +1,4 @@
-namespace :enrich_mountain_contents do
+namespace :mountain_contents do
 
   desc "過去１週間で「#山の名前」で投稿されたツイートを取得し、画像urlを抽出する"
   task search_tweets_by_hashtag: :environment do
@@ -267,6 +267,5 @@ namespace :enrich_mountain_contents do
       end
     end
   end
-
 
 end

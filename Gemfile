@@ -76,3 +76,6 @@ gem 'nokogiri'
 gem 'jp_prefecture'
 gem 'Hyakumeizan'
 
+# 内部でwheneverを使うわけではないため、Railsの実行時に読み込まないようにする
+gem 'whenever', require: false
+
