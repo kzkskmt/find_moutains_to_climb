@@ -2,7 +2,7 @@
     <div class="container px-4 px-lg-5">
         <!-- Map One Row-->
         <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-            <div class="col-lg-6"><%= image_tag 'img/demo-image-01.jpg', class: 'img-fluid' %></div>
+            <div class="col-lg-6"><%= image_tag @course.mountain.image.url, class: 'img-fluid' %></div>
             <div class="col-lg-6">
                 <div class="bg-black text-center h-100 map">
                     <div class="d-flex h-100">
@@ -123,7 +123,7 @@ function getPlaces(){
       keyword: keywordInput,
       language: 'ja'
     },
-    // displayResultsメソッドを使って検索結果の表示
+    // 以下で定義したdisplayResultsメソッドを使って検索結果の表示
     displayResults
   );
 
@@ -202,7 +202,7 @@ function displayResults(results, status, pagination) {
           };
           
           //表示内容（評価＋名称）
-          var content = "【評価:" + rating + "】 " + place.name;
+          var content = "【評価:" + rating + "】 " + place.name + place.types;
           
           //クリック時にMapにマーカー表示するようにAタグを作成
         　resultHTML += "<li>";
