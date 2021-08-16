@@ -1,4 +1,4 @@
-namespace :mountain_contents do
+namespace :mountain do
 
   desc "過去１週間で「#山の名前」で投稿されたツイートを取得し、画像urlを抽出する"
   task search_tweets_by_hashtag: :environment do
@@ -56,7 +56,7 @@ namespace :mountain_contents do
     bearer_token = ENV["TWITTER_BEARER_TOKEN"]
     search_url = "https://api.twitter.com/2/tweets/search/recent"
     # 山の取得件数
-    number = 100
+    number = Mountain.count
 
     Mountain.first(number).each do |mountain|
       sleep 3
@@ -265,6 +265,42 @@ namespace :mountain_contents do
       else
         puts "#{m.name}の難易度を保存できませんでした"
       end
+    end
+  end
+
+  desc "GoogleMap PlaceAPIを用いて山のplaceIDを取得し、保存する"
+  task get_place_id_of_mountains_on_googlemap: :environment do
+    number = Mountain.count
+
+    Mountain.where(place_id: nil).each do |mountain|
+      sleep 2
+      key = ENV["GOOGLE_MAP_API_KEY_IP"]
+      lat = mountain.peak_location_lat.to_f
+      lng = mountain.peak_location_lng.to_f
+      # 検索範囲を入力(m)
+      radius = 3000
+      # 山はestablishmentに含まれて登録されてるっぽい。
+      # type = establishment
+      keyword = mountain.name
+
+      # キーワードに日本語を含めて検索するためのURI.parse URI.encode
+      url = URI.parse URI.encode ("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{lat},#{lng}&radius=#{radius}&type=establishment&keyword=#{keyword}&key=#{key}")
+
+      https = Net::HTTP.new(url.host, url.port)
+      https.use_ssl = true
+      request = Net::HTTP::Get.new(url)
+      response = https.request(request)
+      result_json = JSON.parse(response.read_body)
+
+      if result_json['status'] == 'ZERO_RESULTS'
+        puts "#{keyword}に該当する山は見つかりませんでした"
+        next
+      end
+
+      place_id = result_json['results'][0]['place_id']
+      place_name = result_json['results'][0]['name']
+      mountain.update(place_id: place_id)
+      puts "#{keyword}(#{place_name}): #{mountain.place_id}"
     end
   end
 
