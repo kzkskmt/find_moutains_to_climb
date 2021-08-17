@@ -43,34 +43,34 @@
   margin-bottom: 5rem;
 }
 
-.tweet-section {
+.gallery-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
-.tweet-section .card {
+.gallery-section .card {
   border: 0;
 }
-.tweet-section .card h4, .tweet-section .card .h4 {
+.gallery-section .card h4, .gallery-section .card .h4 {
   font-size: 0.8rem;
   font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   text-transform: uppercase;
   letter-spacing: 0.15rem;
 }
-.tweet-section .card hr {
+.gallery-section .card hr {
   border-color: #64a19d;
   border-width: 0.25rem;
   width: 3rem;
   height: 1px;
 }
-.tweet-section .img-fluid {
+.gallery-section .img-fluid {
   width: 100%;
   height: 250px;
   object-fit: cover;
 }
-.tweet-section .social {
+.gallery-section .social {
   margin-top: 5rem;
 }
-.tweet-section .social a {
+.gallery-section .social a {
   text-align: center;
   height: 3rem;
   width: 3rem;
@@ -79,9 +79,9 @@
   line-height: 3rem;
   color: rgba(255, 255, 255, 0.3);
 }
-.tweet-section .social a:hover {
+.gallery-section .social a:hover {
   color: rgba(255, 255, 255, 0.5);
 }
-.tweet-section .social a:active {
+.gallery-section .social a:active {
   color: #fff;
 }

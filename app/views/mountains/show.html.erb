@@ -58,14 +58,14 @@
     </div>
 </section>
 
-<!-- Tweet-->
-<section class="tweet-section text-center">
+<!-- GoogleMap-->
+<section class="gallery-section text-center">
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5">
-            <h2 class="mb-2"><%= "##{@mountain.name}" %> on twitter</h2>
-            <p class="mb-4">過去１週間に <%= "##{@mountain.name}" %> で投稿されたツイートから写真を表示しています</p>
-            <% if @tweet_img_urls.present? %>
-                <% @tweet_img_urls.each do |url| %>
+            <h2 class="mb-2">ギャラリー</h2>
+            <p class="mb-4">GoogleMapから写真を表示しています</p>
+            <% if @google_img_urls.present? %>
+                <% @google_img_urls.each do |url| %>
                     <div class="col-md-4 mb-3">
                         <div class="card h-100">
                             <div class="card-body text-center">
@@ -75,12 +75,33 @@
                     </div>
                 <% end %>
             <% else %>
-                <p class="mb-4">写真付きツイートは見つかりませんでした</p>
+                <p class="mb-4">写真が見つかりませんでした</p>
             <% end %>
         </div>
     </div>
 </section>
 
+
+<!-- Tweet-->
+<% if @tweet_img_urls.present? %>
+    <section class="gallery-section text-center">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5">
+                <h2 class="mb-2"><%= "##{@mountain.name}" %> on twitter</h2>
+                <p class="mb-4">過去１週間に <%= "##{@mountain.name}" %> で投稿されたツイートから写真を表示しています</p>
+                <% @tweet_img_urls.each do |url| %>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <%= image_tag url, class: 'img-fluid' %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </section>
+<% end %>
 
 <script>
 
@@ -111,7 +132,7 @@ window.onload = function () {
 function initMap(){
     // 地図の作成、中心位置の設定
     map = new google.maps.Map(document.getElementById('googlemap'), {
-    center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 日本の中心に緯度経度を設定
+    center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 緯度経度を設定
     zoom: 12
     });
     
