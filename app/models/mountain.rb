@@ -45,4 +45,30 @@ class Mountain < ApplicationRecord
     return media_urls
   end
 
+  def search_googlemap_place
+    key = ENV["GOOGLE_PLACE_API_KEY"]
+    place_id = self.place_id
+    url = URI("https://maps.googleapis.com/maps/api/place/details/json?place_id=#{place_id}&fields=photo&key=#{key}")
+
+    # photo_referenceの取得
+    https = Net::HTTP.new(url.host, url.port)
+    https.use_ssl = true
+    request = Net::HTTP::Get.new(url)
+    response = https.request(request)
+    result_json = JSON.parse(response.read_body)
+
+    # 写真のワンタイムurlの取得
+    media_urls = []
+    # 最初の6枚だけ取得（最大は10）
+    result_json['result']['photos'].first(6).each do |data|
+      photo_reference = data['photo_reference']
+      photo_uri = URI("https://maps.googleapis.com/maps/api/place/photo?photo_reference=#{photo_reference}&maxwidth=400&key=#{key}")
+      photo_request = Net::HTTP::Get.new(photo_uri.request_uri)
+      photo_response = https.request(photo_request)
+      media_urls << photo_response['location']
+    end
+
+    return media_urls
+  end
+
 end
