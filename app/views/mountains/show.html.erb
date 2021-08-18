@@ -12,7 +12,7 @@
                     <h2 class="mb-0"><%= @mountain.name %></h2>
                     <hr class="mb-4 mx-auto" />
                     <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
-                    <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %> <%= @mountain.city %></p>
+                    <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %></p>
                     <% if @mountain.level.present? %>
                         <p class="text-black-50 mb-0">難易度：<%= @mountain.level %></p>
                     <% end %>

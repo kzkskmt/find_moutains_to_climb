@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_16_072910) do
+ActiveRecord::Schema.define(version: 2021_08_18_200503) do
 
   create_table "courses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_08_16_072910) do
     t.string "name_en", null: false
     t.integer "elevation", null: false
     t.integer "prefecture_code", null: false
-    t.string "city"
     t.decimal "peak_location_lat", precision: 10, scale: 7, null: false
     t.decimal "peak_location_lng", precision: 10, scale: 7, null: false
     t.string "image"
