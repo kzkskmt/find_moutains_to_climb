@@ -31,13 +31,13 @@
     <section class="area-section" id="area">
         <div class="container px-4 px-lg-5">
         <h2>エリアから探す</h2>
-            <!-- Portfolio Grid Items-->
+            <!-- Index Grid Items-->
             <div class="row justify-content-center px-5">
-                <!-- Portfolio Item-->
+                <!-- Index Item-->
                 <% @area.each do |area| %>
-                    <div class="col-md-6 col-lg-3 mb-5">
-                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center">
-                            <div class="portfolio-item-caption-content text-center text-white">
+                    <div class="col-md-6 col-lg-3 mb-5" id="area-item">
+                        <div class="index-item-caption d-flex align-items-center justify-content-center">
+                            <div class="index-item-caption-content text-center text-white">
                                 <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary', 'data-turbolinks': false do %>
                                     <%= add_space(area) %>
                                 <% end %>
@@ -63,7 +63,7 @@
     </section>
 
     <!-- Index-->
-    <section class="page-section">
+    <section class="page-section" id="popular-mountain">
         <div class="container px-4 px-lg-5">
         <h2 class="mb-2">話題の山 on twitter</h2>
         <p class="mb-4">過去１週間、最も多くツイートされた山を表示しています</p>

@@ -1,11 +1,11 @@
-<div class="col-lg-4 col-sm-6 mb-4">
-    <div class="portfolio-item">
+<div class="col-lg-4 col-sm-6 mb-4" id="mountain-card">
+    <div class="index-item">
         <%= link_to mountain_path(mountain), 'data-turbolinks': false do %>
             <%= image_tag mountain.image.url, class: 'img-fluid rounded-top' %>
         <% end %>
-        <div class="portfolio-caption rounded-bottom shadow-sm">
+        <div class="index-caption rounded-bottom shadow-sm">
             <%= link_to mountain_path(mountain), 'data-turbolinks': false do %>
-                <div class="portfolio-caption-heading">
+                <div class="index-caption-heading">
                 <h4 class="text-truncate d-inline"><%= mountain.name %></h4>
                 <p class="text-truncate d-inline">(<%= mountain.pref.name %>)</p>
                 </div>
