@@ -35,6 +35,31 @@
   }
 }
 
+.index-section .img-fluid {
+  width: 100%;
+  object-fit: cover;
+}
+@media (min-width: 576px) {
+  .index-section .img-fluid {
+    height: 180px;
+  }
+}
+@media (min-width: 768px) {
+  .index-section .img-fluid {
+    height: 250px;
+  }
+}
+@media (min-width: 992px) {
+  .index-section .img-fluid {
+    height: 200px;
+  }
+}
+@media (min-width: 1200px) {
+  .index-section .img-fluid {
+    height: 300px;
+  }
+}
+
 .weather-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
