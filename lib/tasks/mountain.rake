@@ -58,6 +58,7 @@ namespace :mountain do
     # 山の取得件数
     number = Mountain.count
 
+    puts '-'*10 + '山のツイート数を更新しています' + '-'*10
     Mountain.first(number).each do |mountain|
       sleep 3
       # 画像付きツイートを取得。has:imagesとしているのは
@@ -93,6 +94,7 @@ namespace :mountain do
       mountain.update!(twitter_result_count: mountain_count)
       puts "#{mountain.name}: #{mountain.twitter_result_count}件"
     end
+    puts '-'*19 + '更新しました' + '-'*19
   end
 
   desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、指定したファイルに保存する"
@@ -272,7 +274,8 @@ namespace :mountain do
   task get_place_id_of_mountains_on_googlemap: :environment do
     number = Mountain.count
 
-    Mountain.where(place_id: nil).each do |mountain|
+    puts '-'*10 + '山のplace_idを更新しています' + '-'*10
+    Mountain.first(number).each do |mountain|
       sleep 2
       key = ENV["GOOGLE_MAP_API_KEY_IP"]
       lat = mountain.peak_location_lat.to_f
@@ -302,6 +305,6 @@ namespace :mountain do
       mountain.update(place_id: place_id)
       puts "#{keyword}(#{place_name}): #{mountain.place_id}"
     end
+    puts '-'*18 + '更新しました' + '-'*18
   end
-
 end

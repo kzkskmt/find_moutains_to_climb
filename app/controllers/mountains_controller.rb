@@ -2,7 +2,9 @@ class MountainsController < ApplicationController
   before_action :set_q, only: %i[index]
 
   def index
-    @mountains_on_map = @q.result(distinct: true)
+    # ツイート数が多い順に並べる（今後な選べ替えもできたらいいかもしれない）
+    @mountains_on_map = @q.result(distinct: true).order(twitter_result_count: :desc)
+    # エリアパラメータを持っている場合は、該当する山を抽出
     @mountains_on_map = @mountains_on_map.select { |mountain| mountain.pref.area == params[:area] } if params[:area]
     # pageはActive Recordのオブジェクトに対して使えるメソッド。selectの戻り値は配列なのでKaminari.paginate_arrayを適用する
     @mountains = Kaminari.paginate_array(@mountains_on_map).page(params[:page]).per(12)
