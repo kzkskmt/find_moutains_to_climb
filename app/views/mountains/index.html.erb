@@ -53,12 +53,14 @@ let markerData = []
   var obj = {
     id: <%= mountain.id %>,
     name: '<%= mountain.name %>',
+    elevation: '<%= mountain.elevation %>',
+    level: '<%= mountain.level %>',
     lat: <%= mountain.peak_location_lat %>,
     lng: <%= mountain.peak_location_lng %>
   };
   markerData.push(obj)
 <% end %>
-let geocoder
+let geocoder;
 
 // 「InvalidValueError: initMap is not a function」への対策
 window.onload = function () {
@@ -83,20 +85,12 @@ function initMap(){
   map.addListener("bounds_changed", () => {
       searchBox.setBounds(map.getBounds());
   });
-  let search_markers = [];
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
 
     if (places.length == 0) {
     return;
     }
-    // Clear out the old markers.
-    search_markers.forEach((marker) => {
-    marker.setMap(null);
-    });
-    search_markers = [];
     // For each place, get the icon, name and location.
     const bounds = new google.maps.LatLngBounds();
     places.forEach((place) => {
@@ -104,22 +98,6 @@ function initMap(){
       console.log("Returned place contains no geometry");
       return;
     }
-    const icon = {
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(25, 25),
-    };
-    // Create a marker for each place.
-    search_markers.push(
-      new google.maps.Marker({
-      map,
-      icon,
-      title: place.name,
-      position: place.geometry.location,
-      })
-    );
 
     if (place.geometry.viewport) {
       // Only geocodes have viewport.
@@ -133,7 +111,7 @@ function initMap(){
 
     
   // markerDataに入っているデータのピンを立てる。
-  for (var i = 0; i < markerData.length; i++) {
+  for (let i = 0; i < markerData.length; i++) {
   markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
   marker[i] = new google.maps.Marker({ // マーカーの追加
     position: markerLatLng, // マーカーを立てる位置を指定
@@ -141,11 +119,13 @@ function initMap(){
   });
 
   // マーカーに表示する内容を設定
-  var contentStr = 
+  contentStr = 
     '<div name="marker" class="map">' +
     '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
-    markerData[i]['name'] +
+      markerData[i]['name'] +
     '</a>' +
+    '<p class="mb-0">' + '標　高：' + markerData[i]['elevation'] + 'm' + '</p>' +
+    '<p class="mb-0">' + '難易度：' + markerData[i]['level'] + '</p>' +
     '</div>'
     ;
 
@@ -185,5 +165,3 @@ function codeAddress(){
   });
 }
 </script>
-<!-- GoogleMaps JS API-->
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&libraries=places&callback=initMap" async defer></script>

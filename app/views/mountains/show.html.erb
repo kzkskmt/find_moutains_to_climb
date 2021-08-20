@@ -1,4 +1,4 @@
-<!-- mtshow-->
+<!-- 山の詳細-->
 <section class="mtshow-section" id="mtshow">
   <div class="container px-4 px-lg-5">
     <!-- Featured mtshow Row-->
@@ -104,20 +104,21 @@
 <% end %>
 
 <script>
-
 <!-- googlemap-->
-let map
-let marker = []
-let infoWindow = []
+let map;
+let marker = [];
+let infoWindow = [];
 // マーカーを消すためのcurrentInfoWindow
-let currentInfoWindow
+let currentInfoWindow;
 // mountainデータを格納する箱 markerData
-let markerData = []
+let markerData = [];
 // markerDataにmountainデータをループ処理で格納
 <% @mountains_on_map.each do |mountain| %>
   var obj = {
     id: <%= mountain.id %>,
     name: '<%= mountain.name %>',
+    elevation: '<%= mountain.elevation %>',
+    level: '<%= mountain.level %>',
     lat: <%= mountain.peak_location_lat %>,
     lng: <%= mountain.peak_location_lng %>
   };
@@ -132,12 +133,12 @@ window.onload = function () {
 function initMap(){
   // 地図の作成、中心位置の設定
   map = new google.maps.Map(document.getElementById('googlemap'), {
-  center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 緯度経度を設定
-  zoom: 12
+    center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 緯度経度を設定
+    zoom: 12
   });
   
   // markerDataに入っているデータのピンを立てる。
-  for (var i = 0; i < markerData.length; i++) {
+  for (let i = 0; i < markerData.length; i++) {
   markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
   marker[i] = new google.maps.Marker({ // マーカーの追加
     position: markerLatLng, // マーカーを立てる位置を指定
@@ -145,11 +146,13 @@ function initMap(){
   });
 
   // マーカーに表示する内容を設定
-  var contentStr = 
-    '<div name="marker" class="map">' + 
+  contentStr = 
+    '<div name="marker" class="map">' +
     '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
-    markerData[i]['name'] +
+      markerData[i]['name'] +
     '</a>' +
+    '<p class="mb-0">' + '標　高：' + markerData[i]['elevation'] + 'm' + '</p>' +
+    '<p class="mb-0">' + '難易度：' + markerData[i]['level'] + '</p>' +
     '</div>'
     ;
 
@@ -176,12 +179,12 @@ function markerEvent(i) {
 
 <!-- 天気予報-->
 $(function () {
-  var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
+  const API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
   // 山頂の経度緯度を定義
-  var lat = <%= @mountain.peak_location_lat%>;
-  var lon = <%= @mountain.peak_location_lng%>;
+  const lat = <%= @mountain.peak_location_lat%>;
+  const lon = <%= @mountain.peak_location_lng%>;
   // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
-  var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+  const url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
   
   $.ajax({
     url: url,
@@ -189,27 +192,27 @@ $(function () {
     type: 'GET',
   })
   .done(function (data) {
-    var insertHTML = '';
-    var temp_tomorrow = '';
+    let insertHTML = '';
+    let temp_tomorrow = '';
 
     // デフォルトでは3時間ごとの天気を取得するため、
     // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
-    for (var i = 0; i <= 32; i = i + 8) {
+    for (let i = 0; i <= 32; i = i + 8) {
       insertHTML += buildHTML(data, i);
     }
     $('#openweather').html(insertHTML);
     
     // 登山口周辺の天気予報も表示する。
-    var city_id = data.city.id
-    var url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
+    const city_id = data.city.id;
+    const url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
     $.ajax({
       url: url_city,
       dataType: 'json',
       type: 'GET',
     })
     .done(function (data) {
-      var insertHTML_city = '';
-      for (var i = 0; i <= 32; i = i + 8) {
+      let insertHTML_city = '';
+      for (let i = 0; i <= 32; i = i + 8) {
         insertHTML_city += buildHTML(data, i);
         // 明日（24時間後なので、i == 8の時）の気温を取得
         if (i == 8) {
@@ -219,8 +222,8 @@ $(function () {
       $('#openweather_city').html(insertHTML_city);
 
       // 明日の気温と服装の適応気温を比較し、最適な服装を表示
-      var temp_summer = <%= @outfits.first.lower_limit_temp %>
-      var temp_spring = <%= @outfits.second.lower_limit_temp %>
+      const temp_summer = <%= @outfits.first.lower_limit_temp %>;
+      const temp_spring = <%= @outfits.second.lower_limit_temp %>;
       if ( temp_summer < temp_tomorrow ){
         $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
         $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.first.id}"), 'data-turbolinks': false%>から。</p>');
@@ -242,13 +245,13 @@ $(function () {
 
 // 日本語化 最高気温は四捨五入、最低気温は切り捨て
 function buildHTML(data, i) {
-  var Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
-  var date = new Date(data.list[i].dt_txt);
+  const Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
+  const date = new Date(data.list[i].dt_txt);
   date.setHours(date.getHours() + 9);
-  var month = date.getMonth() + 1;
-  var day = month + '/' + date.getDate() + Week[date.getDay()];
-  var icon = data.list[i].weather[0].icon;
-  var html =
+  const month = date.getMonth() + 1;
+  const day = month + '/' + date.getDate() + Week[date.getDay()];
+  const icon = data.list[i].weather[0].icon;
+  const html =
   '<div class="weather-report text-black-50 mx-auto">' +
     '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
     '<span class="weather-date">' + day + "</span>" +
@@ -259,5 +262,3 @@ function buildHTML(data, i) {
 }
 
 </script>
-<!-- GoogleMaps JS API-->
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&libraries=places&callback=initMap" async defer></script>
