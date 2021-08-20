@@ -1,17 +1,17 @@
 <div class="mb-5">
-    <div class="card py-4 h-100" id="<%= outfit.id %>">
-        <div class="card-body text-center px-3">
-            <h3 class="m-0"><%= outfit.title %></h3>
-            <%= image_tag outfit.image.url, class: 'img-fluid' %>
-            <hr class="my-4 mx-auto" />
-            <div class="px-5 text-start" >
-              <h4>インナー：<%= outfit.inner %></h4>
-              <% if outfit.outer.present? %>
-                <h4>アウター：<%= outfit.outer %></h4>
-              <% end %>
-              <h4>パンツ　：<%= outfit.pant %></h4>
-              <h4>持ち物　：<%= outfit.outer_bring %></h4>
-            </div>
-        </div>
+  <div class="card py-4 h-100" id="<%= outfit.id %>">
+    <div class="card-body text-center px-3">
+      <h3 class="m-0"><%= outfit.title %></h3>
+      <%= image_tag outfit.image.url, class: 'img-fluid' %>
+      <hr class="my-4 mx-auto" />
+      <div class="px-5 text-start" >
+        <h4>インナー：<%= outfit.inner %></h4>
+        <% if outfit.outer.present? %>
+          <h4>アウター：<%= outfit.outer %></h4>
+        <% end %>
+        <h4>パンツ　：<%= outfit.pant %></h4>
+        <h4>持ち物　：<%= outfit.outer_bring %></h4>
+      </div>
     </div>
+  </div>
 </div>
