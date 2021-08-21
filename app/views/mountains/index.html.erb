@@ -41,127 +41,25 @@
 </section>
 
 <script>
-let map
-let marker = []
-let infoWindow = []
-// マーカーを消すためのcurrentInfoWindow
-let currentInfoWindow
-// mountainデータを格納する箱 markerData
-let markerData = []
-// markerDataにmountainデータをループ処理で格納
-<% @mountains_on_map.each do |mountain| %>
-  var obj = {
-    id: <%= mountain.id %>,
-    name: '<%= mountain.name %>',
-    elevation: '<%= mountain.elevation %>',
-    level: '<%= mountain.level %>',
-    lat: <%= mountain.peak_location_lat %>,
-    lng: <%= mountain.peak_location_lng %>
-  };
+  // mountainデータを格納する箱 markerData
+  let markerData = [];
+  // markerDataにmountainデータをループ処理で格納
+  <% @mountains_on_map.each do |mountain| %>
+    var obj = {
+      id: <%= mountain.id %>,
+      name: '<%= mountain.name %>',
+      elevation: '<%= mountain.elevation %>',
+      level: '<%= mountain.level %>',
+      lat: <%= mountain.peak_location_lat %>,
+      lng: <%= mountain.peak_location_lng %>
+    };
   markerData.push(obj)
-<% end %>
-let geocoder;
+  <% end %>
 
-// 「InvalidValueError: initMap is not a function」への対策
-window.onload = function () {
-  initMap();
-}
-
-function initMap(){
-  // geocoderを初期化
-  geocoder = new google.maps.Geocoder()
-
-  // 地図の作成、中心位置の設定
-  map = new google.maps.Map(document.getElementById('googlemap'), {
-  center: { lat: 38.258595, lng: 137.6850225 }, // 日本の中心に緯度経度を設定
-  zoom: 4.5
-  });
-
-  // 検索窓の作成とリンクの設定
-  const input = document.getElementById("pac-input");
-  const searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener("bounds_changed", () => {
-      searchBox.setBounds(map.getBounds());
-  });
-  searchBox.addListener("places_changed", () => {
-    const places = searchBox.getPlaces();
-
-    if (places.length == 0) {
-    return;
-    }
-    // For each place, get the icon, name and location.
-    const bounds = new google.maps.LatLngBounds();
-    places.forEach((place) => {
-    if (!place.geometry || !place.geometry.location) {
-      console.log("Returned place contains no geometry");
-      return;
-    }
-
-    if (place.geometry.viewport) {
-      // Only geocodes have viewport.
-      bounds.union(place.geometry.viewport);
-    } else {
-      bounds.extend(place.geometry.location);
-    }
-    });
-    map.fitBounds(bounds);
-  });
-
-    
-  // markerDataに入っているデータのピンを立てる。
-  for (let i = 0; i < markerData.length; i++) {
-  markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
-  marker[i] = new google.maps.Marker({ // マーカーの追加
-    position: markerLatLng, // マーカーを立てる位置を指定
-    map: map // マーカーを立てる地図を指定
-  });
-
-  // マーカーに表示する内容を設定
-  contentStr = 
-    '<div name="marker" class="map">' +
-    '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
-      markerData[i]['name'] +
-    '</a>' +
-    '<p class="mb-0">' + '標　高：' + markerData[i]['elevation'] + 'm' + '</p>' +
-    '<p class="mb-0">' + '難易度：' + markerData[i]['level'] + '</p>' +
-    '</div>'
-    ;
-
-  // 吹き出しの追加
-  infoWindow[i] = new google.maps.InfoWindow({
-    content: contentStr // 吹き出しに表示する内容をセット
-  });
-
-  markerEvent(i); // マーカーにクリックイベントを追加
-  }
-}
-
-// マーカーにクリックイベントを追加
-function markerEvent(i) {
-  marker[i].addListener('click', function() { // マーカーをクリックしたとき
-  if (currentInfoWindow) { // 表示している吹き出しがあれば閉じる
-    currentInfoWindow.close();
-  }
-  infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-  currentInfoWindow = infoWindow[i]
-  });
-}
-
-function codeAddress(){
-  // 入力を取得
-  let inputAddress = document.getElementById('address').value;
-
-  // geocodingしたあとmapを移動
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-  if (status == 'OK') {
-    // map.setCenterで地図が移動
-    map.setCenter(results[0].geometry.location);
-    map.setZoom(10);
-  } else {
-    alert('Geocode was not successful for the following reason: ' + status);
-  }
-  });
-}
+  // 表示する地図の中心位置とズームレベルを定義
+  let center_of_map = {
+    lat: <%= @center_of_map_lat %>,
+    lng: <%= @center_of_map_lng %>
+  };
+  let zoom_level_of_map = <%= @zoom_level_of_map %>;
 </script>
