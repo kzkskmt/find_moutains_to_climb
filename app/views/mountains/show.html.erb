@@ -128,6 +128,10 @@ let center_of_map = {
 let zoom_level_of_map = <%= @zoom_level_of_map %>;
 
 <!-- 天気予報-->
+// $(function(){ ... }); は
+// jQuery(document).ready(function(){ ... }); と同じ
+// 渡された関数オブジェクトは、DOMの準備が完了した時に実行される。
+// そして、この渡した関数オブジェクトは、実行時に「jQuery」そのものを受け取ることができる。
 $(function () {
   const API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
   // 山頂の経度緯度を定義
