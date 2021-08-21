@@ -1,17 +1,17 @@
 <!-- Outfit-->
 <section class="outfit-section">
-    <div class="container px-4 px-lg-5">
-      <div class="mb-5">
-        <h1>服装一覧</h1>
-        <hr class="my-4 mx-auto" />
-        <h3>標高と気温から服装パターンを表示しています。</h3>
-      </div>
-        <div class="row gx-4 gx-lg-5">
-            <% if @outfits.present? %>
-              <%= render @outfits %>
-            <% else %>
-              <h2>服装はありません</h2>
-            <% end %>
-        </div>
+  <div class="container px-4 px-lg-5">
+    <div class="mb-5">
+      <h1>服装一覧</h1>
+      <hr class="my-4 mx-auto" />
+      <h3>標高と気温から服装パターンを表示しています。</h3>
     </div>
+      <div class="row gx-4 gx-lg-5">
+        <% if @outfits.present? %>
+          <%= render @outfits %>
+        <% else %>
+          <h2>服装はありません</h2>
+        <% end %>
+      </div>
+  </div>
 </section>

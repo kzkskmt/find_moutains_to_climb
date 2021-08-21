@@ -1,265 +1,217 @@
-<!-- mtshow-->
+<!-- 山の詳細-->
 <section class="mtshow-section" id="mtshow">
-    <div class="container px-4 px-lg-5">
-        <!-- Featured mtshow Row-->
-        <div class="row gx-0 align-items-center">
-            <div class="col-xl-8 col-lg-7">
-                <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0 rounded-4' %>
-            </div>
-            <div class="col-xl-4 col-lg-5">
-                <div class="featured-text text-lg-left">
-                    <h5 class="text-black-50 mb-0"><%= @mountain.name_en%></h5>
-                    <h2 class="mb-0"><%= @mountain.name %></h2>
-                    <hr class="mb-4 mx-auto" />
-                    <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
-                    <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %></p>
-                    <% if @mountain.level.present? %>
-                        <p class="text-black-50 mb-0">難易度：<%= @mountain.level %></p>
-                    <% end %>
-                </div>
-            </div>
+  <div class="container px-4 px-lg-5">
+    <!-- Featured mtshow Row-->
+    <div class="row gx-0 align-items-center">
+      <div class="col-xl-8 col-lg-7">
+        <%= image_tag @mountain.image.url, class: 'img-fluid mb-3 mb-lg-0 rounded-4' %>
+      </div>
+      <div class="col-xl-4 col-lg-5">
+        <div class="featured-text text-lg-left">
+          <h5 class="text-black-50 mb-0"><%= @mountain.name_en%></h5>
+          <h2 class="mb-0"><%= @mountain.name %></h2>
+          <hr class="mb-4 mx-auto" />
+          <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
+          <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %></p>
+          <% if @mountain.level.present? %>
+            <p class="text-black-50 mb-0">難易度：<%= @mountain.level %></p>
+          <% end %>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <!-- 天気と服装-->
 <section class="weather-section text-center" id="weather">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8">
-                <h2 class="mb-4">山頂の天気予報</h2>
-                <!-- 山頂の天気予報表示-->
-                <div id="openweather" class="d-flex mb-5"></div>
-            </div>
-            <div class="col-lg-8">
-                <h2 class="mb-4">登山口周辺の天気予報</h2>
-                <!-- 市町村の天気予報表示-->
-                <div class="d-flex mb-5" id="openweather_city"></div>
-            </div>
-        </div>
-        <div class="row gx-4 gx-lg-5 justify-content-center" id="outfit">
-            <div class="col-lg-8">
-                <h2 class="mb-4 mt-5">もし、明日登山するなら</h2>
-                <div id="best_outfit"></div>
-                <p id="best_outfit_link"></p>
-            </div>
-        </div>
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-lg-8">
+        <h2 class="mb-4">山頂の天気予報</h2>
+        <!-- 山頂の天気予報表示-->
+        <div id="openweather" class="d-flex mb-5"></div>
+      </div>
+      <div class="col-lg-8">
+        <h2 class="mb-4">登山口周辺の天気予報</h2>
+        <!-- 市町村の天気予報表示-->
+        <div class="d-flex mb-5" id="openweather_city"></div>
+      </div>
     </div>
+    <div class="row gx-4 gx-lg-5 justify-content-center" id="outfit">
+      <div class="col-lg-8">
+        <h2 class="mb-4 mt-5">もし、明日登山するなら</h2>
+        <div id="best_outfit"></div>
+        <p id="best_outfit_link"></p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Map-->
 <section class="map-section" id="map">
-    <div class="container px-4 px-lg-5">
-        <!-- Featured Map Row-->
-        <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-            <!-- googlemapを埋め込む場所　-->
-            <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
-        </div>
+  <div class="container px-4 px-lg-5">
+    <!-- Featured Map Row-->
+    <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
+      <!-- googlemapを埋め込む場所　-->
+      <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
+      <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
     </div>
+  </div>
 </section>
 
 <!-- GoogleMap-->
 <section class="gallery-section text-center">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5">
-            <h2 class="mb-2">ギャラリー</h2>
-            <p class="mb-4">GoogleMapから写真を表示しています</p>
-            <% if @google_img_urls.present? %>
-                <% @google_img_urls.each do |url| %>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <%= image_tag url, class: 'img-fluid' %>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
-            <% else %>
-                <p class="mb-4">写真が見つかりませんでした</p>
-            <% end %>
-        </div>
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5">
+      <h2 class="mb-2">ギャラリー</h2>
+      <p class="mb-4">GoogleMapから写真を表示しています</p>
+      <% if @google_img_urls.present? %>
+        <% @google_img_urls.each do |url| %>
+          <div class="col-md-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body text-center">
+                <%= image_tag url, class: 'img-fluid' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="mb-4">写真が見つかりませんでした</p>
+      <% end %>
     </div>
+  </div>
 </section>
 
 
 <!-- Tweet-->
 <% if @tweet_img_urls.present? %>
-    <section class="gallery-section text-center">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5">
-                <h2 class="mb-2"><%= "##{@mountain.name}" %> on twitter</h2>
-                <p class="mb-4">過去１週間に <%= "##{@mountain.name}" %> で投稿されたツイートから写真を表示しています</p>
-                <% @tweet_img_urls.each do |url| %>
-                    <div class="col-md-4 mb-3">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <%= image_tag url, class: 'img-fluid' %>
-                            </div>
-                        </div>
-                    </div>
-                <% end %>
+  <section class="gallery-section text-center">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <h2 class="mb-2"><%= "##{@mountain.name}" %> on twitter</h2>
+        <p class="mb-4">過去１週間に <%= "##{@mountain.name}" %> で投稿されたツイートから写真を表示しています</p>
+        <% @tweet_img_urls.each do |url| %>
+          <div class="col-md-4 mb-3">
+            <div class="card h-100">
+              <div class="card-body text-center">
+                <%= image_tag url, class: 'img-fluid' %>
+              </div>
             </div>
-        </div>
-    </section>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
 <% end %>
 
 <script>
-
-<!-- googlemap-->
-let map
-let marker = []
-let infoWindow = []
-// マーカーを消すためのcurrentInfoWindow
-let currentInfoWindow
 // mountainデータを格納する箱 markerData
-let markerData = []
+let markerData = [];
 // markerDataにmountainデータをループ処理で格納
 <% @mountains_on_map.each do |mountain| %>
-    var obj = {
+  var obj = {
     id: <%= mountain.id %>,
     name: '<%= mountain.name %>',
+    elevation: '<%= mountain.elevation %>',
+    level: '<%= mountain.level %>',
     lat: <%= mountain.peak_location_lat %>,
     lng: <%= mountain.peak_location_lng %>
-    };
-    markerData.push(obj)
+  };
+  markerData.push(obj)
 <% end %>
 
-// 「InvalidValueError: initMap is not a function」への対策
-window.onload = function () {
-    initMap();
-}
-
-function initMap(){
-    // 地図の作成、中心位置の設定
-    map = new google.maps.Map(document.getElementById('googlemap'), {
-    center: { lat: <%= @mountain.peak_location_lat %>, lng: <%= @mountain.peak_location_lng %> }, // 緯度経度を設定
-    zoom: 12
-    });
-    
-    // markerDataに入っているデータのピンを立てる。
-    for (var i = 0; i < markerData.length; i++) {
-    markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
-    marker[i] = new google.maps.Marker({ // マーカーの追加
-        position: markerLatLng, // マーカーを立てる位置を指定
-        map: map // マーカーを立てる地図を指定
-    });
-
-    // マーカーに表示する内容を設定
-    var contentStr = 
-        '<div name="marker" class="map">' + 
-        '<a href="/mountains/' + markerData[i]['id'] + '" data-turbolinks="false">' +
-        markerData[i]['name'] +
-        '</a>' +
-        '</div>'
-        ;
-
-   
-
-    // 吹き出しの追加
-    infoWindow[i] = new google.maps.InfoWindow({
-        content: contentStr // 吹き出しに表示する内容をセット
-    });
-
-    markerEvent(i); // マーカーにクリックイベントを追加
-    }
-}
-
-// マーカーにクリックイベントを追加
-function markerEvent(i) {
-    marker[i].addListener('click', function() { // マーカーをクリックしたとき
-    if (currentInfoWindow) { // 表示している吹き出しがあれば閉じる
-        currentInfoWindow.close();
-    }
-    infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-    currentInfoWindow = infoWindow[i]
-    });
-}
-
+// 表示する地図の中心位置とズームレベルを定義
+let center_of_map = {
+  lat: <%= @center_of_map_lat %>,
+  lng: <%= @center_of_map_lng %>
+};
+let zoom_level_of_map = <%= @zoom_level_of_map %>;
 
 <!-- 天気予報-->
+// $(function(){ ... }); は
+// jQuery(document).ready(function(){ ... }); と同じ
+// 渡された関数オブジェクトは、DOMの準備が完了した時に実行される。
+// そして、この渡した関数オブジェクトは、実行時に「jQuery」そのものを受け取ることができる。
 $(function () {
-    var API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
-    // 山頂の経度緯度を定義
-    var lat = <%= @mountain.peak_location_lat%>;
-    var lon = <%= @mountain.peak_location_lng%>;
-    // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
-    var url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+  const API_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
+  // 山頂の経度緯度を定義
+  const lat = <%= @mountain.peak_location_lat%>;
+  const lon = <%= @mountain.peak_location_lng%>;
+  // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
+  const url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + API_KEY;
+  
+  $.ajax({
+    url: url,
+    dataType: 'json',
+    type: 'GET',
+  })
+  .done(function (data) {
+    let insertHTML = '';
+    let temp_tomorrow = '';
+
+    // デフォルトでは3時間ごとの天気を取得するため、
+    // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
+    for (let i = 0; i <= 32; i = i + 8) {
+      insertHTML += buildHTML(data, i);
+    }
+    $('#openweather').html(insertHTML);
     
+    // 登山口周辺の天気予報も表示する。
+    const city_id = data.city.id;
+    const url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
     $.ajax({
-        url: url,
-        dataType: 'json',
-        type: 'GET',
+      url: url_city,
+      dataType: 'json',
+      type: 'GET',
     })
     .done(function (data) {
-        var insertHTML = '';
-        var temp_tomorrow = '';
+      let insertHTML_city = '';
+      for (let i = 0; i <= 32; i = i + 8) {
+        insertHTML_city += buildHTML(data, i);
+        // 明日（24時間後なので、i == 8の時）の気温を取得
+        if (i == 8) {
+        temp_tomorrow = data.list[i].main.temp;
+      }
+      }
+      $('#openweather_city').html(insertHTML_city);
 
-        // デフォルトでは3時間ごとの天気を取得するため、
-        // 8の倍数でデータを取得することにより、24時間ごとの天気を取得する
-        for (var i = 0; i <= 32; i = i + 8) {
-            insertHTML += buildHTML(data, i);
-        }
-        $('#openweather').html(insertHTML);
-        
-        // 登山口周辺の天気予報も表示する。
-        var city_id = data.city.id
-        var url_city = 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&units=metric&appid=' + API_KEY;
-        $.ajax({
-            url: url_city,
-            dataType: 'json',
-            type: 'GET',
-        })
-        .done(function (data) {
-            var insertHTML_city = '';
-            for (var i = 0; i <= 32; i = i + 8) {
-                insertHTML_city += buildHTML(data, i);
-                // 明日（24時間後なので、i == 8の時）の気温を取得
-                if (i == 8) {
-                temp_tomorrow = data.list[i].main.temp;
-            }
-            }
-            $('#openweather_city').html(insertHTML_city);
-
-            // 明日の気温と服装の適応気温を比較し、最適な服装を表示
-            var temp_summer = <%= @outfits.first.lower_limit_temp %>
-            var temp_spring = <%= @outfits.second.lower_limit_temp %>
-            if ( temp_summer < temp_tomorrow ){
-                $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
-                $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.first.id}"), 'data-turbolinks': false%>から。</p>');
-            } else if ( temp_spring < temp_tomorrow ) {
-                $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
-                $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.second.id}"), 'data-turbolinks': false%>から。</p>');
-            } else {
-                $("#best_outfit").html('<h4>...ぴったりな服装が見つかりませんでした。</h4>');
-                $("#best_outfit_link").html('<p class="text-black-50">服装については<%= link_to 'こちら', outfits_path %>から。</p>');
-            }
-        })
+      // 明日の気温と服装の適応気温を比較し、最適な服装を表示
+      const temp_summer = <%= @outfits.first.lower_limit_temp %>;
+      const temp_spring = <%= @outfits.second.lower_limit_temp %>;
+      if ( temp_summer < temp_tomorrow ){
+        $("#best_outfit").html('<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.first.id}"), 'data-turbolinks': false%>から。</p>');
+      } else if ( temp_spring < temp_tomorrow ) {
+        $("#best_outfit").html('<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>');
+        $("#best_outfit_link").html('<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.second.id}"), 'data-turbolinks': false%>から。</p>');
+      } else {
+        $("#best_outfit").html('<h4>...ぴったりな服装が見つかりませんでした。</h4>');
+        $("#best_outfit_link").html('<p class="text-black-50">服装については<%= link_to 'こちら', outfits_path %>から。</p>');
+      }
     })
+  })
 
-    .fail(function (data) {
-        alert('天気予報取得に失敗しました');
-    });
+  .fail(function (data) {
+    alert('天気予報取得に失敗しました');
+  });
 });
-
 
 // 日本語化 最高気温は四捨五入、最低気温は切り捨て
 function buildHTML(data, i) {
-    var Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
-    var date = new Date(data.list[i].dt_txt);
-    date.setHours(date.getHours() + 9);
-    var month = date.getMonth() + 1;
-    var day = month + '/' + date.getDate() + Week[date.getDay()];
-    var icon = data.list[i].weather[0].icon;
-    var html =
-    '<div class="weather-report text-black-50 mx-auto">' +
-        '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
-        '<span class="weather-date">' + day + "</span>" +
-        '<div class="weather-temp-max">' + '最高：' + Math.round(data.list[i].main.temp_max) + "℃</div>" +
-        '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +
-    '</div>';
-    return html
+  const Week = new Array('(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)');
+  const date = new Date(data.list[i].dt_txt);
+  date.setHours(date.getHours() + 9);
+  const month = date.getMonth() + 1;
+  const day = month + '/' + date.getDate() + Week[date.getDay()];
+  const icon = data.list[i].weather[0].icon;
+  const html =
+  '<div class="weather-report text-black-50 mx-auto">' +
+    '<img src="https://openweathermap.org/img/w/' + icon + '.png">' +
+    '<span class="weather-date">' + day + "</span>" +
+    '<div class="weather-temp-max">' + '最高：' + Math.round(data.list[i].main.temp_max) + "℃</div>" +
+    '<span class="weather-temp-min">' + '最低：' + Math.floor(data.list[i].main.temp_min) + "℃</span>" +
+  '</div>';
+  return html
 }
 
 </script>
-<!-- GoogleMaps JS API-->
-<script src="https://maps.googleapis.com/maps/api/js?language=ja&region=JP&key=<%= ENV["GOOGLE_MAP_API_KEY"]%>&libraries=places&callback=initMap" async defer></script>

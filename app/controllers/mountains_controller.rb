@@ -8,6 +8,9 @@ class MountainsController < ApplicationController
     @mountains_on_map = @mountains_on_map.select { |mountain| mountain.pref.area == params[:area] } if params[:area]
     # pageはActive Recordのオブジェクトに対して使えるメソッド。selectの戻り値は配列なのでKaminari.paginate_arrayを適用する
     @mountains = Kaminari.paginate_array(@mountains_on_map).page(params[:page]).per(12)
+    @center_of_map_lat = 38.258595
+    @center_of_map_lng = 137.6850225
+    @zoom_level_of_map = 4
   end
 
   def show
@@ -22,6 +25,9 @@ class MountainsController < ApplicationController
     # @tweet_img_urls = @mountain.search_tweets
     # googlemap placesAPIを用いて、画像を取得
     @google_img_urls = @mountain.search_googlemap_place
+    @center_of_map_lat = @mountain.peak_location_lat
+    @center_of_map_lng = @mountain.peak_location_lng
+    @zoom_level_of_map = 12
   end
 
   def edit
