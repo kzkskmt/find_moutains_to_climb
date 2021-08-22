@@ -1,5 +1,6 @@
 class MountainsController < ApplicationController
   before_action :set_q, only: %i[index]
+  before_action :set_center_of_jp, only: %i[index]
 
   def index
     # ツイート数が多い順に並べる（今後な選べ替えもできたらいいかもしれない）
@@ -8,9 +9,6 @@ class MountainsController < ApplicationController
     @mountains_on_map = @mountains_on_map.select { |mountain| mountain.pref.area == params[:area] } if params[:area]
     # pageはActive Recordのオブジェクトに対して使えるメソッド。selectの戻り値は配列なのでKaminari.paginate_arrayを適用する
     @mountains = Kaminari.paginate_array(@mountains_on_map).page(params[:page]).per(12)
-    @center_of_map_lat = 38.258595
-    @center_of_map_lng = 137.6850225
-    @zoom_level_of_map = 4
   end
 
   def show

@@ -41,11 +41,13 @@
 </section>
 
 <script>
+  // 各mountainデータを格納する箱 obj
+  let obj = {};
   // mountainデータを格納する箱 markerData
   let markerData = [];
   // markerDataにmountainデータをループ処理で格納
   <% @mountains_on_map.each do |mountain| %>
-    var obj = {
+    obj = {
       id: <%= mountain.id %>,
       name: '<%= mountain.name %>',
       elevation: '<%= mountain.elevation %>',
