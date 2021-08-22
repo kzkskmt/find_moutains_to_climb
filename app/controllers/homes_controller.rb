@@ -8,4 +8,10 @@ class HomesController < ApplicationController
     # #山の名前で投稿された画像付きツイートが多い順に並べ替えてtop６を取得
     @recommended_mountains = @mountains_on_map.order(twitter_result_count: :desc).order(name_en: :desc).first(6)
   end
+
+  def terms_of_use
+  end
+
+  def privacy_policy
+  end
 end

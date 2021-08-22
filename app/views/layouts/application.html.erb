@@ -39,7 +39,7 @@
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to mountains_path, class: "nav-link", 'data-turbolinks': false do %>
+              <%= link_to mountains_path, class: "nav-link pe-0", 'data-turbolinks': false do %>
                 <i class="fas fa-mountain"></i> 山一覧
               <% end %>
             </li>
@@ -51,7 +51,14 @@
     <%= yield %>
 
     <!-- Footer-->
-    <footer class="footer bg-dark small text-center text-white"><div class="container px-4 px-lg-5">Copyright &copy; Find Mountains to Climb 2021</div></footer>
+    <footer class="footer bg-dark small text-center">
+      <div class="container px-4 px-lg-5 text-white">Copyright &copy; Find Mountains to Climb 2021</div>
+      <div class="container pt-2 px-4 px-lg-5 text-white-50">
+        <%= link_to terms_of_use_path, class: 'text-white-50' do %>利用規約<% end %>
+           ｜ 
+        <%= link_to privacy_policy_path, class: 'text-white-50' do %>プライバシーポリシー<% end %>
+      </div>
+    </footer>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- GoogleMaps JS API-->

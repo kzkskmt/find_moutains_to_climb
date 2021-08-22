@@ -4,4 +4,6 @@ Rails.application.routes.draw do
   end
   resources :outfits, only: %i[index show create new edit update]
   root 'homes#top'
+  get 'terms_of_use', to: 'homes#terms_of_use'
+  get 'privacy_policy', to: 'homes#privacy_policy'
 end
