@@ -28,18 +28,18 @@ class MountainsController < ApplicationController
     @zoom_level_of_map = 12
   end
 
-  # def edit
-  #   @mountain = Mountain.find(params[:id])
-  # end
+  def edit
+    @mountain = Mountain.find(params[:id])
+  end
 
-  # def update
-  #   @mountain = Mountain.find(params[:id])
-  #   if @mountain.update(mountain_params)
-  #     redirect_to edit_mountain_path(@mountain.id)
-  #   else
-  #     render :edit
-  #   end
-  # end
+  def update
+    @mountain = Mountain.find(params[:id])
+    if @mountain.update(mountain_params)
+      redirect_to edit_mountain_path(@mountain.id)
+    else
+      render :edit
+    end
+  end
 
   private
 
