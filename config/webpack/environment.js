@@ -8,4 +8,11 @@ environment.plugins.prepend('Provide',
     })
 )
 
+environment.config.merge({
+  performance: {
+    maxAssetSize: 1000 * 1024, //entrypointサイズリミットを1000kibまでに設定
+    maxEntrypointSize: 1000 * 1024, //assetのファイルサイズリミットを1000kibまでに設定
+  }
+})
+
 module.exports = environment
