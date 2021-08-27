@@ -79,3 +79,5 @@ gem 'Hyakumeizan'
 # 内部でwheneverを使うわけではないため、Railsの実行時に読み込まないようにする
 gem 'whenever', require: false
 
+# 開発環境DBデータをseedsファイルに書き出す
+gem 'seed_dump'
