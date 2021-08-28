@@ -74,7 +74,7 @@ namespace :scraping do
   desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、urlからcarrierwaveメソッドで保存する"
   task scrape_images_on_pic_ac_save_using_carrierwave: :environment do
     # 山の取得件数
-    number = 2
+    number = 
 
     no_image = []
 
@@ -113,8 +113,11 @@ namespace :scraping do
       end
 
       # サイズの合う画像が見つかった場合は保存する
-      if image_data.nil?
+      if image_data.nil? || image_data.at_css('.img-hover-actions').nil?
         puts "サイズ640x480の#{mountain_name}画像は見つかりませんでした"
+        # 画像パスが既に保存されている場合はimageカラムをnilにする。
+        mountain.remove_image = true
+        mountain.save!
         no_image.push("#{mountain.id}: #{mountain_name}")
       else
         pp image_data.at_css('.img-hover-actions').at_css('a').attribute('data-title').value
@@ -139,9 +142,6 @@ namespace :scraping do
 
   desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、画像属性がnilのデータにurlからcarrierwaveメソッドで保存する"
   task update_images_on_pic_ac_if_image_nil: :environment do
-    # 山の取得件数
-    number = 
-
     no_image = []
 
     Mountain.where(image: nil).each do |mountain|
@@ -165,6 +165,8 @@ namespace :scraping do
       # 画像が見つかった場合は保存する
       if image_data.nil? || image_data.at_css('.img-hover-actions').nil?
         puts "画像は見つかりませんでした"
+        mountain.remove_image = true
+        mountain.save!
         no_image.push("#{mountain.id}: #{mountain_name}")
       else
         pp image_data.at_css('.img-hover-actions').at_css('a').attribute('data-title').value

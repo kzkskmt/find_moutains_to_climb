@@ -16,18 +16,18 @@ class OutfitsController < ApplicationController
   #   end
   # end
 
-  def edit
-    @outfit = Outfit.find(params[:id])
-  end
+  # def edit
+  #   @outfit = Outfit.find(params[:id])
+  # end
 
-  def update
-    @outfit = Outfit.find(params[:id])
-    if @outfit.update(outfit_params)
-      redirect_to edit_outfit_path(@outfit.id + 1)
-    else
-      render :edit
-    end
-  end
+  # def update
+  #   @outfit = Outfit.find(params[:id])
+  #   if @outfit.update(outfit_params)
+  #     redirect_to edit_outfit_path(@outfit.id + 1)
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   private
 

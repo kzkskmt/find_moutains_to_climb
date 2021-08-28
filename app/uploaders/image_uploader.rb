@@ -1,20 +1,12 @@
 class ImageUploader < ApplicationUploader
   # ストレージの種類
   # storage :file
-  storage :fog
-
-  # if Rails.env.production?
-  #   storage :fog # 本番環境のみ
-  # else
-  #   storage :file # 本番環境以外
-  # end
+  # storage :fog
 
   if Rails.env.production?
-    # 本番環境はS3に保存
-    storage :fog 
+    storage :fog # 本番環境のみS3
   else
-    # それ以外はpublicへ保存
-    storage :file
+    storage :file # 本番環境以外はpublic
   end
 
   # アップロードされた画像データはpublic/uploaders/配下に置かれる。
