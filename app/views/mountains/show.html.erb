@@ -56,8 +56,35 @@
       <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
       <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
     </div>
+
+    <!-- 周辺施設検索-->
+    <div class="row gx-4 gx-lg-5">
+      <div class="col-md-10 col-lg-10 mx-auto">
+      <h3 class="text-center">周辺施設を探す</h3>
+        <div class="nearby-search">
+          <div class="row">
+            <div class="col-6 d-inline-block">
+              <input name="キーワード" type="text" id="keywordInput" class="form-control" placeholder="施設キーワード（駐車場、銭湯など）">
+            </div>
+            <div class="col-3 d-inline-block">
+              <select name="検索範囲" id="radiusInput" class="form-control">
+                <option value="500" selected>500 m 以内</option>
+                <option value="1000">1 km 以内</option>
+                <option value="3000">3 km 以内</option>
+                <option value="5000">5 km 以内</option>
+              <select>
+            </div>
+            <div class="col-auto d-inline-block">
+              <input type="button" value="検索" class="col-auto btn btn-primary" onclick="getPlaces();">
+            </div>
+          </div>
+        </div>
+        <div class="mt-4" id="results"></div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <!-- GoogleMap-->
 <section class="gallery-section text-center">
@@ -129,7 +156,8 @@
   };
   let zoom_level_of_map = <%= @zoom_level_of_map %>;
 
-  <!-- 天気予報-->
+
+  /////////////////////// 天気予報 ///////////////////////
   // $(function(){ ... }); は
   // jQuery(document).ready(function(){ ... }); と同じ
   // 渡された関数オブジェクトは、DOMの準備が完了した時に実行される。
@@ -216,4 +244,219 @@
     return html
   }
 
+
+  /////////////////////// 周辺施設 ///////////////////////
+
+  //位置情報を使って周辺検索
+  function getPlaces(){
+    const location = new google.maps.LatLng(<%= @mountain.peak_location_lat %>, <%= @mountain.peak_location_lng %>);
+    
+    //初期化
+    document.getElementById('results').innerHTML = "";
+    placesList = new Array();
+    
+    //Mapインスタンス生成
+    const map = new google.maps.Map(
+      document.getElementById('googlemap'),
+      {
+        zoom: 13,
+        center: location
+      }
+     );
+
+    //登山口マーカーの表示
+    //const location = new google.maps.LatLng(<%= @mountain.peak_location_lat %>, <%= @mountain.peak_location_lng %>);
+    //const start_point_marker = new google.maps.Marker({
+      //position: location,
+      //map: map
+    //  });
+
+    //入力した検索範囲を取得
+    const obj = document.getElementById("radiusInput");
+    const radiusInput = Number(obj.options[obj.selectedIndex].value);
+    
+    //PlacesServiceインスタンス生成
+    const service = new google.maps.places.PlacesService(map);
+
+    //入力したKeywordを取得
+    const keywordInput = document.getElementById("keywordInput").value;
+    
+    //周辺検索
+    service.nearbySearch(
+      {
+        location: location,
+        radius: radiusInput,
+        keyword: keywordInput,
+        language: 'ja'
+      },
+      // 以下で定義したdisplayResultsメソッドを使って検索結果の表示
+      displayResults
+    );
+
+    //検索範囲の円を描く
+    const circle = new google.maps.Circle(
+      {
+        map: map,
+        center: location,
+        radius: radiusInput,
+        fillColor: '#ff0000',
+        fillOpacity: 0.3,
+        strokeColor: '#ff0000',
+        strokeOpacity: 0.5,
+        strokeWeight: 1
+      }
+    );
+  }
+
+  /*
+  周辺検索の結果表示
+  ※nearbySearchのコールバック関数
+    results : 検索結果
+    status ： 実行結果ステータス
+    pagination : ページネーション
+  */
+  function displayResults(results, status, pagination) {
+      
+    if(status == google.maps.places.PlacesServiceStatus.OK) {
+    
+      //検索結果をplacesList配列に連結
+      placesList = placesList.concat(results);
+      
+      //pagination.hasNextPage==trueの場合、
+      //続きの検索結果あり
+      if (pagination.hasNextPage) {
+        
+        //pagination.nextPageで次の検索結果を表示する
+        //※連続実行すると取得に失敗するので、
+        //1秒くらい間隔をおく
+        setTimeout(pagination.nextPage(), 1000);
+      
+      //pagination.hasNextPage==falseになったら
+      //全ての情報が取得できているので、
+      //結果を表示する
+      } else {
+
+        //ソートを正しく行うため、
+        //ratingが設定されていないものを
+        //一旦「-1」に変更する。
+        for (let i = 0; i < placesList.length; i++) {
+          if(placesList[i].rating == undefined){
+            placesList[i].rating = -1;
+          }
+        }
+        
+        //ratingの降順でソート（連想配列ソート）
+        placesList.sort(function(a,b){
+          if(a.rating > b.rating) return -1;
+          if(a.rating < b.rating) return 1;
+          return 0;
+        });
+        
+        //placesList配列をループして、
+        //結果表示のHTMLタグを組み立てる
+        let resultHTML = "<ol>";
+        
+        for (let i = 0; i < placesList.length; i++) {
+          place = placesList[i];
+          
+          //ratingが-1のものは「---」に表示、それ以外は小数点第一位まで表示
+          let rating = place.rating;
+          if(rating == -1) {
+              rating = "---";
+          } else {
+              rating = rating.toFixed(1);
+          };
+          
+          //表示内容（評価＋名称）
+          let content = "【評価:" + rating + "】 " + place.name;
+          
+          //クリック時にMapにマーカー表示するようにAタグを作成
+        　resultHTML += "<li>" +
+                      　"<a href=\"javascript: void(0);\"" +
+                      　" onclick=\"createMarker(" +
+                      　"'" + place.name + "'," +
+                      　"'" + place.vicinity + "'," +
+                      　place.geometry.location.lat() + "," +
+                      　place.geometry.location.lng() + ")\">" +
+                      　content +
+                      　"</a>" +
+                      　"</li>";
+        }
+        
+        resultHTML += "</ol>";
+        
+        //結果表示
+        document.getElementById("results").innerHTML = resultHTML;
+      }
+    
+    } else {
+      //エラー表示
+      let results = document.getElementById("results");
+      if(status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+        results.innerHTML = "見つかりませんでした。";
+      } else if(status == google.maps.places.PlacesServiceStatus.ERROR) {
+        results.innerHTML = "サーバ接続に失敗しました。";
+      } else if(status == google.maps.places.PlacesServiceStatus.INVALID_REQUEST) {
+        results.innerHTML = "リクエストが無効でした。";
+      } else if(status == google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT) {
+        results.innerHTML = "リクエストの利用制限回数を超えました。";
+      } else if(status == google.maps.places.PlacesServiceStatus.REQUEST_DENIED) {
+        results.innerHTML = "サービスが使えない状態でした。";
+      } else if(status == google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR) {
+        results.innerHTML = "原因不明のエラーが発生しました。";
+      }
+
+    }
+  }
+
+
+  /*
+  マーカー表示
+    name : 名称
+    vicinity : 近辺住所
+    lat : 緯度
+    lng : 経度
+  */
+  function createMarker(name, vicinity, lat, lng){
+    
+    //マーカー表示する位置のMap表示
+    const map = new google.maps.Map(document.getElementById('googlemap'), {
+      zoom: 15,
+      center: new google.maps.LatLng(lat, lng)
+    });
+    
+    //マーカー表示
+    const marker = new google.maps.Marker({
+      map: map,
+      position: new google.maps.LatLng(lat, lng)
+    });
+
+    //登山口マーカーの表示
+    //const location = new google.maps.LatLng(<%= @mountain.peak_location_lat %>, <%= @mountain.peak_location_lng %>);
+    //const start_point_marker = new google.maps.Marker({
+      //position: location,
+      //map: map
+    //});
+
+    
+    //情報窓の設定
+    const info = "<div style=\"min-width: 100px\">" +
+              name + "<br />" + vicinity + "<br />" +
+              "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"" +
+              " target=\"_blank\">⇒詳細表示</a><br />" +
+              "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"" +
+              " target=\"_blank\">⇒ルート検索</a>" +
+              "</div>";
+    
+    //情報窓の表示
+    const infoWindow = new google.maps.InfoWindow({
+      content: info
+    });
+    infoWindow.open(map, marker);
+    
+    //マーカーのクリック時にも情報窓を表示する
+    marker.addListener("click", function(){
+      infoWindow.open(map, marker);
+    });
+  }
 </script>
