@@ -59,12 +59,12 @@
 
     <!-- 周辺施設検索-->
     <div class="row gx-4 gx-lg-5">
-      <div class="col-md-10 col-lg-10 mx-auto text-center">
-      <h3>周辺施設を探す</h3>
+      <div class="col-md-10 col-lg-10 mx-auto">
+      <h3 class="text-center">周辺施設を探す</h3>
         <div class="nearby-search">
           <div class="row">
             <div class="col-6 d-inline-block">
-              <input name="キーワード" type="text" id="keywordInput" class="form-control" placeholder="施設キーワード（駐車場、ホテルなど）">
+              <input name="キーワード" type="text" id="keywordInput" class="form-control" placeholder="施設キーワード（駐車場、銭湯など）">
             </div>
             <div class="col-3 d-inline-block">
               <select name="検索範囲" id="radiusInput" class="form-control">
@@ -79,9 +79,9 @@
             </div>
           </div>
         </div>
+        <div class="mt-4" id="results"></div>
       </div>
     </div>
-    <div id="results"></div>
   </div>
 </section>
 
@@ -259,7 +259,7 @@
     const map = new google.maps.Map(
       document.getElementById('googlemap'),
       {
-        zoom: 15,
+        zoom: 13,
         center: location
       }
      );
@@ -445,7 +445,7 @@
               "<a href=\"https://maps.google.co.jp/maps?q=" + encodeURIComponent(name + " " + vicinity) + "&z=15&iwloc=A\"" +
               " target=\"_blank\">⇒詳細表示</a><br />" +
               "<a href=\"https://www.google.com/maps/dir/?api=1&destination=" + lat + "," + lng + "\"" +
-              " target=\"_blank\">⇒ここへ行く</a>" +
+              " target=\"_blank\">⇒ルート検索</a>" +
               "</div>";
     
     //情報窓の表示
