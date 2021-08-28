@@ -1,7 +1,15 @@
 class ImageUploader < ApplicationUploader
   # ストレージの種類
-  storage :file
+  # storage :file
   # storage :fog
+
+  if Rails.env.production?
+    # 本番環境はS3に保存
+    storage :fog 
+  else
+    # それ以外はpublicへ保存
+    storage :file
+  end
 
   # アップロードされた画像データはpublic/uploaders/配下に置かれる。
   # 以下の設定であれば、public/uploaders/単数テーブル名/画像カラム名/インスタンスのid番号
@@ -22,9 +30,9 @@ class ImageUploader < ApplicationUploader
   #   process resize_to_fit: [820, nil]
   # end
 
-  # def filename
-  #   "#{model.id}_#{model.name_en}.jpg"
-  # end
+  def filename
+    "#{model.id}_#{model.name_en}.jpg"
+  end
 
   # アップロードする画像の許容する拡張子を設定
   def extension_allowlist
