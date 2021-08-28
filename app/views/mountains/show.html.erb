@@ -56,30 +56,33 @@
       <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
       <div id='googlemap' style="height:420px" class='mb-3 mb-lg-0 rounded-4'></div>
     </div>
+
+    <!-- 周辺施設検索-->
+    <div class="row gx-4 gx-lg-5">
+      <div class="col-md-10 col-lg-10 mx-auto text-center">
+      <h3>周辺施設を探す</h3>
+        <div class="nearby-search">
+          <div class="row">
+            <div class="col-6 d-inline-block">
+              <input name="キーワード" type="text" id="keywordInput" class="form-control" placeholder="施設キーワード（駐車場、ホテルなど）">
+            </div>
+            <div class="col-3 d-inline-block">
+              <select name="検索範囲" id="radiusInput" class="form-control">
+                <option value="500" selected>500 m 以内</option>
+                <option value="1000">1 km 以内</option>
+                <option value="3000">3 km 以内</option>
+                <option value="5000">5 km 以内</option>
+              <select>
+            </div>
+            <div class="col-auto d-inline-block">
+              <input type="button" value="検索" class="col-auto btn btn-primary" onclick="getPlaces();">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="results"></div>
   </div>
-  <!-- 周辺施設検索-->
-  <table>
-  <tr>
-    <td><input name="キーワード" type="text" id="keywordInput" style="width: 200px" placeholder="キーワード"></td>
-  </tr>
-  <tr>
-    <td>検索範囲：
-      <select name="検索範囲" id="radiusInput">
-      <option value="200" selected>200 m</option>
-      <option value="500">500 m</option>
-      <option value="1000">1 km</option>
-      <option value="1500">1.5 km</option>
-      <option value="15000">15 km</option>
-      <select>
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" style="padding: 10px">
-      <input type="button" value="周辺の施設を探す" onclick="getPlaces();">
-    </td>
-  </tr>
-  </table>
-  <div id="results"></div>
 </section>
 
 
@@ -365,7 +368,7 @@
           };
           
           //表示内容（評価＋名称）
-          let content = "【評価:" + rating + "】 " + place.name + place.types;
+          let content = "【評価:" + rating + "】 " + place.name;
           
           //クリック時にMapにマーカー表示するようにAタグを作成
         　resultHTML += "<li>" +
