@@ -1,7 +1,13 @@
 class ImageUploader < ApplicationUploader
   # ストレージの種類
   # storage :file
-  # storage :fog
+  storage :fog
+
+  # if Rails.env.production?
+  #   storage :fog # 本番環境のみ
+  # else
+  #   storage :file # 本番環境以外
+  # end
 
   if Rails.env.production?
     # 本番環境はS3に保存

@@ -59,6 +59,5 @@ window.addEventListener('DOMContentLoaded', event => {
           }
       });
   });
-
 });
 

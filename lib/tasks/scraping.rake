@@ -74,7 +74,7 @@ namespace :scraping do
   desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、urlからcarrierwaveメソッドで保存する"
   task scrape_images_on_pic_ac_save_using_carrierwave: :environment do
     # 山の取得件数
-    number = 
+    number = 2
 
     no_image = []
 
@@ -137,8 +137,8 @@ namespace :scraping do
     puts no_image
   end
 
-  desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、urlからcarrierwaveメソッドで保存する"
-  task update_images_on_pic_ac: :environment do
+  desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、画像属性がnilのデータにurlからcarrierwaveメソッドで保存する"
+  task update_images_on_pic_ac_if_image_nil: :environment do
     # 山の取得件数
     number = 
 
