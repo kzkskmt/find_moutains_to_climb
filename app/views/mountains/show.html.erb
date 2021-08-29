@@ -47,7 +47,7 @@
   </div>
 </section>
 
-<!-- Map-->
+<!-- 地図-->
 <section class="map-section" id="map">
   <div class="container px-4 px-lg-5">
     <!-- Featured Map Row-->
@@ -63,7 +63,7 @@
       <h3 class="text-center">周辺施設を探す</h3>
         <div class="nearby-search">
           <div class="row">
-            <div class="col-6 d-inline-block">
+            <div class="col-6 d-inline-block mb-2">
               <input name="キーワード" type="text" id="keywordInput" class="form-control" placeholder="施設キーワード（駐車場、銭湯など）">
             </div>
             <div class="col-3 d-inline-block">
@@ -78,8 +78,8 @@
               <input type="button" value="検索" class="col-auto btn btn-primary" onclick="getPlaces();">
             </div>
           </div>
+          <div class="mt-4" id="results"></div>
         </div>
-        <div class="mt-4" id="results"></div>
       </div>
     </div>
   </div>
@@ -354,7 +354,7 @@
         
         //placesList配列をループして、
         //結果表示のHTMLタグを組み立てる
-        let resultHTML = "<ol>";
+        let resultHTML = "<ul>";
         
         for (let i = 0; i < placesList.length; i++) {
           place = placesList[i];
@@ -383,7 +383,7 @@
                       　"</li>";
         }
         
-        resultHTML += "</ol>";
+        resultHTML += "</ul>";
         
         //結果表示
         document.getElementById("results").innerHTML = resultHTML;

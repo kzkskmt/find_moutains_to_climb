@@ -118,6 +118,10 @@
 //   background-attachment: scroll;
 //   background-size: cover;
 // }
+.map-section .row {
+  justify-content: center;
+}
+
 .map-section .nearby-search input, .map-section .nearby-search select {
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 1.25rem 2rem;
@@ -127,6 +131,28 @@
   letter-spacing: 0.15rem;
   border: 0;
 }
-.map-section .row {
-  justify-content: center;
+
+.map-section .nearby-search ul, .map-section .nearby-search ol {
+  padding: 0;
+  position: relative;
 }
+
+.map-section .nearby-search ul li, .map-section .nearby-search ol li {
+  color: black;
+  border-left: solid 8px #e4c662;/*左側の線*/
+  background: whitesmoke;
+  margin-bottom: 5px;/*下のバーとの余白*/
+  line-height: 1.5;
+  border-radius: 0 15px 15px 0;/*右側の角だけ丸く*/
+  padding: 0.2rem;
+  list-style-type: none!important;
+}
+
+.map-section .nearby-search a {
+  color: rgba(0, 0, 0, 0.5)
+}
+
+.map-section .nearby-search a:hover {
+  color: black;
+}
+
