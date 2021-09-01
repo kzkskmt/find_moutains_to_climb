@@ -99,4 +99,9 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # 全テスト完了後にpublic/uploaders_test/配下のフォルダを削除する
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads_#{Rails.env}/"])
+  end
 end

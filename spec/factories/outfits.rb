@@ -35,14 +35,16 @@ FactoryBot.define do
 
   trait :img_summer do
     image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/summer.jpg')) }
+    # image { File.new("#{Rails.root}/spec/fixtures/summer.jpg") }
   end
 
   trait :img_spring do
     image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/spring.jpg')) }
+    # image { File.new("#{Rails.root}/spec/fixtures/spring.jpg") }
   end
 
   trait :img_winter do
     image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/winter.jpg')) }
+    # image { File.new("#{Rails.root}/spec/fixtures/winter.jpg") }
   end
-
 end

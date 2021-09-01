@@ -1,14 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe "Outfits", type: :system do
-  let!(:outfit_15_1500) { create :outfit, :temp_15, :max_1500, :img_summer }
-  let!(:outfit_25_1500) { create :outfit, :temp_25, :max_1500, :img_summer }
-  let!(:outfit_15_2500) { create :outfit, :temp_15, :max_2500, :img_spring }
-  let!(:outfit_25_2500) { create :outfit, :temp_25, :max_2500, :img_spring }
-  let!(:outfit_15_3800) { create :outfit, :temp_15, :max_3800, :img_winter }
-  let!(:outfit_25_3800) { create :outfit, :temp_25, :max_3800, :img_winter }
 
   describe '一覧ページ' do
+    let!(:outfit_15_1500) { create(:outfit, :temp_15, :max_1500, :img_summer) }
+    let!(:outfit_25_1500) { create(:outfit, :temp_25, :max_1500, :img_summer) }
+    let!(:outfit_15_2500) { create(:outfit, :temp_15, :max_2500, :img_spring) }
+    let!(:outfit_25_2500) { create(:outfit, :temp_25, :max_2500, :img_spring) }
+    let!(:outfit_15_3800) { create(:outfit, :temp_15, :max_3800, :img_winter) }
+    let!(:outfit_25_3800) { create(:outfit, :temp_25, :max_3800, :img_winter) }
+
     before { visit outfits_path }
 
     context '一覧ページへアクセス' do
@@ -45,9 +46,9 @@ RSpec.describe "Outfits", type: :system do
       it '正常に表示される' do
         expect(page).to have_selector 'img.img-fluid'
         expect(page).to have_content outfit_15_1500.title
-        expect(page).to have_content outfit_15_1500.inner
-        expect(page).to have_content outfit_15_1500.outer
-        expect(page).to have_content outfit_15_1500.pant
+        expect(page).to have_content outfit_15_1500.inner.upcase
+        expect(page).to have_content outfit_15_1500.outer.upcase
+        expect(page).to have_content outfit_15_1500.pant.upcase
         expect(all('.card').count).to eq 6
       end
     end
