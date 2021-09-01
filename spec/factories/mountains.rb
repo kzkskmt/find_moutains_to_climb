@@ -1,6 +1,7 @@
 FactoryBot.define do
 
   factory :mountain do
+    sequence(:id, 1)
     sequence(:name, "山_1")
     sequence(:name_en, "mountain_1")
     elevation { 1000 }
@@ -9,6 +10,7 @@ FactoryBot.define do
     peak_location_lng { 130.5283056 }
     prefecture_code { 46 }
     place_id { 'ChIJQ2hgD6fRPTURsjqOag25w0g' }
+    image { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/mountain_img.png')) }
   end
 
   trait :ele_1500 do
@@ -46,5 +48,4 @@ FactoryBot.define do
     prefecture_code { 46 }
     place_id { 'ChIJQ2hgD6fRPTURsjqOag25w0g' }
   end
-
 end

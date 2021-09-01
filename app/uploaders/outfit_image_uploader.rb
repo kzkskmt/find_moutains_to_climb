@@ -13,7 +13,7 @@ class OutfitImageUploader < ApplicationUploader
 
   # ファイルの保存場所の設定
   def store_dir
-    # テスト環境では、アップロードされた画像データはpublic/uploaders/outfit_test/配下に置かれる。
+    # テスト環境では、アップロードされた画像データはpublic/uploaders_test/配下に置かれる。
     if Rails.env.test?
       "uploads_test/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
     else

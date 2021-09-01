@@ -12,6 +12,7 @@ RSpec.describe 'Mountains', type: :system do
     let!(:mountain_1500_in_hokkaido) { create :mountain, :ele_1500, :in_hokkaido }
     let!(:mountain_2500_in_kantou) { create :mountain, :ele_2500, :in_kantou }
     let!(:mountain_3800_in_kyushu) { create :mountain, :ele_3800, :in_kyushu }
+
     before { visit mountains_path }
 
     context '一覧ページへアクセス' do
@@ -106,7 +107,8 @@ RSpec.describe 'Mountains', type: :system do
   end
 
   describe '詳細ページ' do
-    let(:mountain) { create :mountain }
+    let!(:mountain) { create :mountain }
+
     before { visit mountain_path mountain.id }
 
     context '詳細ページへアクセス' do

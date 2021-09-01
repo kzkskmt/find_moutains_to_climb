@@ -13,11 +13,4 @@ CarrierWave.configure do |config|
       region: 'ap-northeast-1',   # アジアパシフィック(東京)を選択した場合
       path_style: true
     }
-end 
-
-# if Rails.env.test? or Rails.env.cucumber?
-#   CarrierWave.configure do |config|
-#     config.storage = :file
-#     config.enable_processing = false
-#   end
-# end
+end
