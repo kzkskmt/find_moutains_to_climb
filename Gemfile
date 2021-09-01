@@ -69,6 +69,10 @@ gem 'dotenv-rails'
 # HTTPリクエストの並列処理(高速化)
 gem 'typhoeus'
 
+# Authentication
+gem 'pundit'
+gem 'sorcery'
+
 # その他
 gem 'draper'
 gem 'ransack'

@@ -9,10 +9,16 @@ class ImageUploader < ApplicationUploader
     storage :file # 本番環境以外はpublic
   end
 
-  # アップロードされた画像データはpublic/uploaders/配下に置かれる。
-  # 以下の設定であれば、public/uploaders/単数テーブル名/画像カラム名/インスタンスのid番号
+  # ファイルの保存場所の設定
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    # テスト環境では、アップロードされた画像データはpublic/uploaders_test/配下に置かれる。
+    if Rails.env.test?
+      "uploads_test/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    else
+      # アップロードされた画像データはpublic/uploaders/配下に置かれる。
+      # 以下の設定であれば、public/uploaders/単数テーブル名/画像カラム名/インスタンスのid番号
+      "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    end
   end
 
   def default_url
