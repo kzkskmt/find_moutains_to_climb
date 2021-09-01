@@ -1,4 +1,6 @@
 class OutfitsController < ApplicationController
+  skip_before_action :require_login
+
   def index
     @outfits = Outfit.all
   end

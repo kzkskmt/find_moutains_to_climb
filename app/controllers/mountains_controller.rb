@@ -1,4 +1,5 @@
 class MountainsController < ApplicationController
+  skip_before_action :require_login
   before_action :set_q, only: %i[index]
   before_action :set_center_of_jp, only: %i[index]
 
