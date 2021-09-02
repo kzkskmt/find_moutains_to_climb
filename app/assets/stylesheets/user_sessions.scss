@@ -1,8 +1,8 @@
-// Place all the styles related to the users controller here.
+// Place all the styles related to the user_sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.registration-section{
+.login-section{
   margin: 6rem 0;
 
   .container {
@@ -50,7 +50,7 @@
   }
   
   .bg-register-image {
-    background: url("../assets/img/bg-registration.jpg");
+    background: url("../assets/img/bg-login.jpg");
     background-position: center;
     background-size: cover;
   }  

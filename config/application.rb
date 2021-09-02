@@ -38,5 +38,10 @@ module FindMoutainsToClimb
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # i18n
+    config.i18n.default_locale = :ja
+    # config/locales配下のymlファイルを読み込む設定
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
   end
 end
