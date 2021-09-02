@@ -1,0 +1,58 @@
+// Place all the styles related to the user_sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.login-section{
+  margin: 6rem 0;
+
+  .container {
+    max-width: 1140px;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .btn {
+    font-size: 0.8rem;
+    border-radius: 10rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .btn:hover {
+    color: white;
+  }
+  
+  .btn-block {
+    display: block;
+    width: 100%;
+  }
+  
+  .btn-google {
+    color: #fff;
+    background-color: #ea4335;
+    border-color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .btn-google:hover {
+    background-color: #d13e31;
+  }
+  
+  .btn-facebook {
+    color: #fff;
+    background-color: #3b5998;
+    border-color: #fff;
+  }
+
+  .btn-facebook:hover {
+    background-color: #344d81;
+  }
+  
+  .bg-register-image {
+    background: url("../assets/img/bg-login.jpg");
+    background-position: center;
+    background-size: cover;
+  }  
+}
+

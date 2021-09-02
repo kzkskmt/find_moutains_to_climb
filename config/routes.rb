@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :users
+  get 'login', to: 'user_sessions#new'
+  post 'login', to: 'user_sessions#create'
+  delete 'logout', to: 'user_sessions#destroy'
+  resources :users, only: %i[new create edit update]
   resources :mountains, only: %i[index show] do
     # resources :courses, only: %i[index show]
   end
