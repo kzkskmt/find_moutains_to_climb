@@ -58,7 +58,8 @@ namespace :mountain do
     # 山の取得件数
     number = Mountain.count
 
-    puts '-'*10 + '山のツイート数を更新しています' + '-'*10
+    puts '-'*12 + '山のツイート数を更新しています' + '-'*12
+    puts Time.now
     Mountain.first(number).each do |mountain|
       sleep 3
       # 画像付きツイートを取得。has:imagesとしているのは

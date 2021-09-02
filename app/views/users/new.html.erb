@@ -10,6 +10,7 @@
                               <h1 class='h4 text-gray-900 mb-4'>新規登録</h1>
                           </div>
                           <%= form_with model: @user, local: true do |f| %>
+                            <%= render partial: 'shared/error_messages', locals: { model: @user } %>
                             <div class='form-group'>
                                 <%= f.text_field :name, class: 'form-control', placeholder: 'お名前' %>
                             </div>
