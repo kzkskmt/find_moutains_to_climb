@@ -1,0 +1,69 @@
+ja:
+  users:
+    new:
+      sign_up: 新規登録
+      go_to_login: ログインページへ
+    create:
+      success: ユーザー登録が完了しました
+      fail: ユーザー登録に失敗しました
+    edit:
+      user: ユーザー編集
+    index:
+      title: ユーザー一覧
+    show:
+      user: ユーザー詳細
+  user_sessions:
+    new:
+      login: ログイン
+      go_to_signup: 登録ページへ
+      forget_the_password: パスワードをお忘れの方はこちら
+    create:
+      success: ログインしました
+      fail: ログインに失敗しました
+    destroy:
+      success: ログアウトしました
+  mountains:
+    index:
+      fail: ログインしてください
+      absent: 山がありません
+      title: 山一覧
+      no_result: 山がありません
+    new:
+      board: 山作成
+    edit:
+      board: 山編集
+    update:
+      success: 山を更新しました
+      fail: 山を更新できませんでした
+    create:
+      success: 山を作成しました
+      fail: 山を作成できませんでした
+    destroy:
+      success: 山を削除しました
+    bookmarks:
+      title: ブックマーク一覧
+      no_result: ブックマーク中の山がありません
+  comments:
+    create:
+      success: コメントを作成しました
+      fail: コメントを作成できませんでした
+    destroy:
+      success: コメントを削除しました
+  profiles:
+    show:
+      show_profile: プロフィール詳細
+    edit:
+      edit_profile: プロフィール編集
+    update:
+      success: ユーザーを更新しました
+      fail: ユーザーを更新できませんでした
+  password_resets:
+    new:
+      title: パスワードリセット申請
+    create:
+      success: パスワードリセット手順を送信しました
+    edit:
+      title: パスワードリセット
+    update:
+      success: パスワードを変更しました
+      fail: パスワードを変更できませんでした

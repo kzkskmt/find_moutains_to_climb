@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def not_authenticated
-    redirect_to login_path, danger: 'ログインしてください'
+    redirect_to login_path, danger: t('mountains.index.fail')
   end
 
   # クラス内のみで利用するためprivate

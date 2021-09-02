@@ -7,15 +7,15 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
     if @user
       # 前に見ていたページがあればそこへ戻してあげる「redirect_back_or_to」
-      redirect_back_or_to root_path, success: 'ログインしました'
+      redirect_back_or_to root_path, success: t('.success')
     else
-      flash.now[:danger] = 'ログインできませんでした'
+      flash.now[:danger] = t '.fail'
       render :new
     end
   end
 
   def destroy
     logout
-    redirect_to root_path, success: 'ログアウトしました'
+    redirect_to root_path, success: t('.success')
   end
 end
