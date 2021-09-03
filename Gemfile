@@ -36,6 +36,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'letter_opener_web'
 end
 
 group :development do
@@ -66,10 +67,15 @@ end
 # Secure passwords, APIkeys
 gem 'dotenv-rails'
 
+# action_mailerの環境ごとに異なる定数を管理するためのgem
+# 設定値をconfigフォルダ以下に一元管理すると、メンテナンスが楽になる
+gem 'config'
+
 # HTTPリクエストの並列処理(高速化)
 gem 'typhoeus'
 
 # Authentication
+# 管理ユーザーと一般ユーザーを今後導入予定
 gem 'pundit'
 gem 'sorcery'
 
