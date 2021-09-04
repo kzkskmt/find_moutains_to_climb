@@ -67,7 +67,7 @@ ja:
     new:
       title: パスワードリセット申請
     create:
-      success: パスワードリセット手順を送信しました
+      success: パスワードリセットメールを送信しました
     edit:
       title: パスワードリセット
     update:

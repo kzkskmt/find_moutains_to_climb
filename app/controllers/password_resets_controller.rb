@@ -5,24 +5,25 @@ class PasswordResetsController < ApplicationController
   def new; end
 
   # パスワードリセットをリクエストするアクション
-  # ユーザーがパスワードのリセットフォームにemailを入力し、送信したときにこのアクションが実行される
+  # ユーザーがパスワードリセット申請フォームにemailを入力し、送信したときにこのアクションが実行される
   def create
-    # form_withで送られてきたemailをparamsで受け取る
+    # フォームで入力されたemailからuserを探す
     @user = User.find_by(email: params[:email])
-    # DBからデータを受け取れていれば、パスワードリセットの方法を記載したメールをユーザーに送信する（ランダムトークン付きのURL/有効期限付き）
+    # DB上に該当ユーザが見つかれば、パスワードリセット案内メールをuserに送信（ランダムトークン付きのURL/有効期限付き）
+    # deliver_reset_password_instructionsでapp/mailers/user_mailer.rbのreset_password_emailメソッドが実行される。
     @user.deliver_reset_password_instructions! if @user
 
-    # フォームに入力したemailがアプリ(DB)内に存在するか否かを問わず、リダイレクトして成功メッセージを表示させる。
-    # DBに存在した時だけ成功メッセージを表示させると、DB内にそのemailが存在するかどうかを悪意ある第三者でさえも確認できてしまう。
-    redirect_to login_path, success: "成功しました"
+    # なお、userの存在の有無に関わらず、リダイレクトして成功メッセージを表示させる。
+    # これはセキュリティ対策の処理で、DB内にそのemailが存在するかどうかを第三者が確認されるのを防ぐため。
+    redirect_to login_path, success: t('.success')
   end
 
   # パスワードリセットフォームページへ遷移するアクション
   def edit
-    # postされてきた値を取得
+    # メールに記載されたurlから@tokenを取り出す
     @token = params[:id]
-    # リクエストで送信されてきたトークンを使って、ユーザーの検索を行い, 有効期限のチェックも行う。
-    # トークンが見つかり、有効であればそのユーザーオブジェクトを@userに格納する
+    # 送信されてきたトークンを使って、ユーザーの検索を行い, 有効期限のチェックも行う。
+    # トークンが見つかり、有効であればそのユーザーオブジェクトを@userに格納する.
     @user = User.load_from_reset_password_token(params[:id])
     # @userがnilまたは空の場合、not_authenticatedメソッドを実行する
     return not_authenticated if @user.blank?
@@ -37,9 +38,9 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     # change_passwordメソッドで、パスワードリセットに使用したトークンを削除し、パスワードを更新する
     if @user.change_password(params[:user][:password])
-      redirect_to login_path, success: "成功しました"
+      redirect_to login_path, success: t('.success')
     else
-      flash.now[:danger] = "失敗しました"
+      flash.now[:danger] = t '.fail'
       render :edit
     end
   end
