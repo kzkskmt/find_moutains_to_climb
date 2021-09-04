@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      previous: « 前ページ
+      next: 次ページ »
+      truncate: ...
   users:
     new:
       sign_up: 新規登録
@@ -16,7 +23,7 @@ ja:
     new:
       login: ログイン
       go_to_signup: 登録ページへ
-      forget_the_password: パスワードをお忘れの方はこちら
+      forget_password: パスワードをお忘れの方はこちら
     create:
       success: ログインしました
       fail: ログインに失敗しました
@@ -25,7 +32,6 @@ ja:
   mountains:
     index:
       fail: ログインしてください
-      absent: 山がありません
       title: 山一覧
       no_result: 山がありません
     new:
@@ -61,7 +67,7 @@ ja:
     new:
       title: パスワードリセット申請
     create:
-      success: パスワードリセット手順を送信しました
+      success: パスワードリセットメールを送信しました
     edit:
       title: パスワードリセット
     update:

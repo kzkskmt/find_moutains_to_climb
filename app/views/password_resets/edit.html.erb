@@ -1,0 +1,28 @@
+
+<section class='password-resets-section' id='password-resets'>
+  <div class='container px-4 px-lg-5'>
+    <div class='card o-hidden border-0 shadow-lg my-5'>
+      <div class='card-body p-0'>
+        <div class='row'>
+          <div class='p-5'>
+            <div class='text-center'>
+              <h1 class='h4 text-gray-900 mb-4'>パスワード変更</h1>
+            </div>
+            <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
+              <div class='form-group'>
+                <%= @user.email %>
+              </div>
+              <div class='form-group'>
+                <%= f.password_field :password, class: 'form-control form-control-user', placeholder: User.human_attribute_name(:password) %>
+              </div>
+              <div class='form-group'>
+                <%= f.password_field :password_confirmation, class: 'form-control form-control-user', placeholder: User.human_attribute_name(:password_confirmation) %>
+              </div>
+              <%= f.submit 'パスワードを変更する', class: 'btn btn-primary btn-user btn-block' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -11,4 +11,6 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
+  # パスワードを変更した際、reset_password_tokenがnilになるのでユニーク制約に引っかかってしまう。そこで、allow_nil：trueを加えることでnilを許可
+  validates :reset_password_token, uniqueness: true, allow_nil: true
 end
