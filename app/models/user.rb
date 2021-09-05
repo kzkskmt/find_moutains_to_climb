@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  has_many :posts, dependent: :destroy
+
   validates :name, presence: true
   # メールアドレスの正規表現を定義。絶対にメールアドレスではない形式で入力されたものを排除
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i

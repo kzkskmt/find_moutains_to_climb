@@ -3,6 +3,7 @@ class Mountain < ApplicationRecord
   mount_uploader :image, ImageUploader
   jp_prefecture :prefecture_code, method_name: :pref
 
+  has_many :posts, dependent: :destroy
   has_many :courses
 
   enum level: { 初級: 0, 中級: 1, 上級: 2 }
