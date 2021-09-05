@@ -16,6 +16,9 @@ class MountainsController < ApplicationController
     @mountain = Mountain.find(params[:id])
     # 詳細画面では該当する山のピンは立てない。
     @mountains_on_map = Mountain.where.not(id: @mountain.id)
+    @center_of_map_lat = @mountain.peak_location_lat
+    @center_of_map_lng = @mountain.peak_location_lng
+    @zoom_level_of_map = 12
     # 標高条件をクリアする服装パターンのうち、
     # ① 上限標高(max_elevation)が低い服装パターン順に並べ替える。
     # ② さらに、下限気温(lower_limit_temp)が高い服装パターン順に並べ替えて、先頭２つを取得する（季節が「春秋」か「夏」の２パターンのため）。
@@ -24,9 +27,8 @@ class MountainsController < ApplicationController
     # @tweet_img_urls = @mountain.search_tweets
     # googlemap placesAPIを用いて、画像を取得
     @google_img_urls = @mountain.search_googlemap_place
-    @center_of_map_lat = @mountain.peak_location_lat
-    @center_of_map_lng = @mountain.peak_location_lng
-    @zoom_level_of_map = 12
+    
+    @posts = @mountain.posts.includes(:user)
   end
 
   # def edit
