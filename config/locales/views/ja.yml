@@ -49,7 +49,6 @@ ja:
     bookmarks:
       title: ブックマーク一覧
       no_result: ブックマーク中の山がありません
-  comments:
     create:
       success: コメントを作成しました
       fail: コメントを作成できませんでした

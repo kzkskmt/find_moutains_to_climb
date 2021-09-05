@@ -1,8 +1,8 @@
 <% if @posts.present? %>
   <section class="post-section bg-light">
     <div class="container px-4 px-lg-5">
+      <h2 class="mb-4">みんなの登山記録</h2>
       <div class="row gx-4 gx-lg-5">
-        <h2 class="mb-4">登山した人の感想</h2>
         <% @posts.each do |post| %>
           <div class="col-md-4 mb-3">
             <div class="card px-3 py-4 h-100">
