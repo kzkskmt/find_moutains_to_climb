@@ -10,5 +10,5 @@ ja:
         password: "パスワード"
         password_confirmation: "パスワード(確認用)"
       post:
-        title: "タイトル"
+        title: "タイトル(20文字以内)"
         body: "内容"
