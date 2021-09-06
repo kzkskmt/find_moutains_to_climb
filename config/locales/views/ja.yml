@@ -29,6 +29,9 @@ ja:
       success: 投稿を編集しました
       fail: 投稿を編集できませんでした
       post: 投稿編集
+    update:
+      success: 投稿を編集しました
+      fail: 投稿を編集できませんでした
     index:
       title: 投稿一覧
     show:

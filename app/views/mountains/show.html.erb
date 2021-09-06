@@ -132,7 +132,32 @@
 <% end %>
 
 <!-- 投稿-->
-<%= render 'posts/post', posts: @posts %>
+<section class="post-section bg-light">
+  <div class="container px-4 px-lg-5">
+    <div class="row">
+      <!-- col (列) の指定 -->
+      <div class="col-sm-9">
+        <h2 class="mb-4">みんなの登山記録</h2>
+      </div>
+      <% if current_user == @user %>
+        <div class="col-sm-3 text-end text-black-50">
+          <%= link_to new_post_path do%>
+            <i class="far fa-edit"></i> 投稿する
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <!-- 投稿があれば表示 -->
+    <% if @posts.present? %>
+      <%= render 'posts/post', posts: @posts %>
+    <% else %>
+      <h5>...まだ投稿がありません。</h5>
+      <%= link_to new_post_path(mountain_id: @mountain), class: "btn btn-warning text-white rounded-4", 'data-turbolinks': false do %>
+        あなたの登山記録を共有しませんか？
+      <% end %>
+    <% end %>
+  </div>
+</section>
 
 <script>
   // 各mountainデータを格納する箱 obj
