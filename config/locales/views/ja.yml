@@ -19,6 +19,20 @@ ja:
       title: ユーザー一覧
     show:
       user: ユーザー詳細
+  posts:
+    new:
+      sign_up: 新規投稿
+    create:
+      success: 投稿しました
+      fail: 投稿できませんでした
+    edit:
+      success: 投稿を編集しました
+      fail: 投稿を編集できませんでした
+      post: 投稿編集
+    index:
+      title: 投稿一覧
+    show:
+      post: 投稿詳細
   user_sessions:
     new:
       login: ログイン

@@ -18,9 +18,9 @@
 
 10.times do |index|
   Post.create!(
-      user: User.offset(rand(User.count)).first,
-      mountain: Mountain.first,
+      user: User.last,
+      mountain: Mountain.offset(rand(Mountain.count)).first,
       title: "タイトル#{index}",
-      body: "本文#{index}"
+      body: "ああああああああああああああああああああああああああああああああああああ#{index}"
   )
 end

@@ -1,14 +1,28 @@
 <% if @posts.present? %>
   <section class="post-section bg-light">
     <div class="container px-4 px-lg-5">
-      <h2 class="mb-4">みんなの登山記録</h2>
+
+      <div class="row">
+        <!-- col (列) の指定 -->
+        <div class="col-sm-9">
+          <h2 class="mb-4">みんなの登山記録</h2>
+        </div>
+        <% if current_user == @user %>
+          <div class="col-sm-3 text-end text-black-50">
+            <%= link_to new_post_path do%>
+              <i class="far fa-edit"></i> 投稿する
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
       <div class="row gx-4 gx-lg-5">
         <% @posts.each do |post| %>
           <div class="col-md-4 mb-3">
             <div class="card px-3 py-4 h-100">
               <div class="card-body text-center">
                 <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                <h4 class="m-0"><%= post.user.name %></h4>
+                <h4 class="m-0"><%= link_to "#{post.user.name}", user_path(post.user.id) %></h4>
                 <hr class="my-2 mx-auto" />
                 <h4 class="m-0"><%= post.title %></h4>
                 <div class="small text-black-50"><%= post.body %></div>

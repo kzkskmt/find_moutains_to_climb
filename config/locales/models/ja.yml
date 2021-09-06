@@ -2,9 +2,13 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      post: "投稿"
     attributes:
       user:
         name: "ニックネーム"
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード(確認用)"
+      post:
+        title: "タイトル"
+        body: "内容"

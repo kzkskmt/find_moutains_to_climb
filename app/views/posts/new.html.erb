@@ -1,0 +1,23 @@
+<div class='card o-hidden border-0 shadow-lg my-5'>
+  <div class='card-body p-0'>
+    <div class='row'>
+      <div class='p-5'>
+        <div class='text-center'>
+          <h1 class='h4 text-gray-900 mb-4'>登山記録を投稿する</h1>
+        </div>
+        <%= form_with model: @post, url: posts_path, local: true do |f| %>
+          <div class='form-group'>
+            <%= f.text_field :title, class: 'form-control form-control-user', placeholder: Post.human_attribute_name(:title) %>
+          </div>
+          <div class='form-group'>
+            <%= f.text_field :body, class: 'form-control form-control-user', placeholder: Post.human_attribute_name(:body) %>
+          </div>
+          <div class='form-group'>
+            <%= f.collection_select(:mountain_id, Mountain.all, :id, :name, { prompt: "選択してください" }, { class: 'form-control form-control-user' } ) %>
+          </div>
+          <%= f.submit '投稿する', class: 'btn btn-primary btn-user btn-block' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
