@@ -5,7 +5,8 @@
         <%= image_tag 'avataaars.svg', class: "user-avatar mb-5" %>
         <!-- 名前とメールアドレス-->
         <h1 class="user-heading text-uppercase mb-0"><%= @user.name %></h1>
-        <p class="user-subheading font-weight-light mb-0"><%= @user.email%></p>
+        <!-- 一言メッセージ -->
+        <p class="user-subheading font-weight-light mb-0"><%# @user.email %></p>
     </div>
 </section>
 

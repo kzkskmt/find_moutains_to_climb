@@ -1,7 +1,9 @@
 <section class='flash-message'>
   <% flash.each do |message_type, message| %>
     <div class="alert alert-<%= message_type %>">
-      <%= message %>
+      <div class="container px-4 px-lg-5">
+        <%= message %>
+      </div>
     </div>
   <% end %>
 </section>

@@ -33,29 +33,33 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ms-auto">
-            <% if logged_in? %>
-              <li class="nav-item">
-                <%= link_to "ログアウト", logout_path, method: :delete, class: 'nav-link', 'data-turbolinks': false %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%# link_to 'ログイン', login_path, class: "nav-link", 'data-turbolinks': false %>
-              </li>
-              <li class="nav-item">
-                <%# link_to '新規登録', new_user_path, class: "nav-link", 'data-turbolinks': false %>
-              </li>
-            <% end %>
             <li class="nav-item">
               <%= link_to root_path(anchor: 'search'), class: "nav-link", 'data-turbolinks': false do %>
                 <i class="fas fa-search"></i> 山を探す
               <% end %>
             </li>
             <li class="nav-item">
-              <%= link_to mountains_path, class: "nav-link pe-0", 'data-turbolinks': false do %>
+              <%= link_to mountains_path, class: "nav-link", 'data-turbolinks': false do %>
                 <i class="fas fa-mountain"></i> 山一覧
               <% end %>
             </li>
           </ul>
+
+          <!-- ユーザー -->
+          <% if logged_in? %>
+            <div class="btn-group">
+              <div class="nav-link dropdown-toggle pe-0" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="far fa-user"></i> <%= current_user.name %>
+              </div>
+              <ul class="dropdown-menu dropdown-menu-end" >
+                <li><%= link_to 'プロフィール',user_path(current_user), class: 'dropdown-item', 'data-turbolinks': false %></li>
+                <hr class="m-2" style="height: 2px;">
+                <li><%= link_to 'ログアウト', logout_path, method: :delete, class: 'dropdown-item', 'data-turbolinks': false %></li>
+              </ul>
+            </div>
+          <% else %>
+            <%= link_to 'ログイン', login_path, class: "nav-link pe-0", 'data-turbolinks': false %>
+          <% end %>
         </div>
       </div>
     </nav>
