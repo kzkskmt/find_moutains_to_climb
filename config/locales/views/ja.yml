@@ -33,6 +33,8 @@ ja:
       title: 投稿一覧
     show:
       post: 投稿詳細
+    destroy:
+      success: 投稿を削除しました
   user_sessions:
     new:
       login: ログイン

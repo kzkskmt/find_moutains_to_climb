@@ -14,6 +14,13 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    post = current_user.posts.find(params[:id])
+    post.destroy!
+    # 元のページへリダイレクト
+    redirect_to request.referer, success: t('.success')
+  end
+
   private
 
   def params_post
