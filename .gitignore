@@ -32,6 +32,7 @@ pickle-email-*.html
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/master.key
+config/database.yml
 
 # 定数管理のファイル。共有しない定数は以下のファイルで管理
 config/settings.local.yml
@@ -89,4 +90,7 @@ yarn-debug.log*
 /recent_search.rb
 /scrape_mountain_level.rb
 
+# その他
+/db/seed_dump.rb
+/db/seed_dump_2.rb
 .DS_Store

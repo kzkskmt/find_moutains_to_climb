@@ -81,6 +81,7 @@ gem 'pundit'
 gem 'sorcery'
 
 # その他
+gem 'enum_help'
 gem 'draper'
 gem 'ransack'
 gem 'kaminari'

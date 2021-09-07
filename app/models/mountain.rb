@@ -6,7 +6,7 @@ class Mountain < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :courses
 
-  enum level: { 初級: 0, 中級: 1, 上級: 2 }
+  enum level: { easy: 0, normal: 1, hard: 2 }
 
   def search_tweets
     bearer_token = ENV["TWITTER_BEARER_TOKEN"]

@@ -6,6 +6,12 @@ ja:
       previous: « 前ページ
       next: 次ページ »
       truncate: ...
+  enums:
+    mountain:
+      level:
+        easy: 初級
+        normal: 中級
+        hard: 上級
   users:
     new:
       sign_up: 新規登録
