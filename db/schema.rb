@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_053757) do
     t.string "email", null: false
     t.string "crypted_password"
     t.string "salt"
+    t.string "avatar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "reset_password_token"
