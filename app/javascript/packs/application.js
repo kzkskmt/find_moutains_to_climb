@@ -25,6 +25,7 @@ window.addEventListener('DOMContentLoaded', event => {
       if (!navbarCollapsible) {
           return;
       }
+      // トップページのみヘッダーが透過
       if ( window.document.body.id === 'page-top' && window.scrollY === 0) {
           navbarCollapsible.classList.remove('navbar-shrink')
       } else {
@@ -61,3 +62,7 @@ window.addEventListener('DOMContentLoaded', event => {
   });
 });
 
+// フラッシュメッセージのフェードアウト
+$(function(){
+  setTimeout("$('#flash').fadeOut('slow')", 2000);
+});

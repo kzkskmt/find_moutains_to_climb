@@ -1,0 +1,36 @@
+<!-- ユーザー詳細-->
+<section class="user bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <!-- アイコン-->
+        <%= image_tag 'avataaars.svg', class: "user-avatar mb-5" %>
+        <!-- 名前とメールアドレス-->
+        <h1 class="user-heading text-uppercase mb-0"><%= @user.name %></h1>
+        <!-- 一言メッセージ -->
+        <p class="user-subheading font-weight-light mb-0"><%# @user.email %></p>
+    </div>
+</section>
+
+<!-- 投稿-->
+<section class="post-section bg-light">
+  <div class="container px-4 px-lg-5">
+    <div class="row">
+      <!-- col (列) の指定 -->
+      <div class="col-sm-9">
+        <h2 class="mb-4">投稿一覧</h2>
+      </div>
+      <% if current_user == @user %>
+        <div class="col-sm-3 text-end text-black-50">
+          <%= link_to new_post_path do%>
+            <i class="far fa-edit"></i> 投稿する
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <!-- 投稿があれば表示 -->
+    <% if @posts.present? %>
+      <%= render 'posts/post', posts: @posts %>
+    <% else %>
+      <h3>投稿がありません</h3>
+    <% end %>
+  </div>
+</section>

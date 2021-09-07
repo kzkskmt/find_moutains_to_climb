@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :require_login, only: %i[index show new create]
 
   def index; end
 
-  def show; end
+  def show
+    @user = User.find(params[:id])
+    @posts = @user.posts
+  end
 
   def new
     @user = User.new
@@ -12,6 +15,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      auto_login(@user)
       redirect_to root_url, success: t('.success')
     else
       flash.now[:danger] = t '.fail'

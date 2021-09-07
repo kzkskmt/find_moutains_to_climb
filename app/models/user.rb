@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
 
+  has_many :posts, dependent: :destroy
+
   validates :name, presence: true
   # メールアドレスの正規表現を定義。絶対にメールアドレスではない形式で入力されたものを排除
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
@@ -13,4 +15,8 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   # パスワードを変更した際、reset_password_tokenがnilになるのでユニーク制約に引っかかってしまう。そこで、allow_nil：trueを加えることでnilを許可
   validates :reset_password_token, uniqueness: true, allow_nil: true
+
+  def own?(object)
+    id == object.user_id
+  end
 end
