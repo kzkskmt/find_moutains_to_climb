@@ -58,6 +58,11 @@ ActiveRecord::Schema.define(version: 2021_09_05_053757) do
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
+    t.date "climbed_on", null: false
+    t.integer "course_time", null: false
+    t.integer "review", null: false
+    t.integer "level", null: false
+    t.integer "physical_strength", null: false
     t.bigint "user_id", null: false
     t.bigint "mountain_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -69,9 +74,11 @@ ActiveRecord::Schema.define(version: 2021_09_05_053757) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
+    t.integer "age"
+    t.integer "sex"
+    t.string "avatar"
     t.string "crypted_password"
     t.string "salt"
-    t.string "avatar"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "reset_password_token"
