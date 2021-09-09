@@ -1,4 +1,13 @@
 class LikesController < ApplicationController
-  # post_idとuser_idの組が1組しか存在しないように設定
-  validates_uniqueness_of :post_id, scope: :user_id
+  def create
+    like = current_user.likes.build(post_id: params[:post_id])
+    like.save!
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy
+    like = Like.find_by(post_id: params[:post_id], user_id: current_user.id)
+    like.destroy!
+    redirect_back(fallback_location: root_path)
+  end
 end
