@@ -9,4 +9,20 @@ class Post < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 20 }
   validates :body, presence: true, length: { maximum: 1_000 }
+  validates :climbed_on, presence: true
+  validates :course_time, presence: true
+  validates :review, presence: true
+  validates :level, presence: true
+  validates :physical_strength, presence: true
+
+  validate :climebd_on_must_be_in_the_past
+  
+  # 登山日のチェックメソッド
+  def climebd_on_must_be_in_the_past
+    # 登山日入力済、かつ未来もしくは現在の日付
+    if climbed_on.present? && !climbed_on.past?
+      # エラー対象属性とエラーメッセージを設定
+      errors.add(:climbed_on, :invalid_date)
+    end
+  end
 end
