@@ -5,6 +5,10 @@
 .post-section {
   padding: 5rem 0;
 
+  p {
+    margin-bottom: 0;
+  }
+
   .card {
     border: 0;
   }
@@ -17,8 +21,10 @@
   .card hr {
     border-color: #64a19d;
     border-width: 0.25rem;
-    width: 3rem;
+    width: 70%;
     height: 1px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
   .social {
     margin-top: 5rem;
@@ -40,7 +46,7 @@
   }
 }
 
-.post-crud-section{
+.post-form-section{
   margin: 6rem 0;
 
   .container {

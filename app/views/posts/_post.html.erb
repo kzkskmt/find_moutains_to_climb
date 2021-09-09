@@ -15,10 +15,15 @@
             </div>
           <% end %>
         <% end %>
+        <!-- 登山日が何日前か-->
+        <div class="badge bg-white text-black-50 position-absolute" style="top: 0.5rem; left: 0.5rem">
+          <i class="fas fa-hiking"></i> <%= time_ago_in_words(post.climbed_on) %>前
+        </div>
+        <!-- 投稿内容-->
         <div class="card-body text-center">
-          <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-          <h4 class="m-0"><%= link_to "#{post.user.name}", user_path(post.user.id) %></h4>
-          <hr class="my-2 mx-auto" />
+          <h4 class="mb-1"><i class="fas fa-user"></i> <%= link_to "#{post.user.name}", user_path(post.user_id) %></h4>
+          <h4 class="m-0"><%= post.review_i18n %></h4>
+          <hr class="mx-auto" />
           <h4 class="m-0"><%= post.title %></h4>
           <div class="small text-black-50"><%= post.body %></div>
         </div>

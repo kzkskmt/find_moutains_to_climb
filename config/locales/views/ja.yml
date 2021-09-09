@@ -7,11 +7,35 @@ ja:
       next: 次ページ »
       truncate: ...
   enums:
+    user:
+      sex:
+        man: 男性
+        woman: 女性
+        else: その他
     mountain:
       level:
         easy: 初級
         normal: 中級
         hard: 上級
+    post:
+      review:
+        bad: 微妙
+        okay: 普通
+        good: 良い
+        very_good: 非常に良い
+      level:
+        easy: 初級
+        normal: 中級
+        hard: 上級
+      course_time:
+        few_hours: 2~3時間
+        over_five_hours: 5時間以上
+        over_eight_hours: 8時間以上
+        all_day_long: 丸一日以上
+      physical_strength:
+        no_sweat: ラク
+        fine: ちょうどいい
+        exhausted: しんどい
   users:
     new:
       sign_up: 新規登録

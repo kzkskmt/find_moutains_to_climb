@@ -1,20 +1,20 @@
 ja:
   activerecord:
     models:
-      user: "ユーザー"
-      post: "投稿"
+      user: ユーザー
+      post: 投稿
     attributes:
       user:
-        name: "ニックネーム"
-        email: "メールアドレス"
-        password: "パスワード"
-        password_confirmation: "パスワード(確認用)"
+        name: ニックネーム
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード(確認用)
       post:
-        title: "タイトル"
-        body: "感想"
-        climbed_on: "登山日"
-        course_time: "登山の所要時間"
-        review: "評価"
-        level: "難易度"
-        physical_strength: "しんどさ"
-        mountain_id: "登った山"
+        title: タイトル
+        body: 感想
+        climbed_on: 登山日
+        course_time: 登山の所要時間
+        review: 評価
+        level: 難易度
+        physical_strength: しんどさ
+        mountain_id: 登った山
