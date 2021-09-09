@@ -2,6 +2,8 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :liked_posts, through: :likes, source: :post
 
   enum sex: { man: 0, woman: 1, else: 2 }
 
@@ -20,5 +22,9 @@ class User < ApplicationRecord
 
   def own?(object)
     id == object.user_id
+  end
+
+  def liked?(post)
+    liked_posts.include?(post)
   end
 end

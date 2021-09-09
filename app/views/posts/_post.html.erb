@@ -4,17 +4,28 @@
       <div class="card px-3 py-4 h-100">
         <!-- 自分の投稿には編集・削除ボタンを表示-->
         <% if current_user.own?(post) %>
-          <%= link_to edit_post_path(post) do %>
-            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 1.5rem">
+          <div class="badge text-black-50 position-absolute" style="bottom: 0.5rem; right: 0.5rem">
+            <%= link_to edit_post_path(post) do %>
               <i class="fas fa-pencil-alt"></i>
-            </div>
-          <% end %>
-          <%= link_to post_path(post), method: :delete, data: { confirm: "削除しますか？"} do %>
-            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
-              <i class="fas fa-trash-alt"></i>
-            </div>
-          <% end %>
+            <% end %>
+            <%= link_to post_path(post), method: :delete, data: { confirm: "削除しますか？"} do %>
+              <i class="far fa-trash-alt"></i>
+            <% end %>
+          </div>
         <% end %>
+        <!-- いいねボタン表示-->
+        <div class="badge text-black-50 position-absolute" style="top: 0.5rem; right: 0.5rem">
+          <% if current_user.liked?(post) %>
+            <%= link_to post_like_path(post), method: :delete do %>
+              <i class="fas fa-thumbs-up"></i>
+            <% end %>
+          <% else %>
+            <%= link_to post_likes_path(post), method: :post do %>
+              <i class="far fa-thumbs-up"></i>
+            <% end %>
+          <% end %>
+          <%= post.likes.count %>
+        </div>
         <!-- 登山日が何日前か-->
         <div class="badge bg-white text-black-50 position-absolute" style="top: 0.5rem; left: 0.5rem">
           <i class="fas fa-hiking"></i> <%= time_ago_in_words(post.climbed_on) %>前
