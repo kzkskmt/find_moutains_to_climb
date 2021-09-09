@@ -24,14 +24,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update!(user_params)
-      redirect_to edit_user_path(@user.id)
+    @user = User.find(current_user.id)
+    if @user.update(user_params)
+      redirect_to user_path(@user), success: t('.success')
     else
+      flash.now[:danger] = t '.fail'
       render :edit
     end
   end
@@ -39,7 +40,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
     # params.require(:user).permit(policy(:user).permitted_attributes)
   end
 

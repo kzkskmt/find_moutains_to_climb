@@ -2,11 +2,14 @@
 <section class="user bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- アイコン-->
-        <%= image_tag 'default_avatar.png', class: "user-avatar mb-5" %>
+        <%= image_tag @user.avatar.url, class: "user-avatar mb-5" %>
         <!-- 名前とメールアドレス-->
-        <h1 class="user-heading text-uppercase mb-0"><%= @user.name %></h1>
-        <!-- 一言メッセージ -->
-        <p class="user-subheading font-weight-light mb-0"><%# @user.email %></p>
+        <h1 class="user-heading text-uppercase mb-1"><%= @user.name %></h1>
+        <% if current_user == @user %>
+          <p class="user-subheading font-weight-light mb-0"><%= @user.email %></p>
+          <!-- 編集リンク -->
+          <%= link_to edit_user_path(@user), class: "text-white" do %><i class="far fa-edit"></i><% end %>
+        <% end %>
     </div>
 </section>
 
@@ -20,7 +23,7 @@
       </div>
       <% if current_user == @user %>
         <div class="col-sm-3 text-end text-black-50">
-          <%= link_to new_post_path do%>
+          <%= link_to new_post_path do %>
             <i class="far fa-edit"></i> 投稿する
           <% end %>
         </div>

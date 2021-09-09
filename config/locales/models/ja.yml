@@ -7,6 +7,9 @@ ja:
       user:
         name: ニックネーム
         email: メールアドレス
+        age: 年齢
+        sex: 性別
+        avatar: サムネイル
         password: パスワード
         password_confirmation: パスワード(確認用)
       post:

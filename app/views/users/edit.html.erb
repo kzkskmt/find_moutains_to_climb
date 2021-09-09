@@ -1,2 +1,45 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<section class='registration-section' id='registration'>
+  <div class='container px-4 px-lg-5'>
+      <div class='card o-hidden border-0 shadow-lg my-5'>
+          <div class='card-body p-0'>
+              <div class='row'>
+                <% if @user.avatar? %>
+                  <div class='col-lg-5 d-none d-lg-block bg-avatar' style="background: url(<%= @user.avatar.url %>); background-position: center; background-size: cover;"></div>
+                <% else %>
+                  <div class='col-lg-5 d-none d-lg-block bg-register-image'></div>
+                <% end %>
+                  <div class='col-lg-7'>
+                      <div class='p-5'>
+                          <div class='text-center'>
+                              <h1 class='h4 text-gray-900 mb-4'>ユーザー編集</h1>
+                          </div>
+                          <%= form_with model: @user, local: true do |f| %>
+                            <%= render partial: 'shared/error_messages', locals: { model: @user } %>
+                            <div class='form-group'>
+                                <%= f.text_field :name, class: 'form-control', placeholder: User.human_attribute_name(:name) %>
+                            </div>
+                            <div class='form-group'>
+                              <%= f.text_field :email, class: 'form-control form-control-user', placeholder: User.human_attribute_name(:email) %>
+                            </div>
+
+                            <div class='form-group row'>
+                              <div class='col-sm-6 mb-3 mb-sm-0'>
+                                <%= f.number_field :age, {min: 0, max: 99, class: 'form-control', placeholder: User.human_attribute_name(:age)} %>
+                              </div>
+                              <div class='col-sm-6'>
+                                <%= f.select :sex, User.sexes_i18n.invert.map{|key, value| [key, User.sexes[value]]}, { include_blank: '未回答' }, { class: 'form-control' } %>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <%= f.label :avatar, class: "label" %>
+                              <%= f.file_field :avatar, class: "form-control form-control-user" %>
+                            </div>
+                            <%= f.submit '編集する', class: 'btn btn-primary btn-user btn-block' %>
+                          <% end %>                          
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
