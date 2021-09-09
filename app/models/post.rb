@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :mountain
+  has_many :likes, dependent: :destroy
 
   enum course_time: { few_hours: 0, over_five_hours: 1, over_eight_hours: 2, all_day_long: 3 }
   enum review: { bad: 0, okay: 1, good: 2, very_good: 3 }

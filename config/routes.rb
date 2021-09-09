@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :mountains, only: %i[index show] do
     # resources :courses, only: %i[index show]
   end
-  resources :posts, only: %i[new create edit update destroy]
+  resources :posts, only: %i[new create edit update destroy] do
+    resources :likes, only: [:create, :destroy]
+  end
   resources :outfits, only: %i[index show]
   resources :password_resets, only: %i[new create edit update]
   root 'homes#top'
