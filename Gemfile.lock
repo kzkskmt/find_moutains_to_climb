@@ -150,6 +150,8 @@ GEM
       dry-equalizer (~> 0.2)
       dry-initializer (~> 3.0)
       dry-schema (~> 1.5, >= 1.5.2)
+    enum_help (0.0.17)
+      activesupport (>= 3.0.0)
     erubi (1.10.0)
     erubis (2.7.0)
     ethon (0.14.0)
@@ -456,6 +458,7 @@ DEPENDENCIES
   config
   dotenv-rails
   draper
+  enum_help
   factory_bot_rails
   faker
   fog-aws

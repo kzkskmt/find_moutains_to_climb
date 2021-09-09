@@ -10,5 +10,11 @@ ja:
         password: "パスワード"
         password_confirmation: "パスワード(確認用)"
       post:
-        title: "タイトル(20文字以内)"
-        body: "内容"
+        title: "タイトル"
+        body: "感想"
+        climbed_on: "登山した日にち"
+        course_time: "登山の所要時間"
+        review: "評価"
+        level: "難易度"
+        physical_strength: "しんどさ"
+        mountain_id: "登った山"

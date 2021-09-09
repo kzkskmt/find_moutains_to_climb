@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
 
+  enum sex: { man: 0, woman: 1, else: 2 }
+
   validates :name, presence: true
   # メールアドレスの正規表現を定義。絶対にメールアドレスではない形式で入力されたものを排除
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i

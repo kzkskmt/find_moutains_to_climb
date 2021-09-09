@@ -2,7 +2,7 @@
   <% @posts.each do |post| %>
     <div class="col-md-4 mb-3">
       <div class="card px-3 py-4 h-100">
-        <!-- 自分の投稿には編集ボタンを表示-->
+        <!-- 自分の投稿には編集・削除ボタンを表示-->
         <% if current_user.own?(post) %>
           <%= link_to edit_post_path(post) do %>
             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 1.5rem">
@@ -10,7 +10,9 @@
             </div>
           <% end %>
           <%= link_to post_path(post), method: :delete, data: { confirm: "削除しますか？"} do %>
-            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">x</div>
+            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">
+              <i class="fas fa-trash-alt"></i>
+            </div>
           <% end %>
         <% end %>
         <div class="card-body text-center">

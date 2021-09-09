@@ -39,6 +39,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :mountain_id)
+    params.require(:post).permit(:title, :body, :climbed_on, :course_time, :review, :level, :physical_strength, :mountain_id)
   end
 end

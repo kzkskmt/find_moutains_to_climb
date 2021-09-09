@@ -14,7 +14,7 @@
           <p class="text-black-50 mb-0">標　高：<%= @mountain.elevation %>m</p>
           <p class="text-black-50 mb-0">エリア：<%= @mountain.pref.name %></p>
           <% if @mountain.level.present? %>
-            <p class="text-black-50 mb-0">難易度：<%= @mountain.level %></p>
+            <p class="text-black-50 mb-0">難易度：<%= @mountain.level_i18n %></p>
           <% end %>
         </div>
       </div>
@@ -137,11 +137,11 @@
     <div class="row">
       <!-- col (列) の指定 -->
       <div class="col-sm-9">
-        <h2 class="mb-4">みんなの登山記録</h2>
+        <h2 class="mb-4">登山した人たちの感想</h2>
       </div>
       <% if logged_in? %>
         <div class="col-sm-3 text-end text-black-50">
-          <%= link_to new_post_path do%>
+          <%= link_to new_post_path(mountain_id: @mountain) do%>
             <i class="far fa-edit"></i> 投稿する
           <% end %>
         </div>
@@ -153,7 +153,7 @@
     <% else %>
       <h5>...まだ投稿がありません。</h5>
       <%= link_to new_post_path(mountain_id: @mountain), class: "btn btn-warning text-white rounded-4", 'data-turbolinks': false do %>
-        あなたの登山記録を共有しませんか？
+        感想を投稿する？
       <% end %>
     <% end %>
   </div>
