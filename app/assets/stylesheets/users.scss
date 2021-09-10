@@ -14,7 +14,9 @@
   font-size: 1.25rem;
 }
 .user .user-avatar {
-  width: 15rem;
+  width: 16rem;
+  height: 16rem;
+  object-fit: cover;
 }
 
 @media (min-width: 992px) {
@@ -85,3 +87,23 @@
   }
 }
 
+.user-index-section {
+  margin: 6rem 0;
+
+  .user-image {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .user-image img {
+    width: 14rem;
+    height: 14rem;
+    object-fit: cover;
+    border: 0.5rem solid rgba(0, 0, 0, 0.1);
+  }
+
+  .user-image h4, .user-image .h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
+}

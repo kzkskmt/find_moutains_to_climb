@@ -1,0 +1,21 @@
+<!-- Team-->
+<section class="user-index-section" id="team">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading text-uppercase"><i class="fas fa-users"></i> 一覧</h2>
+    </div>
+    <div class="row">
+      <% @users.each do |user| %>
+        <div class="col-lg-4">
+          <div class="user-image">
+            <%= link_to user_path(user) do %><%= image_tag user.avatar.url, class: 'mx-auto rounded-circle' %><% end %>
+            <h4><%= link_to user_path(user) do %><%= user.name %><% end %></h4>
+            <% if user.age.present? && user.sex.present? %>
+              <p class="text-muted"><%= user.sex_i18n %> <%= user.age %>歳</p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

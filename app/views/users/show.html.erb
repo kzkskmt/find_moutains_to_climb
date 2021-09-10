@@ -2,9 +2,12 @@
 <section class="user bg-primary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <!-- アイコン-->
-        <%= image_tag @user.avatar.url, class: "user-avatar mb-5" %>
+        <%= image_tag @user.avatar.url, class: "user-avatar mb-5 rounded-circle" %>
         <!-- 名前とメールアドレス-->
         <h1 class="user-heading text-uppercase mb-1"><%= @user.name %></h1>
+        <% if @user.age.present? && @user.sex.present? %>
+          <p class="user-subheading font-weight-light mb-0"><%= @user.sex_i18n %> <%= @user.age %>歳</p>
+        <% end %>
         <% if current_user == @user %>
           <p class="user-subheading font-weight-light mb-0"><%= @user.email %></p>
           <!-- 編集リンク -->

@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[index show new create]
 
-  def index; end
+  def index
+    @users = User.all
+  end
 
   def show
     @user = User.find(params[:id])
@@ -40,7 +42,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
+    params.require(:user).permit(:name, :email, :age, :sex, :password, :password_confirmation, :avatar)
     # params.require(:user).permit(policy(:user).permitted_attributes)
   end
 
