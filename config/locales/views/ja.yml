@@ -45,6 +45,9 @@ ja:
       fail: ユーザー登録に失敗しました
     edit:
       user: ユーザー編集
+    update:
+      success: ユーザー情報を編集しました
+      fail: ユーザー情報を編集できませんでした
     index:
       title: ユーザー一覧
     show:

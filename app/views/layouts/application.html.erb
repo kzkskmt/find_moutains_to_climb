@@ -49,10 +49,19 @@
           <% if logged_in? %>
             <div class="btn-group">
               <div class="nav-link dropdown-toggle pe-0" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="far fa-user"></i> <%= current_user.name %>
+                <i class="fas fa-user"></i> <%= current_user.name %>
               </div>
               <ul class="dropdown-menu dropdown-menu-end" >
-                <li><%= link_to 'プロフィール',user_path(current_user), class: 'dropdown-item', 'data-turbolinks': false %></li>
+                <li>
+                  <%= link_to user_path(current_user), class: 'dropdown-item', 'data-turbolinks': false do %>
+                    プロフィール
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to users_path, class: 'dropdown-item', 'data-turbolinks': false do %>
+                    <i class="fas fa-users"></i> 一覧
+                  <% end %>
+                </li>
                 <hr class="m-2" style="height: 2px;">
                 <li><%= link_to 'ログアウト', logout_path, method: :delete, class: 'dropdown-item', 'data-turbolinks': false %></li>
               </ul>
