@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   # passwordとpassword_confirmationはuserモデルのカラムには存在しない。crypted_passwordカラムの仮想属性であるとここで示す。
   # 登録ユーザーがパスワード以外のプロフィール項目を更新したい場合に、パスワードの入力を省略
-  validates :password, length: { minimum: 4 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, presence: true, length: { minimum: 4 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   # パスワードを変更した際、reset_password_tokenがnilになるのでユニーク制約に引っかかってしまう。そこで、allow_nil：trueを加えることでnilを許可
