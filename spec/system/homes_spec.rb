@@ -2,9 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Homes", type: :system do
   describe 'トップページ' do
-    let!(:mountain_1500_in_hokkaido) { create :mountain, :ele_1500, :in_hokkaido }
-    let!(:mountain_2500_in_kantou) { create :mountain, :ele_2500, :in_kantou }
-    let!(:mountain_3800_in_kyushu) { create :mountain, :ele_3800, :in_kyushu }
     before { visit root_path }
 
     context 'トップページへアクセス' do
@@ -12,10 +9,26 @@ RSpec.describe "Homes", type: :system do
         expect(page).to have_content '登りたい山がみつかるサービス'
         expect(page).to have_content '「Find Mts」'
         expect(page).to have_content 'キーワードから探す'
+        within('form.mountain_search') do
+          expect(page).to have_selector '.form-control'
+        end
         expect(page).to have_content 'エリアから探す'
+        within('#area') do
+          expect(page).to have_link '北海道'
+          expect(page).to have_link '九　州'
+          expect(all('#area-item').count).to eq 8
+        end
         expect(page).to have_content '地図から探す'
         expect(page).to have_content '話題の山'
         expect(current_path).to eq root_path
+      end
+    end
+
+    context '地図の表示', js: true do
+      it 'GoogleMapが正常に表示される' do
+        within('.gm-style') do
+          expect(page).to have_selector("iframe")
+        end
       end
     end
 
@@ -39,14 +52,15 @@ RSpec.describe "Homes", type: :system do
         expect(current_path).to eq mountains_path
       end
     end
+  end
 
-    context 'キーワード検索' do
-      it '正常に表示される' do
-        expect(page).to have_content 'キーワードから探す'
-        within('form.mountain_search') do
-          expect(page).to have_selector '.form-control'
-        end
-      end
+  describe '検索機能とリンク' do
+    let!(:mountain_1500_in_hokkaido) { create :mountain, :ele_1500, :in_hokkaido }
+    let!(:mountain_2500_in_kantou) { create :mountain, :ele_2500, :in_kantou }
+    let!(:mountain_3800_in_kyushu) { create :mountain, :ele_3800, :in_kyushu }
+    before { visit root_path }
+
+    context '検索機能' do
       it '検索機能(キーワード検索　完全一致)' do
         fill_in 'q[name_or_name_en_cont]', with: '開聞岳'
         click_button '検索'
@@ -65,38 +79,20 @@ RSpec.describe "Homes", type: :system do
         expect(all('#mountain-card').count).to eq 1
         expect(current_path).to eq mountains_path
       end
-    end
-
-    context 'エリア検索' do
-      it '正常に表示される' do
-        within('#area') do
-          expect(page).to have_link '北海道'
-          expect(page).to have_link '九　州'
-          expect(all('#area-item').count).to eq 8
-        end
-      end
-      it '検索機能(該当あり)' do
+      it '検索機能(エリア検索　該当あり)' do
         within('#area') do
           click_link '北海道'
         end
         expect(all('#mountain-card').count).to eq 1
         expect(current_path).to eq mountains_path
       end
-      it '検索機能(該当なし)' do
+      it '検索機能(エリア検索　該当なし)' do
         within('#area') do
           click_link '関　西'
         end
         expect(all('#mountain-card').count).to eq 0
         expect(page).to have_content '検索条件と一致する結果が見つかりませんでした。'
         expect(current_path).to eq mountains_path
-      end
-    end
-
-    context '地図の表示', js: true do
-      it 'GoogleMapが正常に表示される' do
-        within('.gm-style') do
-          expect(page).to have_selector("iframe")
-        end
       end
     end
 
@@ -107,6 +103,7 @@ RSpec.describe "Homes", type: :system do
       let!(:outfit_25_2500) { create :outfit, :temp_25, :max_2500, :img_spring }
       let!(:outfit_15_3800) { create :outfit, :temp_15, :max_3800, :img_winter }
       let!(:outfit_25_3800) { create :outfit, :temp_25, :max_3800, :img_winter }
+      before { visit root_path }
 
       it '正常に表示される' do
         within('#popular-mountain') do
