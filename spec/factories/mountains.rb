@@ -1,5 +1,4 @@
 FactoryBot.define do
-
   factory :mountain do
     sequence(:id, 1)
     sequence(:name, "山_1")
