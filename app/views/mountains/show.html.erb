@@ -113,16 +113,9 @@
 <!-- Youtube-->
 <section class="youtube-section text-center">
   <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5">
-      <h2 class="mb-2">Youtube</h2>
-      <p class="mb-4">Youtubeから動画を表示しています</p>
-      <div class="col-md-4 mb-3">
-        <div class="card h-100">
-          <div class="card-body text-center">
-          <div id="player"></div>
-          </div>
-        </div>
-      </div>
+    <h2 class="mb-2">Youtube</h2>
+    <p class="mb-4">Youtubeから動画を表示しています</p>
+    <div class="row gx-5 align-items-center" id="player">
     </div>
   </div>
 </section>
@@ -522,7 +515,7 @@
       num = json.items.length;
       for(let i = 0; i < num ; i++){
           let ID = json.items[i].id.videoId;
-          $("#player").append('<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' + ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+          $("#player").append('<div class="col-lg-6 mb-3"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' + ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>');
       }
     },
     error: function(){
