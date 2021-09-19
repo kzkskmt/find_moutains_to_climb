@@ -188,7 +188,7 @@
       id: <%= mountain.id %>,
       name: '<%= mountain.name %>',
       elevation: '<%= mountain.elevation %>',
-      level: '<%= mountain.level %>',
+      level: '<%= mountain.level_i18n %>',
       lat: <%= mountain.peak_location_lat %>,
       lng: <%= mountain.peak_location_lng %>
     };
@@ -516,14 +516,13 @@
 
   $.ajax({
     type: 'GET',
-    // url: 'https://www.googleapis.com/youtube/v3/search?channelId=UCsK4ocOQQRKLTE0AHoH-Gsg&maxResults=5&order=date&type=video&key=' + YOUTUBE_KEY,
     url: search_url,
     datatype: 'json',
     success: function(json){
       num = json.items.length;
       for(let i = 0; i < num ; i++){
           let ID = json.items[i].id.videoId;
-          $("#player").append('<iframe width="560" height="315" src="https://www.youtube.com/embed/' + ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
+          $("#player").append('<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' + ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');
       }
     },
     error: function(){
