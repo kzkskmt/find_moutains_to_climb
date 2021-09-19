@@ -93,3 +93,4 @@ yarn-debug.log*
 /db/seed_dump.rb
 /db/seed_dump_2.rb
 .DS_Store
+nokogiri.rb

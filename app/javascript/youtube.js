@@ -1,0 +1,20 @@
+/////////////////////// YOUTUBE ///////////////////////
+//参照 : https://developers.google.com/youtube/v3/docs/search/list
+
+$(function () {
+  $.ajax({
+    type: 'GET',
+    url: search_url,
+    datatype: 'json',
+    success: function(json){
+      num = json.items.length;
+      for(let i = 0; i < num ; i++){
+          let ID = json.items[i].id.videoId;
+          $("#player").append('<div class="col-lg-6 mb-3"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' + ID + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>');
+      }
+    },
+    error: function(){
+      alert('error');
+    }
+  });
+});

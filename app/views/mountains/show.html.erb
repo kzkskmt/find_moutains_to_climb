@@ -110,6 +110,17 @@
 </section>
 
 
+<!-- Youtube-->
+<section class="youtube-section text-center">
+  <div class="container px-4 px-lg-5">
+    <h2 class="mb-2">Youtube</h2>
+    <p class="mb-4">Youtubeから動画を表示しています</p>
+    <div class="row gx-5 align-items-center" id="player">
+    </div>
+  </div>
+</section>
+
+
 <!-- Tweet-->
 <% if @tweet_img_urls.present? %>
   <section class="gallery-section text-center">
@@ -170,7 +181,7 @@
       id: <%= mountain.id %>,
       name: '<%= mountain.name %>',
       elevation: '<%= mountain.elevation %>',
-      level: '<%= mountain.level %>',
+      level: '<%= mountain.level_i18n %>',
       lat: <%= mountain.peak_location_lat %>,
       lng: <%= mountain.peak_location_lng %>
     };
@@ -487,4 +498,12 @@
       infoWindow.open(map, marker);
     });
   }
+
+  /////////////////////// YOUTUBE ///////////////////////
+  //参照 : https://developers.google.com/youtube/v3/docs/search/list
+
+  const YOUTUBE_KEY = "<%= ENV['GOOGLE_MAP_API_KEY_IP'] %>";
+  const keyword = "<%= @mountain.name %>";
+  const maxresult = 4;
+  const search_url = encodeURI('https://www.googleapis.com/youtube/v3/search?key=' + YOUTUBE_KEY + '&type=vodeo&maxResults=' + maxresult + '&q=' + keyword + '登山');
 </script>
