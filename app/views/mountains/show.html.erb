@@ -505,5 +505,5 @@
   const YOUTUBE_KEY = "<%= ENV['GOOGLE_MAP_API_KEY_IP'] %>";
   const keyword = "<%= @mountain.name %>";
   const maxresult = 4;
-  const search_url = encodeURI('https://www.googleapis.com/youtube/v3/search?key=' + YOUTUBE_KEY + '&type=vodeo&maxResults=' + maxresult + '&q=' + keyword + '登山');
+  const youtube_url = encodeURI('https://www.googleapis.com/youtube/v3/search?key=' + YOUTUBE_KEY + '&type=vodeo&maxResults=' + maxresult + '&q=' + keyword + '登山');
 </script>
