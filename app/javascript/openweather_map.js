@@ -5,7 +5,7 @@
 $(function () {
   if (typeof lat !== 'undefined') {
     // APIリクエストurl作成（「onecall」では7日間の天気を取得できるが日付文字列データ(dt_txt)がレスポンスに入っていないため、「5dayweatherforecast」を利用する）
-    const openweather_url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&units=metric&appid=' + OPENWEATHER_MAP_KEY;
+    const openweather_url = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lng + '&units=metric&appid=' + OPENWEATHER_MAP_KEY;
     
     $.ajax({
       url: openweather_url,
