@@ -77,30 +77,5 @@
       </div>
     </div>
   </section>
-
-  <script>
-    // 各mountainデータを格納する箱 obj
-    let obj = {};
-    // mountainデータを格納する箱 markerData
-    let markerData = [];
-    // markerDataにmountainデータをループ処理で格納
-    <% @mountains_on_map.each do |mountain| %>
-      obj = {
-        id: <%= mountain.id %>,
-        name: '<%= mountain.name %>',
-        elevation: '<%= mountain.elevation %>',
-        level: '<%= mountain.level_i18n %>',
-        lat: <%= mountain.peak_location_lat %>,
-        lng: <%= mountain.peak_location_lng %>
-      };
-    markerData.push(obj)
-    <% end %>
-
-    // 表示する地図の中心位置とズームレベルを定義
-    let center_of_map = {
-      lat: <%= @center_of_map_lat %>,
-      lng: <%= @center_of_map_lng %>
-    };
-    let zoom_level_of_map = <%= @zoom_level_of_map %>;
-  </script>
+  
   </body>

@@ -5,10 +5,11 @@ class HomesController < ApplicationController
   before_action :set_center_of_jp, only: %i[top]
 
   def top
-    @mountains_on_map = @q.result(distinct: true)
+    mountains_on_map = @q.result(distinct: true)
+    gon.mountains_on_map = mountains_on_map
     @area = %w(北海道 東北 関東 中部 関西 四国 中国 九州)
     # #山の名前で投稿された画像付きツイートが多い順に並べ替えてtop６を取得
-    @recommended_mountains = @mountains_on_map.order(twitter_result_count: :desc).order(name_en: :desc).first(6)
+    @recommended_mountains = mountains_on_map.order(twitter_result_count: :desc).order(name_en: :desc).first(6)
   end
 
   def terms_of_use; end
