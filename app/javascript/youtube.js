@@ -1,8 +1,12 @@
-/////////////////////// YOUTUBE ///////////////////////
 //参照 : https://developers.google.com/youtube/v3/docs/search/list
 
 $(function () {
-  if (typeof youtube_url !== 'undefined') {
+  const key = gon.youtube_key;
+  const keyword = gon.youtube_keyword;
+  const maxresult = gon.youtube_maxresult;
+  const youtube_url = encodeURI('https://www.googleapis.com/youtube/v3/search?key=' + key + '&type=vodeo&maxResults=' + maxresult + '&q=' + keyword );
+
+  if (typeof key !== 'undefined') {
     $.ajax({
       type: 'GET',
       url: youtube_url,
@@ -15,7 +19,7 @@ $(function () {
         }
       },
       error: function(){
-        alert('error');
+        alert('動画を取得できませんでした');
       }
     });
   }
