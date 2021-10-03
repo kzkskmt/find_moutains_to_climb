@@ -80,6 +80,9 @@ gem 'typhoeus'
 gem 'pundit'
 gem 'sorcery'
 
+# 変数をjsでも参照できるようにする。
+gem 'gon'
+
 # その他
 gem 'enum_help'
 gem 'draper'

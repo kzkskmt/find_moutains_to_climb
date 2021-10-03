@@ -11,7 +11,7 @@ let geocoder;
 // window.onloadはページや画像などのリソース類を読み込んでから処理を実行する。
 // googlemapを表示しないページでは実行しない（表示しない場合はcenter_of_mapが定義されていない）
 window.onload = function () {
-  if (typeof center_of_map !== 'undefined') {
+  if (typeof gon !== 'undefined') {
     initMap();
   }
 }
@@ -20,9 +20,16 @@ function initMap(){
   // geocoderを初期化
   // geocoder = new google.maps.Geocoder()
 
+  // 表示する地図の中心位置とズームレベルを定義
+  let center_of_map = {
+    lat: parseFloat(gon.center_of_map_lat),
+    lng: parseFloat(gon.center_of_map_lng)
+  };
+  let zoom_level_of_map = gon.zoom_level_of_map;
+
   // 地図の作成、中心位置の設定
   map = new google.maps.Map(document.getElementById('googlemap'), {
-    center: center_of_map, // 日本の中心に緯度経度を設定
+    center: center_of_map,
     zoom: zoom_level_of_map
   });
 
@@ -57,6 +64,34 @@ function initMap(){
     });
     map.fitBounds(bounds);
   });
+
+  let mountains_on_map = gon.mountains_on_map;
+  // 各mountainデータを格納する箱 obj
+  let obj = {};
+  // mountainデータを格納する箱 markerData
+  let markerData = [];
+  // markerDataにmountainデータをループ処理で格納
+  for (let i = 0; i < mountains_on_map.length; i++) {
+    obj = {
+      id: mountains_on_map[i]['id'],
+      name: mountains_on_map[i]['name'],
+      elevation: mountains_on_map[i]['elevation'],
+      lat: parseFloat(mountains_on_map[i]['peak_location_lat']),
+      lng: parseFloat(mountains_on_map[i]['peak_location_lng'])
+    };
+    switch (mountains_on_map[i]['level']) {
+      case "easy":
+        obj['level'] = '初級';
+        break;
+      case "normal":
+        obj['level'] = '中級';
+        break;
+      case "hard":
+        obj['level'] = '上級';
+        break;
+    }
+  markerData.push(obj)
+  }
 
   // markerDataに入っているデータのピンを立てる。(googlemapに@mountainsのピンを立てる)
   for (let i = 0; i < markerData.length; i++) {
@@ -182,6 +217,7 @@ function getPlaces(){
 // js側でクリックを検知する。
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById("nearby-search")
+  if (!button){ return false;}
   button.addEventListener("click", () => { getPlaces() })
 })
 

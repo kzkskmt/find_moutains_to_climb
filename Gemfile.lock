@@ -203,6 +203,11 @@ GEM
     formatador (0.3.0)
     globalid (0.5.2)
       activesupport (>= 5.0)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.1)
@@ -462,6 +467,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fog-aws
+  gon
   jbuilder (~> 2.7)
   jp_prefecture
   kaminari
