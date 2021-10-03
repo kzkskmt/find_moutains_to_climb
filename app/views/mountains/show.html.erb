@@ -169,27 +169,3 @@
     <% end %>
   </div>
 </section>
-
-<script>
-  /////////////////////// 天気予報 ///////////////////////
-
-  const OPENWEATHER_MAP_KEY = "<%= ENV['OPENWEATHER_MAP_API_KEY'] %>";
-  const lat = <%= @mountain.peak_location_lat%>;
-  const lng = <%= @mountain.peak_location_lng%>;
-  const temp_summer = <%= @outfits.first.lower_limit_temp %>;
-  const temp_spring = <%= @outfits.second.lower_limit_temp %>;
-  const image_1 = '<%= image_tag @outfits.first.image.url, class: 'img-fluid mb-3 mb-lg-0' %>';
-  const image_1_link = '<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.first.id}"), 'data-turbolinks': false%>から。</p>';
-  const image_2 = '<%= image_tag @outfits.second.image.url, class: 'img-fluid mb-3 mb-lg-0' %>';
-  const image_2_link = '<p class="text-black-50">こんな感じの服装でどうでしょうか。服装については<%= link_to 'こちら', outfits_path(anchor: "#{@outfits.second.id}"), 'data-turbolinks': false%>から。</p>';
-  const no_image = '<h4>...ぴったりな服装が見つかりませんでした。</h4>';
-  const no_image_link = '<p class="text-black-50">服装については<%= link_to 'こちら', outfits_path %>から。</p>';
-
-  /////////////////////// YOUTUBE ///////////////////////
-  //参照 : https://developers.google.com/youtube/v3/docs/search/list
-
-  //const YOUTUBE_KEY = "<%= ENV['GOOGLE_MAP_API_KEY_IP'] %>";
-  //const keyword = "<%= @mountain.name %>";
-  //const maxresult = 4;
-  //const youtube_url = encodeURI('https://www.googleapis.com/youtube/v3/search?key=' + YOUTUBE_KEY + '&type=vodeo&maxResults=' + maxresult + '&q=' + keyword + '登山');
-</script>
