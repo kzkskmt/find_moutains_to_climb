@@ -154,6 +154,8 @@ function markerEvent(i) {
 
 //位置情報を使って周辺検索
 function getPlaces(){
+  const lat = parseFloat(gon.center_of_map_lat);
+  const lng = parseFloat(gon.center_of_map_lng);
   const location = new google.maps.LatLng(lat, lng);
   
   //初期化
