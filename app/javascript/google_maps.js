@@ -152,6 +152,10 @@ function markerEvent(i) {
 
 /////////////////////// 周辺施設検索 ///////////////////////
 
+// 入力されたradiusInputを保存するための変数
+var wm = new WeakMap;
+var radius = {};
+
 //位置情報を使って周辺検索
 function getPlaces(){
   const lat = parseFloat(gon.center_of_map_lat);
@@ -329,11 +333,34 @@ function displayResults(results, status, pagination) {
 // windowで明示的にグローバル関数として定義
 window.createMarker = function(name, vicinity, lat, lng){
   
+  const mountain_lat = parseFloat(gon.center_of_map_lat);
+  const mountain_lng = parseFloat(gon.center_of_map_lng);
+
   //マーカー表示する位置のMap表示
   const map = new google.maps.Map(document.getElementById('googlemap'), {
-    zoom: 15,
-    center: new google.maps.LatLng(lat, lng)
+    zoom: 13,
+    center: new google.maps.LatLng(mountain_lat, mountain_lng)
   });
+
+  const location = new google.maps.LatLng(mountain_lat, mountain_lng);
+
+  //入力した検索範囲を取得
+  const obj = document.getElementById("radiusInput");
+  const radiusInput = Number(obj.options[obj.selectedIndex].value);
+
+  //検索範囲の円を描く
+  const circle = new google.maps.Circle(
+    {
+      map: map,
+      center: location,
+      radius: radiusInput,
+      fillColor: '#ff0000',
+      fillOpacity: 0.3,
+      strokeColor: '#ff0000',
+      strokeOpacity: 0.5,
+      strokeWeight: 1
+    }
+  );
   
   //マーカー表示
   const marker = new google.maps.Marker({
