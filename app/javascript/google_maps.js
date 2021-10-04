@@ -152,10 +152,6 @@ function markerEvent(i) {
 
 /////////////////////// 周辺施設検索 ///////////////////////
 
-// 入力されたradiusInputを保存するための変数
-var wm = new WeakMap;
-var radius = {};
-
 //位置情報を使って周辺検索
 function getPlaces(){
   const lat = parseFloat(gon.center_of_map_lat);
