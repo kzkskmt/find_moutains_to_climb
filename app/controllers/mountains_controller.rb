@@ -43,19 +43,6 @@ class MountainsController < ApplicationController
     @posts = @mountain.posts.includes(:user)
   end
 
-  # def edit
-  #   @mountain = Mountain.find(params[:id])
-  # end
-
-  # def update
-  #   @mountain = Mountain.find(params[:id])
-  #   if @mountain.update(mountain_params)
-  #     redirect_to edit_mountain_path(@mountain.id)
-  #   else
-  #     render :edit
-  #   end
-  # end
-
   private
 
   def mountain_params
