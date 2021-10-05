@@ -17,7 +17,7 @@ class Post < ApplicationRecord
   validates :physical_strength, presence: true
 
   validate :climebd_on_must_be_in_the_past
-  
+
   # 登山日のチェックメソッド
   def climebd_on_must_be_in_the_past
     # 登山日入力済、かつ未来もしくは現在の日付

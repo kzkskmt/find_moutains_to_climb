@@ -40,8 +40,6 @@ class ImageUploader < ApplicationUploader
 
   # アップロードする画像の許容する拡張子を設定
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
-
-  
 end

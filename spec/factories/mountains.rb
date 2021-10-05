@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :mountain do
     sequence(:id, 1)
-    sequence(:name, "山_1")
-    sequence(:name_en, "mountain_1")
+    sequence(:name, '山_1')
+    sequence(:name_en, 'mountain_1')
     elevation { 1000 }
     # 開聞岳
     peak_location_lat { 31.1801944 }

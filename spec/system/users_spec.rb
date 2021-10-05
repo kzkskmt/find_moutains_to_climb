@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Users", type: :system do
-
+RSpec.describe 'Users', type: :system do
   describe '新規登録' do
     before { visit new_user_path }
 
@@ -14,7 +13,7 @@ RSpec.describe "Users", type: :system do
           fill_in 'user[password_confirmation]', with: 'password'
           click_button '新規登録'
           expect(page).to have_content 'ユーザー登録が完了しました'
-          expect(current_path). to eq root_path
+          expect(page).to have_current_path root_path, ignore_query: true
         end
       end
 
@@ -83,9 +82,9 @@ RSpec.describe "Users", type: :system do
   end
 
   describe 'ログイン後' do
-  
     describe 'ユーザー情報の編集' do
       let!(:user) { create(:user) }
+
       before do
         visit login_path
         fill_in 'email', with: user.email
@@ -104,7 +103,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content 'sample'
             expect(page).to have_content 'sample@example.com'
           end
-          expect(current_path). to eq user_path(user.id)
+          expect(page).to have_current_path user_path(user.id), ignore_query: true
         end
       end
 
@@ -143,7 +142,7 @@ RSpec.describe "Users", type: :system do
           within('.user') do
             expect(page).to have_selector("img[src$='avatar.jpg']")
           end
-          expect(current_path). to eq user_path(user.id)
+          expect(page).to have_current_path user_path(user.id), ignore_query: true
         end
       end
 
@@ -157,7 +156,7 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content '20'
             expect(page).to have_content '男性'
           end
-          expect(current_path). to eq user_path(user.id)
+          expect(page).to have_current_path user_path(user.id), ignore_query: true
         end
       end
 
@@ -171,7 +170,7 @@ RSpec.describe "Users", type: :system do
             expect(page).not_to have_content '20'
             expect(page).not_to have_content '男性'
           end
-          expect(current_path). to eq user_path(user.id)
+          expect(page).to have_current_path user_path(user.id), ignore_query: true
         end
       end
     end

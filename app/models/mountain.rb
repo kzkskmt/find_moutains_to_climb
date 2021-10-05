@@ -9,21 +9,21 @@ class Mountain < ApplicationRecord
   enum level: { easy: 0, normal: 1, hard: 2 }
 
   def search_tweets
-    bearer_token = ENV["TWITTER_BEARER_TOKEN"]
-    search_url = "https://api.twitter.com/2/tweets/search/recent"
-    query = "##{self.name} has:images"
+    bearer_token = ENV['TWITTER_BEARER_TOKEN']
+    search_url = 'https://api.twitter.com/2/tweets/search/recent'
+    query = "##{name} has:images"
 
     query_params = {
       "query": query, # 必須
-      "max_results": 20, #検索結果の取得件数。10~100で選択。デフォルトは10
+      "max_results": 20, # 検索結果の取得件数。10~100で選択。デフォルトは10
       # "start_time": "2020-07-01T00:00:00Z",
       # "end_time": "2020-07-02T18:00:00Z",
       # "expansions": "attachments.poll_ids,attachments.media_keys,author_id",
-      "expansions": "attachments.media_keys",
+      "expansions": 'attachments.media_keys',
       # "tweet.fields": "attachments,author_id,conversation_id,created_at,entities,id,lang"
       # "tweet.fields": "entities",
       # "user.fields": "description"
-      "media.fields": "url" #expansionsのattachments.media_keysをリクエストに含めないと取得できない。
+      "media.fields": 'url' # expansionsのattachments.media_keysをリクエストに含めないと取得できない。
       # "place.fields": "country_code",
       # "poll.fields": "options"
     }
@@ -31,23 +31,23 @@ class Mountain < ApplicationRecord
     options = {
       method: 'get',
       headers: {
-        "User-Agent": "v2RecentSearchRuby",
+        "User-Agent": 'v2RecentSearchRuby',
         "Authorization": "Bearer #{bearer_token}"
       },
       params: query_params
     }
-  
+
     request = Typhoeus::Request.new(search_url, options)
     response = request.run
     result_json = JSON.parse(response.body)
     # 写真付きツイートが見つかった場合、画像のurlをmedia_urlに格納
-    media_urls = result_json['includes']['media'].map {|n| n['url'] } if result_json['meta']['result_count'] != 0
-    
-    return media_urls
+    media_urls = result_json['includes']['media'].map { |n| n['url'] } if result_json['meta']['result_count'] != 0
+
+    media_urls
   end
 
   def search_googlemap_place
-    key = ENV["GOOGLE_PLACE_API_KEY"]
+    key = ENV['GOOGLE_PLACE_API_KEY']
     place_id = self.place_id
     url = URI("https://maps.googleapis.com/maps/api/place/details/json?place_id=#{place_id}&fields=photo&key=#{key}")
 
@@ -69,7 +69,6 @@ class Mountain < ApplicationRecord
       media_urls << photo_response['location']
     end
 
-    return media_urls
+    media_urls
   end
-
 end

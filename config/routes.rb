@@ -4,15 +4,15 @@ Rails.application.routes.draw do
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
-  resources :users, only: %i[index show new create edit update]
-  resources :mountains, only: %i[index show] do
+  resources :users, only: [:index, :show, :new, :create, :edit, :update]
+  resources :mountains, only: [:index, :show] do
     # resources :courses, only: %i[index show]
   end
-  resources :posts, only: %i[new create edit update destroy] do
+  resources :posts, only: [:new, :create, :edit, :update, :destroy] do
     resources :likes, only: [:create, :destroy]
   end
-  resources :outfits, only: %i[index show]
-  resources :password_resets, only: %i[new create edit update]
+  resources :outfits, only: [:index, :show]
+  resources :password_resets, only: [:new, :create, :edit, :update]
   root 'homes#top'
   get 'terms_of_use', to: 'homes#terms_of_use'
   get 'privacy_policy', to: 'homes#privacy_policy'

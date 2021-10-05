@@ -17,7 +17,7 @@ RSpec.describe 'Mountains', type: :system do
 
     context '一覧ページへアクセス' do
       it '正常に表示される' do
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
     end
 
@@ -26,19 +26,21 @@ RSpec.describe 'Mountains', type: :system do
         within('#mainNav') do
           click_link 'Find Mts'
         end
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path root_path, ignore_query: true
       end
+
       it '「山を探す」をクリックするとトップページへ遷移する' do
         within('#mainNav') do
           click_link '山を探す'
         end
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path root_path, ignore_query: true
       end
+
       it '「山一覧」をクリックすると山一覧ページへ遷移する' do
         within('#mainNav') do
           click_link '山一覧'
         end
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
     end
 
@@ -49,29 +51,33 @@ RSpec.describe 'Mountains', type: :system do
           expect(page).to have_selector '.form-control'
         end
       end
+
       it '検索機能(キーワード検索　完全一致)' do
         fill_in 'q[name_or_name_en_cont]', with: '開聞岳'
         click_button '検索'
         expect(all('#mountain-card').count).to eq 1
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
+
       it '検索機能(キーワード検索　あいまい検索)' do
         fill_in 'q[name_or_name_en_cont]', with: '岳'
         click_button '検索'
         expect(all('#mountain-card').count).to eq 2
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
+
       it '検索機能(都道府県検索)' do
         select '山梨県', from: 'q[prefecture_code_eq]'
         click_button '検索'
         expect(all('#mountain-card').count).to eq 1
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
+
       it '検索機能(該当なし)' do
         select '大阪府', from: 'q[prefecture_code_eq]'
         click_button '検索'
         expect(page).to have_content '検索条件と一致する結果が見つかりませんでした。'
-        expect(current_path).to eq mountains_path
+        expect(page).to have_current_path mountains_path, ignore_query: true
       end
     end
 
@@ -91,9 +97,10 @@ RSpec.describe 'Mountains', type: :system do
           expect(all('#mountain-card').count).to eq 3
         end
       end
+
       it '山の名前をクリックすると詳細ページへ遷移する' do
         click_link mountain_1500_in_hokkaido.name
-        expect(current_path).to eq mountain_path mountain_1500_in_hokkaido.id
+        expect(page).to have_current_path mountain_path mountain_1500_in_hokkaido.id, ignore_query: true
       end
     end
 
@@ -114,7 +121,7 @@ RSpec.describe 'Mountains', type: :system do
     context '詳細ページへアクセス' do
       it '正常に表示される' do
         expect(page).to have_content mountain.name
-        expect(current_path).to eq mountain_path mountain.id
+        expect(page).to have_current_path mountain_path mountain.id, ignore_query: true
       end
     end
 

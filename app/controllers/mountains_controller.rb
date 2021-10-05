@@ -1,8 +1,8 @@
 class MountainsController < ApplicationController
   include Common
   skip_before_action :require_login
-  before_action :set_q, only: %i[index]
-  before_action :set_center_of_jp, only: %i[index]
+  before_action :set_q, only: [:index]
+  before_action :set_center_of_jp, only: [:index]
 
   def index
     # ツイート数が多い順に並べる（今後な選べ替えもできたらいいかもしれない）
@@ -39,13 +39,13 @@ class MountainsController < ApplicationController
     gon.youtube_key = ENV['GOOGLE_MAP_API_KEY_IP']
     gon.youtube_keyword = @mountain.name + '登山'
     gon.youtube_maxresult = 4
-    
+
     @posts = @mountain.posts.includes(:user)
   end
 
   private
 
-  def mountain_params
-    params.require(:mountain).permit(:name, :name_en, :elevation, :city, :image)
-  end
+    def mountain_params
+      params.require(:mountain).permit(:name, :name_en, :elevation, :city, :image)
+    end
 end

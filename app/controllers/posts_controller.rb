@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   def new
     @post = current_user.posts.build
     @post.mountain_id = params[:mountain_id] if params[:mountain_id]
@@ -38,7 +37,7 @@ class PostsController < ApplicationController
 
   private
 
-  def post_params
-    params.require(:post).permit(:title, :body, :climbed_on, :course_time, :review, :level, :physical_strength, :mountain_id)
-  end
+    def post_params
+      params.require(:post).permit(:title, :body, :climbed_on, :course_time, :review, :level, :physical_strength, :mountain_id)
+    end
 end
