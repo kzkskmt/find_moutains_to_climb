@@ -24,7 +24,7 @@ namespace :scraping do
 
       # 1件もヒットしなければ、break
       if image_data.nil?
-        puts "#{mountain_name}の検索結果はゼロでした"
+        logger.debug "#{mountain_name}の検索結果はゼロでした"
         no_image.push("#{mountain.id}_#{mountain_name}")
         break
       end
@@ -37,13 +37,13 @@ namespace :scraping do
           break
         end
         image_data = image_data.next_element
-        puts "#{timesCount + 1}回目:サイズ640x480の画像を探しています"
+        logger.debug "#{timesCount + 1}回目:サイズ640x480の画像を探しています"
         break if image_data.nil?
       end
 
       # サイズの合う画像が見つかった場合は保存する
       if image_data.nil?
-        puts "サイズ640x480の#{mountain_name}画像は見つかりませんでした"
+        logger.debug "サイズ640x480の#{mountain_name}画像は見つかりませんでした"
         no_image.push("#{mountain.id}_#{mountain_name}")
       else
         pp image_data.at_css('.img-hover-actions').at_css('a').attribute('data-title').value
@@ -62,12 +62,12 @@ namespace :scraping do
         end
 
         # 保存した画像データ
-        puts "id:#{mountain.id}, #{mountain.name}の画像を保存しました"
+        logger.debug "id:#{mountain.id}, #{mountain.name}の画像を保存しました"
       end
 
       # 画像が見つからなかった山の名前を出力
-      puts '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
-      puts no_image
+      logger.debug '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
+      logger.debug no_image
     end
   end
 
@@ -95,7 +95,7 @@ namespace :scraping do
 
       # 1件もヒットしなければ、break
       if image_data.nil?
-        puts "#{mountain_name}の検索結果はゼロでした"
+        logger.debug "#{mountain_name}の検索結果はゼロでした"
         no_image.push("#{mountain.id}: #{mountain_name}")
         break
       end
@@ -108,13 +108,13 @@ namespace :scraping do
           break
         end
         image_data = image_data.next_element
-        puts "#{timesCount + 1}件目:サイズ(640x480)が一致しませんでした。"
+        logger.debug "#{timesCount + 1}件目:サイズ(640x480)が一致しませんでした。"
         break if image_data.nil?
       end
 
       # サイズの合う画像が見つかった場合は保存する
       if image_data.nil? || image_data.at_css('.img-hover-actions').nil?
-        puts "サイズ640x480の#{mountain_name}画像は見つかりませんでした"
+        logger.debug "サイズ640x480の#{mountain_name}画像は見つかりませんでした"
         # 画像パスが既に保存されている場合はimageカラムをnilにする。
         mountain.remove_image = true
         mountain.save!
@@ -132,12 +132,12 @@ namespace :scraping do
         mountain.save!
 
         # 保存した画像データ
-        puts "id:#{mountain.id}: #{mountain.name}の画像を保存しました"
+        logger.debug "id:#{mountain.id}: #{mountain.name}の画像を保存しました"
       end
     end
     # 画像が見つからなかった山の名前を出力
-    puts '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
-    puts no_image
+    logger.debug '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
+    logger.debug no_image
   end
 
   desc "フリー素材サイト「写真AC」から640x480サイズの画像をスクレイピングし、画像属性がnilのデータにurlからcarrierwaveメソッドで保存する"
@@ -164,7 +164,7 @@ namespace :scraping do
 
       # 画像が見つかった場合は保存する
       if image_data.nil? || image_data.at_css('.img-hover-actions').nil?
-        puts "画像は見つかりませんでした"
+        logger.debug "画像は見つかりませんでした"
         mountain.remove_image = true
         mountain.save!
         no_image.push("#{mountain.id}: #{mountain_name}")
@@ -181,12 +181,12 @@ namespace :scraping do
         mountain.save!
 
         # 保存した画像データ
-        puts "id:#{mountain.id}: #{mountain.name}の画像を保存しました"
+        logger.debug "id:#{mountain.id}: #{mountain.name}の画像を保存しました"
       end
     end
     # 画像が見つからなかった山の名前を出力
-    puts '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
-    puts no_image
+    logger.debug '-'*40, "画像が見つからなかった山は以下の#{no_image.count}件です"
+    logger.debug no_image
   end
 
   desc "山の難易度を登山情報サイト「momonayama.net」からスクレイピングし、保存する"
@@ -205,7 +205,7 @@ namespace :scraping do
       m = Mountain.find_by(name: name)
       # 名前検索でDBから見つからない場合は次のループへ
       if m.nil?
-        puts "#{name}に該当する山は見つかりませんでした"
+        logger.debug "#{name}に該当する山は見つかりませんでした"
         next
       end
       # 行の「難易度」の取得
@@ -219,7 +219,7 @@ namespace :scraping do
         m.level = :easy
         m.save!
       else
-        puts "#{m.name}の難易度を保存できませんでした"
+        logger.debug "#{m.name}の難易度を保存できませんでした"
       end
     end
   end

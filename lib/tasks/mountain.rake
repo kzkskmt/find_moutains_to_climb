@@ -4,7 +4,6 @@ namespace :mountain do
   task search_tweets_by_hashtag: :environment do
     bearer_token = ENV["TWITTER_BEARER_TOKEN"]
     search_url = "https://api.twitter.com/2/tweets/search/recent"
-
     # 山の取得件数
     number = 
 
@@ -47,7 +46,7 @@ namespace :mountain do
 
       twitter_image_urls[:"#{mountain.name}"] = media_urls
 
-      puts twitter_image_urls
+      logger.debug twitter_image_urls
     end
   end
 
@@ -58,8 +57,9 @@ namespace :mountain do
     # 山の取得件数
     number = Mountain.count
 
-    puts '-'*12 + '山のツイート数を更新しています' + '-'*12
-    puts Time.now
+    logger.debug('-'*12 + '山のツイート数を更新しています' + '-'*12)
+    logger.debug Time.now
+
     Mountain.first(number).each do |mountain|
       sleep 3
       # 画像付きツイートを取得。has:imagesとしているのは
@@ -93,16 +93,16 @@ namespace :mountain do
       mountain_count = JSON.parse(response.body)['meta']['result_count']
 
       mountain.update!(twitter_result_count: mountain_count)
-      puts "#{mountain.name}: #{mountain.twitter_result_count}件"
+      logger.debug("#{mountain.name}: #{mountain.twitter_result_count}件")
     end
-    puts '-'*19 + '更新しました' + '-'*19
+    logger.debug('-'*19 + '更新しました' + '-'*19)
   end
 
   desc "GoogleMap PlaceAPIを用いて山のplaceIDを取得し、保存する"
   task get_place_id_of_mountains_on_googlemap: :environment do
     number = Mountain.count
 
-    puts '-'*10 + '山のplace_idを更新しています' + '-'*10
+    logger.debug('-'*11 + '山のplace_idを更新しています' + '-'*11)
     Mountain.first(number).each do |mountain|
       sleep 2
       key = ENV["GOOGLE_MAP_API_KEY_IP"]
@@ -124,15 +124,15 @@ namespace :mountain do
       result_json = JSON.parse(response.read_body)
 
       if result_json['status'] == 'ZERO_RESULTS'
-        puts "#{keyword}に該当する山は見つかりませんでした"
+        logger.debug "#{keyword}に該当する山は見つかりませんでした"
         next
       end
 
       place_id = result_json['results'][0]['place_id']
       place_name = result_json['results'][0]['name']
       mountain.update(place_id: place_id)
-      puts "#{keyword}(#{place_name}): #{mountain.place_id}"
+      logger.debug("#{keyword}(#{place_name}): #{mountain.place_id}")
     end
-    puts '-'*18 + '更新しました' + '-'*18
+    logger.debug('-'*18 + '更新しました' + '-'*18)
   end
 end
