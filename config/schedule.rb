@@ -1,7 +1,7 @@
 # 詳細はgithub参照
 # https://github.com/javan/whenever/blob/main/README.md#example-schedulerb-file
 # Rails.rootを使用するために必要。wheneverは読み込まれるときにrailsを起動する必要がある
-require File.expand_path(File.dirname(__FILE__) + '/environment')
+require File.expand_path("#{File.dirname(__FILE__)}/environment")
 
 # cronを実行する環境変数
 rails_env = ENV['RAILS_ENV'] || :development

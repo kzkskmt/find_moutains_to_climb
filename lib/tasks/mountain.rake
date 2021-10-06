@@ -56,8 +56,8 @@ namespace :mountain do
     # 山の取得件数
     number = Mountain.count
 
-    logger.debug('-' * 12 + '山のツイート数を更新しています' + '-' * 12)
-    logger.debug Time.now
+    logger.debug("#{'-' * 12}山のツイート数を更新しています#{'-' * 12}")
+    logger.debug Time.zone.now
 
     Mountain.first(number).each do |mountain|
       sleep 3
@@ -94,14 +94,14 @@ namespace :mountain do
       mountain.update!(twitter_result_count: mountain_count)
       logger.debug("#{mountain.name}: #{mountain.twitter_result_count}件")
     end
-    logger.debug('-' * 19 + '更新しました' + '-' * 19)
+    logger.debug("#{'-' * 19}更新しました#{'-' * 19}")
   end
 
   desc 'GoogleMap PlaceAPIを用いて山のplaceIDを取得し、保存する'
   task get_place_id_of_mountains_on_googlemap: :environment do
     number = Mountain.count
 
-    logger.debug('-' * 11 + '山のplace_idを更新しています' + '-' * 11)
+    logger.debug("#{'-' * 11}山のplace_idを更新しています#{'-' * 11}")
     Mountain.first(number).each do |mountain|
       sleep 2
       key = ENV['GOOGLE_MAP_API_KEY_IP']
@@ -132,6 +132,6 @@ namespace :mountain do
       mountain.update(place_id: place_id)
       logger.debug("#{keyword}(#{place_name}): #{mountain.place_id}")
     end
-    logger.debug('-' * 18 + '更新しました' + '-' * 18)
+    logger.debug("#{'-' * 18}更新しました#{'-' * 18}")
   end
 end

@@ -37,7 +37,7 @@ class MountainsController < ApplicationController
 
     # youtubeAPIを用いてキーワード検索し、動画を取得
     gon.youtube_key = ENV['GOOGLE_MAP_API_KEY_IP']
-    gon.youtube_keyword = @mountain.name + '登山'
+    gon.youtube_keyword = "#{@mountain.name}登山"
     gon.youtube_maxresult = 4
 
     @posts = @mountain.posts.includes(:user)

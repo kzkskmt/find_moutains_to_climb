@@ -211,13 +211,14 @@ namespace :scraping do
         next
       end
       # 行の「難易度」の取得
-      if d.at_css('a').parent.next_element.text == '★★★★' || d.at_css('a').parent.next_element.text == '☆☆☆'
+      case d.at_css('a').parent.next_element.text
+      when '★★★★', '☆☆☆'
         m.level = :hard
         m.save!
-      elsif d.at_css('a').parent.next_element.text == '★★★' || d.at_css('a').parent.next_element.text == '☆☆'
+      when '★★★', '☆☆'
         m.level = :normal
         m.save!
-      elsif d.at_css('a').parent.next_element.text == '★★' || d.at_css('a').parent.next_element.text == '☆'
+      when '★★', '☆'
         m.level = :easy
         m.save!
       else

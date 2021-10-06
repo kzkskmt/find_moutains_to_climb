@@ -11,7 +11,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
     # DB上に該当ユーザが見つかれば、パスワードリセット案内メールをuserに送信（ランダムトークン付きのURL/有効期限付き）
     # deliver_reset_password_instructionsでapp/mailers/user_mailer.rbのreset_password_emailメソッドが実行される。
-    @user.deliver_reset_password_instructions! if @user
+    @user&.deliver_reset_password_instructions!
 
     # なお、userの存在の有無に関わらず、リダイレクトして成功メッセージを表示させる。
     # これはセキュリティ対策の処理で、DB内にそのemailが存在するかどうかを第三者が確認されるのを防ぐため。
