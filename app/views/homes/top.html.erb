@@ -32,31 +32,28 @@
 
   <!-- Area-->
   <section class="area-section" id="area">
-    <div class="container px-4 px-lg-5">
-      <h2>エリアから探す</h2>
-      <!-- Index Grid Items-->
-      <div class="row justify-content-center px-5">
-        <!-- Index Item-->
-        <% @area.each do |area| %>
-          <div class="col-md-6 col-lg-3 mb-5" id="area-item">
-            <div class="index-item-caption d-flex align-items-center justify-content-center">
-              <div class="index-item-caption-content text-center text-white">
-                <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary', 'data-turbolinks': false do %>
-                  <%= add_space(area) %>
-                <% end %>
-              </div>                    
-            </div>
+      <div class="container px-4 px-lg-5">
+        <h2>エリアから探す</h2>
+          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <% @area.each do |area| %>
+              <div class="col mb-4">
+                  <div class="card-footer border-top-0 bg-transparent">
+                      <div class="text-center">
+                        <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary w-100', 'data-turbolinks': false do %>
+                          <h4 class="mb-0"><%= area %></h4>
+                        <% end %>
+                      </div>
+                  </div>
+              </div>
+            <% end %>
           </div>
-        <% end %>
       </div>
-    </div>
   </section>
-
+        
   <!-- Maps-->
   <section class="map-section" id="map">
     <div class="container px-4 px-lg-5">
       <h2>地図から探す</h2>
-      <!-- Featured Map Row-->
       <div class="row gx-0 mb-4 mb-lg-5 px-5 align-items-center">
         <!-- googlemapを埋め込む場所　-->
         <input id="pac-input" class="form-control" type="text" placeholder="キーワード" />
