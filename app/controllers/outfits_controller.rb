@@ -7,7 +7,7 @@ class OutfitsController < ApplicationController
 
   private
 
-  def outfit_params
-    params.require(:outfit).permit(:title, :lower_limit_temp, :max_elevation, :inner, :outer, :outer_bring, :pant, :accessory, :image)
-  end
+    def outfit_params
+      params.require(:outfit).permit(:title, :lower_limit_temp, :max_elevation, :inner, :outer, :outer_bring, :pant, :accessory, :image)
+    end
 end

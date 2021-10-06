@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :course do
-    sequence(:name, "course_1")
+    sequence(:name, 'course_1')
     ascent_time { 1 }
     descent_time { 2 }
     level { :easy }

@@ -5,7 +5,7 @@ class OutfitImageUploader < ApplicationUploader
 
   if Rails.env.production?
     # 本番環境はS3に保存
-    storage :fog 
+    storage :fog
   else
     # それ以外はpublicへ保存
     storage :file
@@ -40,8 +40,6 @@ class OutfitImageUploader < ApplicationUploader
   # Add an allowlist of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_allowlist
-    %w(jpg jpeg gif png)
+    %w[jpg jpeg gif png]
   end
-
-  
 end

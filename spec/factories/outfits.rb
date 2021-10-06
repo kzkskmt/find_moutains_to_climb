@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :outfit do
-    sequence(:title, "outfit_1")
-    sequence(:body, "body_1")
-    sequence(:inner, "inner_1")
-    sequence(:outer, "outer_1")
-    sequence(:pant, "pant_1")
+    sequence(:title, 'outfit_1')
+    sequence(:body, 'body_1')
+    sequence(:inner, 'inner_1')
+    sequence(:outer, 'outer_1')
+    sequence(:pant, 'pant_1')
     lower_limit_temp { 15 }
     max_elevation { 1500 }
   end

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
-    sequence(:title, "title_1")
-    sequence(:body, "body_1")
+    sequence(:title, 'title_1')
+    sequence(:body, 'body_1')
     # enumはランダム
     course_time { Post.course_times.keys.sample }
     review { Post.reviews.keys.sample }

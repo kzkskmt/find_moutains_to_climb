@@ -15,12 +15,3 @@
 #       body: "本文#{index}"
 #   )
 # end
-
-10.times do |index|
-  Post.create!(
-      user: User.last,
-      mountain: Mountain.offset(rand(Mountain.count)).first,
-      title: "タイトル#{index}",
-      body: "ああああああああああああああああああああああああああああああああああああ#{index}"
-  )
-end
