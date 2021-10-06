@@ -32,22 +32,22 @@
 
   <!-- Area-->
   <section class="area-section" id="area">
-      <div class="container px-4 px-lg-5">
-        <h2>エリアから探す</h2>
-          <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <% @area.each do |area| %>
-              <div class="col mb-4">
-                  <div class="card-footer border-top-0 bg-transparent">
-                      <div class="text-center">
-                        <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary w-100', 'data-turbolinks': false do %>
-                          <h4 class="mb-0"><%= area %></h4>
-                        <% end %>
-                      </div>
-                  </div>
+    <div class="container px-4 px-lg-5">
+      <h2>エリアから探す</h2>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center px-5">
+          <% @area.each do |area| %>
+            <div class="col mb-4">
+              <div class="card-footer border-top-0 bg-transparent">
+                <div class="text-center">
+                  <%= link_to mountains_path(area: area), class: 'btn btn-outline-primary w-100', 'data-turbolinks': false do %>
+                    <h4 class="mb-0"><%= area %></h4>
+                  <% end %>
+                </div>
               </div>
-            <% end %>
-          </div>
-      </div>
+            </div>
+          <% end %>
+        </div>
+    </div>
   </section>
         
   <!-- Maps-->

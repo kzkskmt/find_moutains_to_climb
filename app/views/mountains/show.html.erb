@@ -85,7 +85,6 @@
   </div>
 </section>
 
-
 <!-- ギャラリー-->
 <section class="gallery-section text-center">
   <div class="container px-4 px-lg-5">
@@ -109,17 +108,15 @@
   </div>
 </section>
 
-
 <!-- Youtube-->
 <section class="youtube-section text-center">
   <div class="container px-4 px-lg-5">
     <h2 class="mb-2">Youtube</h2>
-    <p class="mb-4">Youtubeから動画を表示しています</p>
+    <p class="mb-4">「<%= @mountain.name %>　登山」でヒットした動画を表示しています</p>
     <div class="row gx-5 align-items-center" id="player">
     </div>
   </div>
 </section>
-
 
 <!-- Tweet-->
 <% if @tweet_img_urls.present? %>
