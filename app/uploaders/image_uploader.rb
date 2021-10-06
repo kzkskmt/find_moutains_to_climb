@@ -30,10 +30,6 @@ class ImageUploader < ApplicationUploader
   # resize_to_fitは拡大縮小メソッド、縦横は維持されつつ、指定したサイズ内で最大になるようにリサイズ。
   process resize_to_fit: [820, nil]
 
-  # version :main_image do
-  #   process resize_to_fit: [820, nil]
-  # end
-
   def filename
     "#{model.id}_#{model.name_en}.jpg"
   end

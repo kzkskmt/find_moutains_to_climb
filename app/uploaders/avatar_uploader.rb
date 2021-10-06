@@ -21,10 +21,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
     'default_avatar.png'
   end
 
-  # def filename
-  #   "#{model.id}_#{model.name_en}.jpg"
-  # end
-
   # アップロードする画像の許容する拡張子を設定
   def extension_allowlist
     %w[jpg jpeg gif png]
