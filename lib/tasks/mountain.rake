@@ -104,7 +104,7 @@ namespace :mountain do
     logger.debug("#{'-' * 11}山のplace_idを更新しています#{'-' * 11}")
     Mountain.first(number).each do |mountain|
       sleep 2
-      key = ENV['GOOGLE_MAP_API_KEY_IP']
+      key = ENV['GOOGLE_MAP_API_KEY']
       lat = mountain.peak_location_lat.to_f
       lng = mountain.peak_location_lng.to_f
       # 検索範囲を入力(m)

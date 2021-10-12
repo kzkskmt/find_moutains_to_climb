@@ -2,7 +2,7 @@ class MountainsController < ApplicationController
   include Common
   skip_before_action :require_login
   before_action :set_q, :set_center_of_jp, only: [:index]
-  before_action :set_mountian, only: [:show]
+  before_action :set_mountain, only: [:show]
   before_action :set_params_for_google_map, :set_params_for_youtube, :set_key_for_openweather_map, only: [:show]
 
   def index
@@ -29,7 +29,7 @@ class MountainsController < ApplicationController
       params.require(:mountain).permit(:name, :name_en, :elevation, :city, :image)
     end
 
-    def set_mountian
+    def set_mountain
       @mountain = Mountain.find(params[:id])
     end
 
@@ -43,7 +43,7 @@ class MountainsController < ApplicationController
     end
 
     def set_params_for_youtube
-      gon.youtube_key = ENV['GOOGLE_MAP_API_KEY_IP']
+      gon.youtube_key = ENV['GOOGLE_MAP_API_KEY']
       gon.youtube_keyword = "#{@mountain.name}登山"
       gon.youtube_maxresult = 4
     end
