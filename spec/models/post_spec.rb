@@ -20,7 +20,7 @@ RSpec.describe Post, type: :model do
       expect(post_without_body.errors[:body]).to eq ['を入力してください']
     end
 
-    it 'bodyが21文字以上の場合は無効' do
+    it 'bodyが1001文字以上の場合は無効' do
       post_with_invalid_body = build(:post, body: 'a' * 1001)
       expect(post_with_invalid_body).to be_invalid
       expect(post_with_invalid_body.errors[:body]).to eq ['は1000文字以内で入力してください']
