@@ -1,12 +1,4 @@
 /////////////////////// GoogleMapの表示 ///////////////////////
-
-let map;
-let marker = [];
-let infoWindow = [];
-// マーカーを消すためのcurrentInfoWindow
-let currentInfoWindow;
-let geocoder;
-
 // 「InvalidValueError: initMap is not a function」への対策(api読込後、initMapしないとこのエラーが出る)
 // window.onloadはページや画像などのリソース類を読み込んでから処理を実行する。
 // googlemapを表示しないページでは実行しない（表示しない場合はcenter_of_mapが定義されていない）
@@ -16,19 +8,19 @@ window.onload = function () {
   }
 }
 
-function initMap(){
-  // geocoderを初期化
-  // geocoder = new google.maps.Geocoder()
+const marker = [];
+const infoWindow = [];
 
+function initMap(){
   // 表示する地図の中心位置とズームレベルを定義
-  let center_of_map = {
+  const center_of_map = {
     lat: parseFloat(gon.center_of_map_lat),
     lng: parseFloat(gon.center_of_map_lng)
   };
-  let zoom_level_of_map = gon.zoom_level_of_map;
+  const zoom_level_of_map = gon.zoom_level_of_map;
 
   // 地図の作成、中心位置の設定
-  map = new google.maps.Map(document.getElementById('googlemap'), {
+  const map = new google.maps.Map(document.getElementById('googlemap'), {
     center: center_of_map,
     zoom: zoom_level_of_map
   });
@@ -65,7 +57,7 @@ function initMap(){
     map.fitBounds(bounds);
   });
 
-  let mountains_on_map = gon.mountains_on_map;
+  const mountains_on_map = gon.mountains_on_map;
   // 各mountainデータを格納する箱 obj
   let obj = {};
   // mountainデータを格納する箱 markerData
@@ -121,6 +113,9 @@ function initMap(){
   }
 }
 
+// マーカーを消すためのcurrentInfoWindow
+let currentInfoWindow;
+
 // マーカーにクリックイベントを追加
 function markerEvent(i) {
   marker[i].addListener('click', function() { // マーカーをクリックしたとき
@@ -131,23 +126,6 @@ function markerEvent(i) {
   currentInfoWindow = infoWindow[i]
   });
 }
-
-// 住所から座標変換してくれるgeocode
-// function codeAddress(){
-//   // 入力を取得
-//   let inputAddress = document.getElementById('address').value;
-
-//   // geocodingしたあとmapを移動
-//   geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-//   if (status == 'OK') {
-//     // map.setCenterで地図が移動
-//     map.setCenter(results[0].geometry.location);
-//     map.setZoom(10);
-//   } else {
-//     alert('Geocode was not successful for the following reason: ' + status);
-//   }
-//   });
-// }
 
 
 /////////////////////// 周辺施設検索 ///////////////////////
