@@ -51,5 +51,6 @@ test:
 production:
   <<: *default
   database: find_moutains_to_climb_production
-  username: find_moutains_to_climb
-  password: <%= ENV['FIND_MOUTAINS_TO_CLIMB_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
